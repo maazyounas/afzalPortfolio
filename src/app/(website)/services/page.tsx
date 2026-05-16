@@ -3,14 +3,18 @@ import type { Metadata } from "next";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { services } from "@/lib/data/services";
+import { getServices } from "@/actions/services";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Services",
   description: "Explore Softech Financials service lines across advisory, tax, reporting, and compliance.",
 };
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const services = await getServices(true);
+
   return (
     <SectionWrapper
       eyebrow="Capabilities"
@@ -23,7 +27,7 @@ export default function ServicesPage() {
           <Card
             key={service.slug}
             title={service.name}
-            description={service.summary}
+            description={service.description}
             href={`/services/${service.slug}`}
           />
         ))}

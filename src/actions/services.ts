@@ -45,13 +45,25 @@ export async function deleteService(id: string) {
   }
 }
 
-export async function getServices() {
+export async function getServices(activeOnly = false) {
   try {
     await dbConnect();
-    const services = await Service.find().sort({ order: 1 });
+    const filter = activeOnly ? { isActive: true } : {};
+    const services = await Service.find(filter).sort({ order: 1, name: 1 });
     return JSON.parse(JSON.stringify(services));
   } catch (error) {
     console.error("Failed to fetch services:", error);
     return [];
+  }
+}
+
+export async function getServiceBySlug(slug: string) {
+  try {
+    await dbConnect();
+    const service = await Service.findOne({ slug });
+    return service ? JSON.parse(JSON.stringify(service)) : null;
+  } catch (error) {
+    console.error("Failed to fetch service by slug:", error);
+    return null;
   }
 }

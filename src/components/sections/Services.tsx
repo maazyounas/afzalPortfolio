@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MotionDiv: any = motion.div;
-import { services } from "@/lib/data/services";
 
 import { Card } from "../ui/Card";
 import { SectionWrapper } from "../ui/SectionWrapper";
+import { IService } from "@/models/Service";
 
 const container = {
   hidden: {},
@@ -18,7 +18,11 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export function Services() {
+interface ServicesProps {
+  services: Pick<IService, "slug" | "name" | "description">[];
+}
+
+export function Services({ services }: ServicesProps) {
   return (
     <SectionWrapper
       eyebrow="Services"
@@ -30,7 +34,7 @@ export function Services() {
           <motion.div key={service.slug} variants={item}>
             <Card
               title={service.name}
-              description={service.summary}
+              description={service.description}
               href={`/services/${service.slug}`}
             />
           </motion.div>

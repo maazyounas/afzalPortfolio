@@ -6,12 +6,17 @@ import { Services } from "@/components/sections/Services";
 import { Team } from "@/components/sections/Team";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
+import { getServices } from "@/actions/services";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const services = await getServices(true);
+
   return (
     <>
       <Hero />
-      <Services />
+      <Services services={services} />
       <About />
       <Team />
       <Process />
