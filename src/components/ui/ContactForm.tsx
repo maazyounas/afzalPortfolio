@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
 
 type FormValues = {
   name: string;

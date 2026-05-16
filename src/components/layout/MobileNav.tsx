@@ -1,69 +1,150 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  Menu,
+  X,
+} from "lucide-react";
+import { AnimatePresence, motion } from "@/lib/motion";
 
 import { navigation } from "@/lib/data/navigation";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
+
+  const handleClose = () => setOpen(false);
+
   return (
-    <div className="relative">
+    <>
+      {/* Toggle Button */}
       <button
-        aria-label="Open menu"
-        onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center justify-center rounded-full border border-[var(--color-line)] bg-white p-2 text-[var(--color-ink)] shadow-sm"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        onClick={() => setOpen((prev) => !prev)}
+        className="group relative inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-2xl border border-(--color-line) bg-white/80 text-(--color-ink) shadow-sm backdrop-blur-lg transition-all duration-300 hover:border-(--color-accent-light) hover:shadow-lg active:scale-95"
       >
-        {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        <span className="absolute inset-0 bg-linear-to-br from-(--color-accent-light) to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={open ? "close" : "menu"}
+            initial={{ opacity: 0, rotate: -90, scale: 0.7 }}
+            animate={{ opacity: 1, rotate: 0, scale: 1 }}
+            exit={{ opacity: 0, rotate: 90, scale: 0.7 }}
+            transition={{ duration: 0.2 }}
+            className="relative z-10"
+          >
+            {open ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </button>
 
+      {/* Menu */}
       <AnimatePresence>
         {open && (
           <>
+            {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)}
-              className="fixed inset-0 z-40 bg-black/30"
+              transition={{ duration: 0.25 }}
+              onClick={handleClose}
+              className="fixed inset-0 z-40 bg-black/45 backdrop-blur-sm"
             />
 
-            <motion.div
-              initial={{ x: 300 }}
-              animate={{ x: 0 }}
-              exit={{ x: 300 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed right-4 top-16 z-50 w-[86vw] max-w-xs rounded-2xl border border-[var(--color-line)] bg-white p-6 shadow-2xl"
+            {/* Drawer */}
+            <motion.aside
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 100 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                damping: 24,
+              }}
+              className="fixed right-4 top-4 z-50 flex h-[calc(100vh-2rem)] w-[88vw] max-w-sm flex-col overflow-hidden rounded-4xl border border-white/30 bg-[rgba(255,255,255,0.82)] shadow-[0_20px_80px_rgba(15,23,42,0.25)] backdrop-blur-2xl"
             >
-              <div className="flex flex-col gap-4">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="text-base font-medium text-[var(--color-ink)]"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-(--color-line) px-6 py-5">
+                <div>
+                  <h2 className="font-(family-name:--font-display) text-xl font-bold text-(--color-ink)">
+                    Softech
+                  </h2>
 
-                <div className="mt-2 border-t border-[var(--color-line)] pt-4">
-                  <Link
-                    href="/contact"
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg bg-[var(--color-accent)] px-4 py-2 text-center text-sm font-semibold text-white shadow-sm"
-                  >
-                    Get Started
-                  </Link>
+                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-(--color-muted)">
+                    Financial Services
+                  </p>
                 </div>
+
+                <button
+                  onClick={handleClose}
+                  aria-label="Close menu"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-(--color-line) bg-white text-(--color-ink) transition-all duration-300 hover:border-(--color-accent-light) hover:bg-(--color-accent-light)"
+                >
+                  <X className="h-5 w-5" />
+                </button>
               </div>
-            </motion.div>
+
+              {/* Nav Links */}
+              <nav className="flex flex-1 flex-col gap-2 overflow-y-auto px-4 py-6">
+                {navigation.map((item, index) => (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: index * 0.05,
+                    }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={handleClose}
+                      className="group flex items-center justify-between rounded-2xl border border-transparent px-4 py-4 text-base font-semibold text-(--color-ink) transition-all duration-300 hover:border-(--color-line) hover:bg-white"
+                    >
+                      <span>{item.label}</span>
+
+                      <ArrowRight className="h-4 w-4 text-(--color-muted) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-(--color-accent)" />
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
+              {/* Footer CTA */}
+              <div className="border-t border-(--color-line) p-5">
+                <Link
+                  href="/contact"
+                  onClick={handleClose}
+                  className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-(--color-accent) px-5 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-(--color-accent-strong) hover:shadow-xl"
+                >
+                  Get Started
+
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+
+                <p className="mt-4 text-center text-xs leading-relaxed text-(--color-muted)">
+                  Helping businesses grow with modern
+                  financial solutions.
+                </p>
+              </div>
+            </motion.aside>
           </>
         )}
       </AnimatePresence>
-    </div>
+    </>
   );
 }

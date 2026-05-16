@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion";
 
 export function FloatingCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (

@@ -1,22 +1,41 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { getSettings } from "@/actions/settings";
 import JsonLd from "@/components/seo/JsonLd";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
-  
-  if (!settings) return {};
+
+  if (!settings) {
+    return {
+      title: "Website",
+      description: "Modern financial solutions",
+    };
+  }
 
   return {
     metadataBase: new URL(settings.url),
+
     title: {
       default: settings.siteName,
       template: `%s | ${settings.siteName}`,
     },
+
     description: settings.description,
-    keywords: ["finance", "accounting", "tax advisory"],
+
+    keywords: [
+      "finance",
+      "accounting",
+      "tax advisory",
+      "financial consulting",
+      "business solutions",
+    ],
+
+    authors: [{ name: settings.siteName }],
+
+    creator: settings.siteName,
+
     openGraph: {
       title: settings.siteName,
       description: settings.description,
@@ -24,6 +43,21 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: settings.siteName,
       locale: "en_US",
       type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: settings.siteName,
+      description: settings.description,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+
+    icons: {
+      icon: "/favicon.ico",
     },
   };
 }
@@ -35,26 +69,39 @@ export default async function WebsiteLayout({
 }) {
   const settings = await getSettings();
 
-  const organizationSchema = settings ? {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": settings.siteName,
-    "url": settings.url,
-    "logo": `${settings.url}/logo.png`,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": settings.contactPhone,
-      "contactType": "customer service",
-      "email": settings.contactEmail
-    }
-  } : null;
+  const baseUrl = settings?.url;
+
+  const organizationSchema =
+    settings && baseUrl
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: settings.siteName,
+          url: baseUrl,
+          logo: `${baseUrl}/logo.png`,
+          description: settings.description,
+          contactPoint: {
+            "@type": "ContactPoint",
+            telephone: settings.contactPhone,
+            email: settings.contactEmail,
+            contactType: "customer service",
+          },
+        }
+      : null;
 
   return (
     <>
-      {organizationSchema && <JsonLd data={organizationSchema} />}
-      <div className="min-h-screen bg-[var(--color-sand)] text-[var(--color-ink)]">
+      {/* SEO Schema */}
+      {organizationSchema && (
+        <JsonLd data={organizationSchema} />
+      )}
+
+      {/* App Shell */}
+      <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased">
         <Navbar />
-        <main>{children}</main>
+
+        <main className="flex-1">{children}</main>
+
         <Footer />
       </div>
     </>

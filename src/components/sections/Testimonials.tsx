@@ -1,12 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const MotionBlockquote: any = motion.blockquote;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const MotionDiv: any = motion.div;
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "@/lib/motion";
 
 import { testimonials } from "@/lib/data/testimonials";
 
@@ -79,12 +75,12 @@ export function Testimonials() {
         onKeyDown={handleKey}
         aria-label="Testimonials carousel"
       >
-        <MotionDiv
+        <motion.div
           ref={sliderRef}
           className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 lg:overflow-visible lg:snap-none lg:grid lg:grid-cols-3 lg:gap-6"
         >
           {testimonials.map((t, idx) => (
-            <MotionBlockquote
+            <motion.blockquote
               key={t.name}
               custom={idx}
               initial="hidden"
@@ -114,9 +110,9 @@ export function Testimonials() {
                   </div>
                 </div>
               </div>
-            </MotionBlockquote>
+            </motion.blockquote>
           ))}
-        </MotionDiv>
+        </motion.div>
 
         {/* subtle floating gradient */}
         <div className="pointer-events-none absolute -right-24 top-0 -z-10 hidden h-72 w-72 translate-x-1/3 rounded-full bg-gradient-to-br from-sky-50 to-emerald-50 opacity-30 blur-3xl lg:block" />

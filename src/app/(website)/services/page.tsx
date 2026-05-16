@@ -4,6 +4,7 @@ import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { getServices } from "@/actions/services";
+import type { IService } from "@/models/Service";
 
 export const dynamic = "force-dynamic";
 
@@ -23,7 +24,7 @@ export default async function ServicesPage() {
     >
       <Breadcrumb items={[{ label: "Services", href: "/services" }]} />
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {services.map((service) => (
+        {services.map((service: IService) => (
           <Card
             key={service.slug}
             title={service.name}

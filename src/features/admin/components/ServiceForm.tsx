@@ -2,14 +2,20 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { ServiceSchema, type ServiceInput } from "@/validators/service";
 import { createService, updateService } from "@/actions/services";
 import { IService } from "@/models/Service";
 import { useState } from "react";
 
+type ServiceFormValues = z.input<typeof ServiceSchema>;
+type ServiceInitialData = Partial<ServiceFormValues> & {
+  _id?: string | { toString(): string };
+};
+
 interface ServiceFormProps {
-  initialData?: IService;
+  initialData?: IService | ServiceInitialData;
 }
 
 export function ServiceForm({ initialData }: ServiceFormProps) {
@@ -21,14 +27,16 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ServiceInput>({
-    resolver: zodResolver(ServiceSchema) as any,
-    defaultValues: initialData || {
+  } = useForm<ServiceFormValues, unknown, ServiceInput>({
+    resolver: zodResolver(ServiceSchema),
+    defaultValues: {
       name: "",
       slug: "",
       description: "",
+      icon: "",
       isActive: true,
       order: 0,
+      ...initialData,
     },
   });
 
@@ -37,7 +45,7 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
     let result;
 
     if (isEdit) {
-      result = await updateService(initialData._id.toString(), data);
+      result = await updateService(String(initialData?._id), data);
     } else {
       result = await createService(data);
     }
@@ -52,7 +60,7 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit as any)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="space-y-2">
           <label className="text-sm font-medium">Service Name</label>

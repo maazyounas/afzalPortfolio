@@ -49,7 +49,7 @@ export default async function AdminServicesPage() {
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">
                       <Link
-                        href={`/admin/services/${service._id}/edit`}
+                        href={`/admin/services/${String(service._id)}/edit`}
                         className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-white/5 hover:text-white"
                       >
                         <Edit className="h-4 w-4" />

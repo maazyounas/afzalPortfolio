@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState, type RefObject } from "react";
+import { motion, useInView } from "@/lib/motion";
 
 type StatCardProps = {
   value: number | string;
@@ -10,8 +10,11 @@ type StatCardProps = {
 
 export function StatCard({ value, label }: StatCardProps) {
   const isNumber = typeof value === "number";
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref as RefObject<Element>, {
+    once: true,
+    amount: 0.5,
+  });
   const [display, setDisplay] = useState<number>(0);
 
   useEffect(() => {

@@ -1,10 +1,7 @@
 "use client";
 
-import type { ReactNode, FC } from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
-
-type MotionSectionProps = HTMLMotionProps<"section"> & { children?: ReactNode };
-const MotionSection = motion.section as unknown as FC<MotionSectionProps>;
+import type { ReactNode } from "react";
+import { motion } from "@/lib/motion";
 
 type SectionWrapperProps = {
   eyebrow?: string;
@@ -33,7 +30,7 @@ export function SectionWrapper({
       .replace(/(^-|-$)/g, "");
   const sectionId = id ?? slug(eyebrow ?? title);
   return (
-    <MotionSection
+    <motion.section
       id={sectionId}
       className="mx-auto max-w-6xl px-6 py-16 md:py-24"
       initial="hidden"
@@ -56,6 +53,6 @@ export function SectionWrapper({
         ) : null}
       </motion.div>
       {children}
-    </MotionSection>
+    </motion.section>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { motion } from "@/lib/motion";
 
 type Item = { q: string; a: string };
 
