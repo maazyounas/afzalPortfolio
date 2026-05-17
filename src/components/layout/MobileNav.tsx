@@ -85,7 +85,7 @@ export function MobileNav({
                 stiffness: 260,
                 damping: 24,
               }}
-              className="fixed right-3 top-3 z-50 flex h-[calc(100vh-1.5rem)] w-[calc(100vw-1.5rem)] max-w-sm flex-col overflow-hidden rounded-[2rem] border border-white/30 bg-[rgba(255,255,255,0.9)] shadow-[0_20px_80px_rgba(15,23,42,0.25)] backdrop-blur-2xl sm:right-4 sm:top-4 sm:h-[calc(100vh-2rem)] sm:w-[88vw]"
+              className="fixed inset-y-3 left-3 right-3 z-50 flex max-w-sm flex-col overflow-hidden rounded-[2rem] border border-white/30 bg-[rgba(255,255,255,0.9)] shadow-[0_20px_80px_rgba(15,23,42,0.25)] backdrop-blur-2xl sm:inset-y-4 sm:right-4 sm:left-auto sm:w-[88vw]"
             >
               <div className="flex items-center justify-between border-b border-(--color-line) px-5 py-5 sm:px-6">
                 <div className="min-w-0">

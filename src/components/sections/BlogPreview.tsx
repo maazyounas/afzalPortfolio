@@ -1,5 +1,9 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { ArrowRight, Calendar } from "lucide-react";
+
+import { motion } from "@/lib/motion";
 import { SectionWrapper } from "../ui/SectionWrapper";
 
 type BlogPreviewPost = {
@@ -18,7 +22,6 @@ function formatPublishedAt(value?: string | Date | null) {
   if (!value) return null;
 
   const date = value instanceof Date ? value : new Date(value);
-
   if (Number.isNaN(date.getTime())) return null;
 
   return new Intl.DateTimeFormat("en-US", {
@@ -28,6 +31,35 @@ function formatPublishedAt(value?: string | Date | null) {
   }).format(date);
 }
 
+/* ----------------------------- Animations ----------------------------- */
+
+const container = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    scale: 0.97,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.55,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
 export function BlogPreview({ posts }: BlogPreviewProps) {
   return (
     <SectionWrapper
@@ -36,42 +68,108 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
       title="Useful finance writing for founders and leadership teams."
       intro="A quick view of recent thinking across operations, reporting, and growth-stage finance."
     >
-      <div className="grid gap-6 lg:grid-cols-3">
-        {posts.map((post) => {
-          const publishedAt = formatPublishedAt(post.publishedAt);
+      <motion.div
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {posts?.length > 0 ? (
+          posts.map((post) => {
+            const publishedAt = formatPublishedAt(post.publishedAt);
 
-          return (
-            <article
-              key={post.slug}
-              className="flex h-full flex-col rounded-[2rem] border border-[var(--color-line)] bg-white p-6 shadow-[0_18px_60px_rgba(17,33,31,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:p-8"
-            >
-              <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-accent)]">
-                <span>{post.category}</span>
-                {publishedAt ? (
-                  <span className="text-[var(--color-muted)]">
-                    {publishedAt}
-                  </span>
-                ) : null}
-              </div>
-
-              <h3 className="mt-4 text-2xl font-semibold text-[var(--color-ink)]">
-                {post.title}
-              </h3>
-
-              <p className="mt-3 flex-1 text-[var(--color-muted)]">
-                {post.excerpt}
-              </p>
-
-              <Link
-                href={`/blog/${post.slug}`}
-                className="mt-6 inline-flex text-sm font-semibold text-[var(--color-accent)] transition-colors duration-300 hover:text-[var(--color-accent-strong)]"
+            return (
+              <motion.article
+                key={post.slug}
+                variants={item}
+                whileHover={{
+                  y: -8,
+                  scale: 1.02,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 220,
+                  damping: 18,
+                }}
+                className="
+                  group relative flex h-full flex-col
+                  overflow-hidden rounded-[2rem]
+                  border border-[var(--color-line)]
+                  bg-white/85 p-6
+                  shadow-sm backdrop-blur-xl
+                  transition-all duration-300
+                  hover:border-[var(--color-accent-light)]
+                  hover:shadow-2xl
+                "
               >
-                Read article
-              </Link>
-            </article>
-          );
-        })}
-      </div>
+                {/* Glow background */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                {/* Top Meta */}
+                <div className="relative z-10 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em]">
+                  <span className="rounded-full bg-[var(--color-panel)] px-3 py-1 text-[var(--color-accent)]">
+                    {post.category}
+                  </span>
+
+                  {publishedAt && (
+                    <span className="inline-flex items-center gap-1 text-[var(--color-muted)]">
+                      <Calendar className="h-3.5 w-3.5" />
+                      {publishedAt}
+                    </span>
+                  )}
+                </div>
+
+                {/* Title */}
+                <h3 className="relative z-10 mt-5 text-xl font-semibold leading-snug text-[var(--color-ink)]">
+                  {post.title}
+                </h3>
+
+                {/* Excerpt */}
+                <p className="relative z-10 mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">
+                  {post.excerpt}
+                </p>
+
+                {/* CTA */}
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="
+                    relative z-10 mt-6 inline-flex items-center gap-2
+                    text-sm font-semibold text-[var(--color-accent)]
+                    transition-all duration-300
+                    group-hover:text-[var(--color-accent-strong)]
+                  "
+                >
+                  Read article
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+
+                {/* Bottom Accent */}
+                <div className="absolute bottom-0 left-0 h-1 w-0 bg-[var(--color-accent)] transition-all duration-500 group-hover:w-full" />
+              </motion.article>
+            );
+          })
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="
+              col-span-full
+              flex flex-col items-center justify-center
+              rounded-2xl border border-[var(--color-line)]
+              bg-white/60 p-10 text-center
+              text-sm text-[var(--color-muted)]
+            "
+          >
+            <div className="text-lg font-semibold text-[var(--color-ink)]">
+              No articles yet
+            </div>
+            <p className="mt-1">
+              New insights will be published soon. Stay tuned.
+            </p>
+          </motion.div>
+        )}
+      </motion.div>
     </SectionWrapper>
   );
 }

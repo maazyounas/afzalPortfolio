@@ -10,9 +10,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${merriweather.variable} scroll-smooth`}
+      className={`${manrope.variable} ${merriweather.variable} scroll-smooth overflow-x-clip`}
     >
-      <body className="antialiased">
+      <body className="overflow-x-clip antialiased">
         <AnimationProvider>{children}</AnimationProvider>
       </body>
     </html>

@@ -7,22 +7,20 @@ import JsonLd from "@/components/seo/JsonLd";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
 
-  if (!settings) {
-    return {
-      title: "Website",
-      description: "Modern financial solutions",
-    };
-  }
+  const siteName = settings?.siteName ?? "Website";
+  const description =
+    settings?.description ?? "Modern financial solutions";
+  const url = settings?.url ?? "";
 
   return {
-    metadataBase: new URL(settings.url),
+    metadataBase: url ? new URL(url) : undefined,
 
     title: {
-      default: settings.siteName,
-      template: `%s | ${settings.siteName}`,
+      default: siteName,
+      template: `%s | ${siteName}`,
     },
 
-    description: settings.description,
+    description,
 
     keywords: [
       "finance",
@@ -32,32 +30,42 @@ export async function generateMetadata(): Promise<Metadata> {
       "business solutions",
     ],
 
-    authors: [{ name: settings.siteName }],
-
-    creator: settings.siteName,
+    authors: [{ name: siteName }],
+    creator: siteName,
 
     openGraph: {
-      title: settings.siteName,
-      description: settings.description,
-      url: settings.url,
-      siteName: settings.siteName,
+      title: siteName,
+      description,
+      url,
+      siteName,
       locale: "en_US",
       type: "website",
+      images: url ? [`${url}/og.png`] : undefined,
     },
 
     twitter: {
       card: "summary_large_image",
-      title: settings.siteName,
-      description: settings.description,
+      title: siteName,
+      description,
+      images: url ? [`${url}/og.png`] : undefined,
     },
 
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
     },
 
     icons: {
       icon: "/favicon.ico",
+    },
+
+    // optional but recommended for SEO stability
+    alternates: {
+      canonical: url || undefined,
     },
   };
 }
@@ -91,13 +99,11 @@ export default async function WebsiteLayout({
 
   return (
     <>
-      {/* SEO Schema */}
-      {organizationSchema && (
-        <JsonLd data={organizationSchema} />
-      )}
+      {/* Structured Data */}
+      {organizationSchema && <JsonLd data={organizationSchema} />}
 
       {/* App Shell */}
-      <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased">
+      <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased scroll-smooth">
         <Navbar />
 
         <main className="flex-1">{children}</main>

@@ -13,37 +13,128 @@ export default function OpenGraphImage() {
       <div
         style={{
           display: "flex",
-          height: "100%",
           width: "100%",
+          height: "100%",
+          position: "relative",
           background:
-            "linear-gradient(135deg, #f7f1e8 0%, #dcefe9 45%, #0f766e 100%)",
-          color: "#11211f",
-          padding: "72px",
+            "linear-gradient(135deg, #f7f1e8 0%, #dcefe9 40%, #0f766e 100%)",
           fontFamily: "sans-serif",
-          flexDirection: "column",
-          justifyContent: "space-between",
+          padding: "80px",
+          color: "#0f1724",
+          overflow: "hidden",
         }}
       >
+        {/* Soft decorative blobs */}
         <div
           style={{
-            fontSize: 24,
-            letterSpacing: "0.24em",
-            textTransform: "uppercase",
+            position: "absolute",
+            top: "-120px",
+            right: "-120px",
+            width: "300px",
+            height: "300px",
+            background: "rgba(20,184,166,0.25)",
+            borderRadius: "50%",
+            filter: "blur(80px)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "-140px",
+            left: "-140px",
+            width: "340px",
+            height: "340px",
+            background: "rgba(15,118,110,0.25)",
+            borderRadius: "50%",
+            filter: "blur(90px)",
+          }}
+        />
+
+        {/* Content */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            width: "100%",
+            zIndex: 2,
           }}
         >
-          Softech Financials
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
-          <div style={{ fontSize: 72, fontWeight: 700, lineHeight: 1.05 }}>
-            Smarter finance systems for growing companies.
+          {/* Brand */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              fontSize: "22px",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase",
+              fontWeight: 600,
+              color: "#0f1724",
+            }}
+          >
+            <div
+              style={{
+                width: "14px",
+                height: "14px",
+                background: "#0f766e",
+                borderRadius: "4px",
+              }}
+            />
+            Softech Financials
           </div>
-          <div style={{ fontSize: 28, maxWidth: 900, color: "#284542" }}>
-            CFO advisory, tax planning, audit readiness, and reporting
-            operations built for clarity.
+
+          {/* Main text */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div
+              style={{
+                fontSize: "68px",
+                fontWeight: 800,
+                lineHeight: 1.1,
+                maxWidth: "1000px",
+              }}
+            >
+              Smarter finance systems for growing companies.
+            </div>
+
+            <div
+              style={{
+                fontSize: "28px",
+                maxWidth: "900px",
+                color: "#134e4a",
+                lineHeight: 1.4,
+              }}
+            >
+              CFO advisory, tax planning, audit readiness, and reporting
+              operations built for clarity and control.
+            </div>
+          </div>
+
+          {/* Footer badge */}
+          <div
+            style={{
+              display: "flex",
+              gap: "16px",
+              alignItems: "center",
+              marginTop: "40px",
+            }}
+          >
+            <div
+              style={{
+                padding: "10px 16px",
+                borderRadius: "999px",
+                background: "rgba(255,255,255,0.6)",
+                fontSize: "18px",
+                color: "#0f1724",
+                border: "1px solid rgba(15,118,110,0.2)",
+              }}
+            >
+              Strategy • Compliance • Reporting
+            </div>
           </div>
         </div>
       </div>
     ),
-    size,
+    size
   );
 }

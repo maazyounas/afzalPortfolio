@@ -9,18 +9,55 @@ type CardProps = {
 
 export function Card({ title, description, href }: CardProps) {
   const content = (
-    <article className="h-full rounded-2xl border border-[var(--color-line)] bg-white p-6 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <div className="flex items-start gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-slate-50 to-emerald-50 text-slate-700">
-          <Box className="h-5 w-5" />
+    <article
+      className="
+        group relative h-full
+        overflow-hidden rounded-[2rem]
+        border border-[var(--color-line)]
+        bg-white/85 p-6
+        shadow-sm backdrop-blur-xl
+        transition-all duration-300
+        hover:-translate-y-2 hover:shadow-2xl
+        hover:border-[var(--color-accent-light)]
+      "
+    >
+      {/* Glow background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+      <div className="relative z-10 flex items-start gap-4">
+        {/* Icon */}
+        <div
+          className="
+            flex h-12 w-12 items-center justify-center
+            rounded-2xl bg-gradient-to-br from-[var(--color-accent-light)] to-white
+            shadow-sm
+          "
+        >
+          <Box className="h-5 w-5 text-[var(--color-accent-strong)]" />
         </div>
-        <div>
-          <h3 className="text-lg font-semibold text-[var(--color-ink)]">{title}</h3>
-          <p className="mt-2 text-[var(--color-muted)]">{description}</p>
+
+        {/* Content */}
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent-strong)]">
+            {title}
+          </h3>
+
+          <p className="mt-2 text-sm leading-7 text-[var(--color-muted)]">
+            {description}
+          </p>
         </div>
       </div>
+
+      {/* Bottom accent line */}
+      <div className="absolute bottom-0 left-0 h-1 w-0 bg-[var(--color-accent)] transition-all duration-500 group-hover:w-full" />
     </article>
   );
 
-  return href ? <Link href={href}>{content}</Link> : content;
+  if (!href) return content;
+
+  return (
+    <Link href={href} className="block h-full">
+      {content}
+    </Link>
+  );
 }

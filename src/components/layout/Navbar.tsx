@@ -195,7 +195,7 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.9 }}
             transition={{ duration: 0.25 }}
-            className="fixed right-4 bottom-4 z-60 sm:right-5 sm:bottom-5"
+            className="fixed right-4 bottom-4 z-60 lg:hidden sm:right-5 sm:bottom-5"
           >
             <Link
               href="/#contact"

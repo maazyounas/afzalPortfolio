@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { motion } from "@/lib/motion";
+import { motion, AnimatePresence } from "@/lib/motion";
 
 type Item = { q: string; a: string };
 
@@ -26,42 +26,65 @@ export function FAQAccordion() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 sm:px-0">
-      <div className="grid gap-3">
+      <div className="space-y-4">
         {items.map((it, i) => {
           const isOpen = open === i;
+
           return (
             <motion.div
               key={it.q}
               layout
-              className="overflow-hidden rounded-2xl border border-[var(--color-line)] bg-white p-4 sm:p-5"
-              initial={false}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className={`
+                relative overflow-hidden rounded-2xl border
+                bg-white p-5 sm:p-6
+                transition-all duration-300
+                ${
+                  isOpen
+                    ? "border-[var(--color-accent-light)] shadow-lg"
+                    : "border-[var(--color-line)] hover:shadow-md"
+                }
+              `}
             >
+              {/* subtle glow when open */}
+              {isOpen && (
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_45%)]" />
+              )}
+
               <button
-                className="flex w-full items-center justify-between gap-4 text-left"
+                className="relative flex w-full items-center justify-between gap-4 text-left"
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
               >
-                <div className="text-sm font-medium text-[var(--color-ink)]">
+                <div className="text-sm font-semibold text-[var(--color-ink)] sm:text-base">
                   {it.q}
                 </div>
 
-                <ChevronDown
-                  className={`h-5 w-5 shrink-0 transition-transform ${
-                    isOpen ? "rotate-180" : "rotate-0"
-                  }`}
-                />
+                <motion.div
+                  animate={{ rotate: isOpen ? 180 : 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-line)] bg-white"
+                >
+                  <ChevronDown className="h-4 w-4 text-[var(--color-muted)]" />
+                </motion.div>
               </button>
 
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={
-                  isOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }
-                }
-                transition={{ duration: 0.32 }}
-                className="mt-3 text-sm text-[var(--color-muted)]"
-              >
-                <div className="pb-2">{it.a}</div>
-              </motion.div>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="relative mt-4 text-sm leading-7 text-[var(--color-muted)] sm:text-[15px]">
+                      {it.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           );
         })}
