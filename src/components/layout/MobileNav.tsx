@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -11,7 +12,18 @@ import { AnimatePresence, motion } from "@/lib/motion";
 
 import { navigation } from "@/lib/data/navigation";
 
-export function MobileNav() {
+type MobileNavProps = {
+  activeSection?: string;
+  onNavigate?: (
+    e: MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) => void;
+};
+
+export function MobileNav({
+  activeSection = "",
+  onNavigate,
+}: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -26,7 +38,6 @@ export function MobileNav() {
 
   return (
     <>
-      {/* Toggle Button */}
       <button
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
@@ -53,11 +64,9 @@ export function MobileNav() {
         </AnimatePresence>
       </button>
 
-      {/* Menu */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -67,7 +76,6 @@ export function MobileNav() {
               className="fixed inset-0 z-40 bg-black/45 backdrop-blur-sm"
             />
 
-            {/* Drawer */}
             <motion.aside
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
@@ -77,11 +85,10 @@ export function MobileNav() {
                 stiffness: 260,
                 damping: 24,
               }}
-              className="fixed right-4 top-4 z-50 flex h-[calc(100vh-2rem)] w-[88vw] max-w-sm flex-col overflow-hidden rounded-4xl border border-white/30 bg-[rgba(255,255,255,0.82)] shadow-[0_20px_80px_rgba(15,23,42,0.25)] backdrop-blur-2xl"
+              className="fixed right-3 top-3 z-50 flex h-[calc(100vh-1.5rem)] w-[calc(100vw-1.5rem)] max-w-sm flex-col overflow-hidden rounded-[2rem] border border-white/30 bg-[rgba(255,255,255,0.9)] shadow-[0_20px_80px_rgba(15,23,42,0.25)] backdrop-blur-2xl sm:right-4 sm:top-4 sm:h-[calc(100vh-2rem)] sm:w-[88vw]"
             >
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-(--color-line) px-6 py-5">
-                <div>
+              <div className="flex items-center justify-between border-b border-(--color-line) px-5 py-5 sm:px-6">
+                <div className="min-w-0">
                   <h2 className="font-(family-name:--font-display) text-xl font-bold text-(--color-ink)">
                     Softech
                   </h2>
@@ -100,35 +107,54 @@ export function MobileNav() {
                 </button>
               </div>
 
-              {/* Nav Links */}
               <nav className="flex flex-1 flex-col gap-2 overflow-y-auto px-4 py-6">
-                {navigation.map((item, index) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: index * 0.05,
-                    }}
-                  >
-                    <Link
-                      href={item.href}
-                      onClick={handleClose}
-                      className="group flex items-center justify-between rounded-2xl border border-transparent px-4 py-4 text-base font-semibold text-(--color-ink) transition-all duration-300 hover:border-(--color-line) hover:bg-white"
-                    >
-                      <span>{item.label}</span>
+                {navigation.map((item, index) => {
+                  const id = item.href.split("#")[1] ?? "";
+                  const isActive = activeSection === id;
 
-                      <ArrowRight className="h-4 w-4 text-(--color-muted) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-(--color-accent)" />
-                    </Link>
-                  </motion.div>
-                ))}
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: index * 0.05,
+                      }}
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={(e) => {
+                          onNavigate?.(e, id);
+                          handleClose();
+                        }}
+                        className={`group flex items-center justify-between rounded-2xl border px-4 py-4 text-base font-semibold transition-all duration-300 ${
+                          isActive
+                            ? "border-(--color-accent-light) bg-(--color-accent-light) text-(--color-accent-strong)"
+                            : "border-transparent text-(--color-ink) hover:border-(--color-line) hover:bg-white"
+                        }`}
+                      >
+                        <span>{item.label}</span>
+
+                        <ArrowRight
+                          className={`h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 ${
+                            isActive
+                              ? "text-(--color-accent)"
+                              : "text-(--color-muted) group-hover:text-(--color-accent)"
+                          }`}
+                        />
+                      </Link>
+                    </motion.div>
+                  );
+                })}
               </nav>
 
-              {/* Footer CTA */}
               <div className="border-t border-(--color-line) p-5">
                 <Link
-                  href="/contact"
-                  onClick={handleClose}
+                  href="/#contact"
+                  onClick={(e) => {
+                    onNavigate?.(e, "contact");
+                    handleClose();
+                  }}
                   className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-(--color-accent) px-5 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-(--color-accent-strong) hover:shadow-xl"
                 >
                   Get Started
@@ -137,8 +163,7 @@ export function MobileNav() {
                 </Link>
 
                 <p className="mt-4 text-center text-xs leading-relaxed text-(--color-muted)">
-                  Helping businesses grow with modern
-                  financial solutions.
+                  Helping businesses grow with modern financial solutions.
                 </p>
               </div>
             </motion.aside>

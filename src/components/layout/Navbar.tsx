@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { MouseEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { AnimatePresence, motion } from "@/lib/motion";
@@ -10,45 +12,52 @@ import { navigation } from "@/lib/data/navigation";
 import { MobileNav } from "./MobileNav";
 
 export function Navbar() {
+  const pathname = usePathname();
   const [active, setActive] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
 
   const sectionIds = useMemo(
-    () => navigation.map((item) => item.href.replace(/^\//, "")),
+    () =>
+      navigation
+        .map((item) => item.href.split("#")[1] ?? "")
+        .filter(Boolean),
     []
   );
 
   useEffect(() => {
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
-
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSection = entries.find(
-          (entry) => entry.isIntersecting
-        );
-
-        if (visibleSection?.target?.id) {
-          setActive(visibleSection.target.id);
-        }
-      },
-      {
-        rootMargin: "-40% 0px -45% 0px",
-        threshold: 0,
-      }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const marker = 160;
 
       setScrolled(scrollY > 20);
       setShowCTA(scrollY > 320);
+
+      if (pathname !== "/") {
+        setActive("");
+        return;
+      }
+
+      const hero = document.getElementById("hero");
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean) as HTMLElement[];
+
+      if (hero) {
+        const heroRect = hero.getBoundingClientRect();
+
+        if (heroRect.bottom > marker) {
+          setActive("");
+          return;
+        }
+      }
+
+      const currentSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= marker && rect.bottom > marker;
+      });
+
+      setActive(currentSection?.id ?? "");
     };
 
     handleScroll();
@@ -56,29 +65,40 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
+    window.addEventListener("resize", handleScroll);
 
     return () => {
-      observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
     };
-  }, [sectionIds]);
+  }, [pathname, sectionIds]);
 
   const handleNavigation = (
-    e: React.MouseEvent<HTMLAnchorElement>,
+    e: MouseEvent<HTMLAnchorElement>,
     id: string
   ) => {
-    if (window.location.pathname !== "/") return;
+    if (pathname !== "/" || !id) return;
 
     const section = document.getElementById(id);
 
     if (!section) return;
 
     e.preventDefault();
-
+    setActive(id);
+    window.history.replaceState(null, "", `/#${id}`);
     section.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (pathname !== "/") return;
+
+    e.preventDefault();
+    setActive("");
+    window.history.replaceState(null, "", "/");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -90,31 +110,30 @@ export function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
-          {/* Logo */}
+        <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="group flex items-center gap-2"
+            onClick={handleLogoClick}
+            className="group flex min-w-0 items-center gap-2 sm:gap-3"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-(--color-accent) text-lg font-bold text-white shadow-md transition-transform duration-300 group-hover:scale-105">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-(--color-accent) text-lg font-bold text-white shadow-md transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
               S
             </div>
 
-            <div className="flex flex-col">
-              <span className="font-(family-name:--font-display) text-xl font-bold tracking-tight text-(--color-ink)">
+            <div className="flex min-w-0 flex-col">
+              <span className="truncate font-(family-name:--font-display) text-base font-bold tracking-tight text-(--color-ink) sm:text-xl">
                 Softech Financials
               </span>
 
-              <span className="text-xs font-medium tracking-[0.2em] text-(--color-muted) uppercase">
+              <span className="truncate text-[10px] font-medium tracking-[0.18em] text-(--color-muted) uppercase sm:text-xs">
                 Finance & Consulting
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden items-center gap-2 rounded-full border border-(--color-line) bg-white/70 px-3 py-2 shadow-sm backdrop-blur-lg md:flex">
+          <nav className="hidden items-center gap-1 rounded-full border border-(--color-line) bg-white/70 px-2 py-2 shadow-sm backdrop-blur-lg lg:flex">
             {navigation.map((item) => {
-              const id = item.href.replace(/^\//, "");
+              const id = item.href.split("#")[1] ?? "";
               const isActive = active === id;
 
               return (
@@ -148,10 +167,10 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* CTA */}
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <Link
-              href="/contact"
+              href="/#contact"
+              onClick={(e) => handleNavigation(e, "contact")}
               className="group inline-flex items-center gap-2 rounded-2xl bg-(--color-accent) px-5 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-(--color-accent-strong) hover:shadow-xl"
             >
               Get Started
@@ -163,14 +182,12 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Nav */}
-          <div className="md:hidden">
-            <MobileNav />
+          <div className="lg:hidden">
+            <MobileNav activeSection={active} onNavigate={handleNavigation} />
           </div>
         </div>
       </header>
 
-      {/* Floating CTA */}
       <AnimatePresence>
         {showCTA && (
           <motion.div
@@ -178,11 +195,12 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.9 }}
             transition={{ duration: 0.25 }}
-            className="fixed right-5 bottom-5 z-60"
+            className="fixed right-4 bottom-4 z-60 sm:right-5 sm:bottom-5"
           >
             <Link
-              href="/contact"
-              className="group flex items-center gap-2 rounded-full bg-(--color-accent) px-5 py-3 text-sm font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-(--color-accent-strong)"
+              href="/#contact"
+              onClick={(e) => handleNavigation(e, "contact")}
+              className="group flex items-center gap-2 rounded-full bg-(--color-accent) px-4 py-3 text-sm font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-(--color-accent-strong) sm:px-5"
             >
               Get Started
 

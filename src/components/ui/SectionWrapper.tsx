@@ -32,22 +32,24 @@ export function SectionWrapper({
   return (
     <motion.section
       id={sectionId}
-      className="mx-auto max-w-6xl px-6 py-16 md:py-24"
+      className="mx-auto max-w-6xl scroll-mt-28 px-5 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-24"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
-      <motion.div variants={headerVariants} className="mb-10 max-w-3xl">
+      <motion.div variants={headerVariants} className="mb-8 max-w-3xl sm:mb-10">
         {eyebrow ? (
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-(--color-accent)">
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="mt-4 font-[family-name:var(--font-display)] text-4xl leading-tight text-[var(--color-ink)] md:text-5xl">
+
+        <h2 className="mt-3 font-(family-name:--font-display) text-3xl font-bold leading-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
           {title}
         </h2>
+
         {intro ? (
-          <p className="mt-4 text-lg leading-8 text-[var(--color-muted)]">
+          <p className="mt-4 max-w-2xl text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
             {intro}
           </p>
         ) : null}

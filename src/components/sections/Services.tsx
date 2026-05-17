@@ -39,6 +39,7 @@ const item = {
 export function Services({ services }: ServicesProps) {
   return (
     <SectionWrapper
+      id="services"
       eyebrow="Services"
       title="Support across forecasting, controls, reporting, and compliance."
       intro="Designed as modular service lines so clients can engage where the pressure is highest."

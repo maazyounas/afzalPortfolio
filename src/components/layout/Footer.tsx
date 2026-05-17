@@ -19,22 +19,16 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-      <footer className="relative overflow-hidden border-t border-(--color-line) bg-white">
-      {/* Background Glow */}
+    <footer className="relative overflow-hidden border-t border-(--color-line) bg-white">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute left-0 top-0 h-72 w-72 rounded-full bg-(--color-accent-light) opacity-40 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-cyan-100 opacity-40 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-8 pt-16 lg:px-8">
-        {/* Top Grid */}
-        <div className="grid gap-14 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
-          {/* Brand */}
+      <div className="relative mx-auto max-w-7xl px-5 pb-8 pt-14 sm:px-6 sm:pt-16 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr_0.8fr]">
           <div>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-3"
-            >
+            <Link href="/" className="inline-flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-(--color-accent) text-lg font-bold text-white shadow-lg">
                 S
               </div>
@@ -54,25 +48,23 @@ export function Footer() {
               {siteConfig.description}
             </p>
 
-            {/* Contact Info */}
             <div className="mt-8 space-y-4">
-              <div className="flex items-center gap-3 text-sm text-(--color-muted)">
-                <Mail className="h-4 w-4 text-(--color-accent)" />
-                hello@softechfinancials.com
+              <div className="flex items-start gap-3 text-sm text-(--color-muted)">
+                <Mail className="mt-0.5 h-4 w-4 text-(--color-accent)" />
+                <span className="break-all">{siteConfig.company.email}</span>
               </div>
 
-              <div className="flex items-center gap-3 text-sm text-(--color-muted)">
-                <Phone className="h-4 w-4 text-(--color-accent)" />
-                +92 300 1234567
+              <div className="flex items-start gap-3 text-sm text-(--color-muted)">
+                <Phone className="mt-0.5 h-4 w-4 text-(--color-accent)" />
+                <span>{siteConfig.company.phone}</span>
               </div>
 
-              <div className="flex items-center gap-3 text-sm text-(--color-muted)">
-                <MapPin className="h-4 w-4 text-(--color-accent)" />
-                Islamabad, Pakistan
+              <div className="flex items-start gap-3 text-sm text-(--color-muted)">
+                <MapPin className="mt-0.5 h-4 w-4 text-(--color-accent)" />
+                <span>{siteConfig.location.address}</span>
               </div>
             </div>
 
-            {/* Socials */}
             <div className="mt-8 flex items-center gap-3">
               {[
                 {
@@ -107,7 +99,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Navigation */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-(--color-ink)">
               Navigation
@@ -118,7 +109,7 @@ export function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group flex items-center justify-between text-sm font-medium text-(--color-muted) transition-all duration-300 hover:text-(--color-ink)"
+                  className="group flex items-center justify-between rounded-xl py-1 text-sm font-medium text-(--color-muted) transition-all duration-300 hover:text-(--color-ink)"
                 >
                   <span>{item.label}</span>
 
@@ -128,15 +119,14 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-(--color-ink)">
               Newsletter
             </h3>
 
             <p className="mt-6 text-sm leading-7 text-(--color-muted)">
-              Subscribe to receive insights, updates,
-              and financial strategies directly in your inbox.
+              Subscribe to receive insights, updates, and financial strategies
+              directly in your inbox.
             </p>
 
             <form className="mt-6">
@@ -159,7 +149,6 @@ export function Footer() {
               </div>
             </form>
 
-            {/* Trust Logos */}
             <div className="mt-10">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-(--color-muted)">
                 Trusted By
@@ -172,8 +161,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-(--color-line) pt-6 text-sm text-(--color-muted) md:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-(--color-line) pt-6 text-center text-sm text-(--color-muted) md:flex-row md:text-left">
           <p>
             © {currentYear} {siteConfig.name}. All rights reserved.
           </p>

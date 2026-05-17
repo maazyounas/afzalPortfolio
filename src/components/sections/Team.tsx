@@ -14,6 +14,7 @@ function initials(name: string) {
 export function Team() {
   return (
     <SectionWrapper
+      id="team"
       eyebrow="Team"
       title="Senior specialists who stay close to the work."
       intro="Our model keeps experienced operators involved in both the strategic framing and the practical rollout."

@@ -1,7 +1,8 @@
 "use client";
 
+import type { KeyboardEvent } from "react";
 import { useEffect, useRef, useState } from "react";
-import { Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { motion } from "@/lib/motion";
 
 import { testimonials } from "@/lib/data/testimonials";
@@ -19,7 +20,11 @@ function initials(name: string) {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18 },
-  enter: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08 } }),
+  enter: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.08 },
+  }),
 };
 
 export function Testimonials() {
@@ -32,7 +37,6 @@ export function Testimonials() {
     if (!el) return;
 
     const handleResize = () => {
-      // keep visible card aligned
       const child = el.children[index] as HTMLElement | undefined;
       if (child) el.scrollTo({ left: child.offsetLeft - 12, behavior: "smooth" });
     };
@@ -56,9 +60,14 @@ export function Testimonials() {
     if (child) el.scrollTo({ left: child.offsetLeft - 12, behavior: "smooth" });
   }, [index]);
 
-  const handleKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "ArrowLeft") setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
-    if (e.key === "ArrowRight") setIndex((i) => (i + 1) % testimonials.length);
+  const handleKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowLeft") {
+      setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+    }
+
+    if (e.key === "ArrowRight") {
+      setIndex((i) => (i + 1) % testimonials.length);
+    }
   };
 
   return (
@@ -88,7 +97,7 @@ export function Testimonials() {
               viewport={{ once: true, amount: 0.2 }}
               variants={cardVariants}
               whileHover={{ scale: 1.02, y: -4 }}
-              className="snap-start w-[90%] sm:w-[70%] lg:w-auto rounded-2xl bg-white/60 backdrop-blur-md border border-zinc-100 p-6 shadow-sm hover:shadow-xl transition-shadow duration-300"
+              className="w-[90%] snap-start rounded-2xl border border-zinc-100 bg-white/60 p-6 shadow-sm transition-shadow duration-300 hover:shadow-xl sm:w-[70%] lg:w-auto"
             >
               <div className="flex items-start gap-4">
                 <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-slate-50 to-emerald-50 text-xl font-semibold text-slate-700 shadow-sm">
@@ -96,12 +105,18 @@ export function Testimonials() {
                 </div>
 
                 <div className="flex-1">
-                  <p className="text-lg leading-relaxed text-slate-800">“{t.quote}”</p>
+                  <p className="text-lg leading-relaxed text-slate-800">
+                    &quot;{t.quote}&quot;
+                  </p>
+
                   <div className="mt-4 flex items-center justify-between gap-4">
                     <div>
-                      <div className="text-sm font-medium text-slate-900">{t.name}</div>
+                      <div className="text-sm font-medium text-slate-900">
+                        {t.name}
+                      </div>
                       <div className="text-xs text-zinc-500">{t.title}</div>
                     </div>
+
                     <div className="hidden items-center gap-1 sm:flex">
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} className="h-4 w-4 text-amber-400" />
@@ -114,24 +129,36 @@ export function Testimonials() {
           ))}
         </motion.div>
 
-        {/* subtle floating gradient */}
         <div className="pointer-events-none absolute -right-24 top-0 -z-10 hidden h-72 w-72 translate-x-1/3 rounded-full bg-gradient-to-br from-sky-50 to-emerald-50 opacity-30 blur-3xl lg:block" />
-        {/* controls (mobile) */}
+
         <div className="absolute left-4 top-1/2 z-20 -translate-y-1/2 lg:hidden">
-          <button onClick={() => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length)} className="rounded-full bg-white/90 p-2 shadow">
+          <button
+            onClick={() => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length)}
+            className="rounded-full bg-white/90 p-2 shadow"
+          >
             <ChevronLeft className="h-4 w-4 text-slate-700" />
           </button>
         </div>
 
         <div className="absolute right-4 top-1/2 z-20 -translate-y-1/2 lg:hidden">
-          <button onClick={() => setIndex((i) => (i + 1) % testimonials.length)} className="rounded-full bg-white/90 p-2 shadow">
+          <button
+            onClick={() => setIndex((i) => (i + 1) % testimonials.length)}
+            className="rounded-full bg-white/90 p-2 shadow"
+          >
             <ChevronRight className="h-4 w-4 text-slate-700" />
           </button>
         </div>
 
         <div className="mt-4 flex items-center justify-center gap-2">
           {testimonials.map((_, i) => (
-            <button key={i} onClick={() => setIndex(i)} aria-label={`Show testimonial ${i + 1}`} className={`h-2 w-8 rounded-full ${i === index ? "bg-[var(--color-accent)]" : "bg-zinc-200"}`}></button>
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Show testimonial ${i + 1}`}
+              className={`h-2 w-8 rounded-full ${
+                i === index ? "bg-[var(--color-accent)]" : "bg-zinc-200"
+              }`}
+            />
           ))}
         </div>
       </div>
