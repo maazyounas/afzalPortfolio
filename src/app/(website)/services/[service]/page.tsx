@@ -46,9 +46,15 @@ export default async function ServiceDetailPage({ params }: Props) {
         ]}
       />
       <div className="space-y-6 rounded-[2rem] border border-[var(--color-line)] bg-white p-8 shadow-[0_18px_60px_rgba(17,33,31,0.08)]">
-        <p className="text-lg leading-8 text-[var(--color-muted)]">
+        <div className="text-lg leading-8 text-[var(--color-muted)] font-medium">
           {service.description}
-        </p>
+        </div>
+
+        {service.content && (
+          <div className="mt-8 pt-8 border-t border-[var(--color-line)] whitespace-pre-wrap leading-relaxed text-[var(--color-ink)]">
+            {service.content}
+          </div>
+        )}
       </div>
     </SectionWrapper>
   );

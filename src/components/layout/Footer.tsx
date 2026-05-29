@@ -12,32 +12,23 @@ import {
 
 import { navigation } from "@/lib/data/navigation";
 import { siteConfig } from "@/lib/data/site-config";
+import { getSettings } from "@/actions/settings";
 
-const socialLinks = [
-  {
-    icon: Globe,
-    href: "#",
-    label: "Website",
-  },
-  {
-    icon: Link2,
-    href: "#",
-    label: "LinkedIn",
-  },
-  {
-    icon: Share2,
-    href: "#",
-    label: "Social",
-  },
-  {
-    icon: ExternalLink,
-    href: "#",
-    label: "External",
-  },
-];
-
-export function Footer() {
+export async function Footer() {
   const currentYear = new Date().getFullYear();
+  const settings = await getSettings();
+
+  const siteName = settings?.siteName || siteConfig.name;
+  const description = settings?.description || siteConfig.description;
+  const email = settings?.contactEmail || siteConfig.company.email;
+  const phone = settings?.contactPhone || siteConfig.company.phone;
+  const address = settings?.address || siteConfig.location.address;
+
+  const dynamicSocialLinks = [
+    { icon: Link2, href: settings?.socialLinks?.linkedin || "#", label: "LinkedIn" },
+    { icon: Share2, href: settings?.socialLinks?.twitter || "#", label: "Twitter" },
+    { icon: Globe, href: settings?.socialLinks?.facebook || "#", label: "Facebook" },
+  ].filter(link => link.href !== "#" && link.href !== "");
 
   return (
     <footer className="relative overflow-hidden border-t border-[var(--color-line)] bg-white">
@@ -63,7 +54,7 @@ export function Footer() {
 
               <div>
                 <h2 className="font-[family-name:var(--font-display)] text-2xl font-bold text-[var(--color-ink)]">
-                  {siteConfig.name}
+                  {siteName}
                 </h2>
 
                 <p className="mt-1 text-sm text-[var(--color-muted)]">
@@ -73,12 +64,12 @@ export function Footer() {
             </Link>
 
             <p className="mt-6 text-[15px] leading-8 text-[var(--color-muted)]">
-              {siteConfig.description}
+              {description}
             </p>
 
             {/* Social Links */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              {socialLinks.map((social) => {
+              {dynamicSocialLinks.map((social) => {
                 const Icon = social.icon;
 
                 return (
@@ -150,7 +141,7 @@ export function Footer() {
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-[var(--color-muted)] break-all">
-                    {siteConfig.company.email}
+                    {email}
                   </p>
                 </div>
               </div>
@@ -166,7 +157,7 @@ export function Footer() {
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-[var(--color-muted)]">
-                    {siteConfig.company.phone}
+                    {phone}
                   </p>
                 </div>
               </div>
@@ -182,7 +173,7 @@ export function Footer() {
                   </p>
 
                   <p className="mt-1 text-sm leading-6 text-[var(--color-muted)]">
-                    {siteConfig.location.address}
+                    {address}
                   </p>
                 </div>
               </div>
@@ -201,7 +192,7 @@ export function Footer() {
           "
         >
           <p>
-            © {currentYear} {siteConfig.name}. All rights reserved.
+            © {currentYear} {siteName}. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-5">

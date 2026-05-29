@@ -7,8 +7,13 @@ import {
 } from "lucide-react";
 
 import { motion } from "@/lib/motion";
-import { teamMembers } from "@/lib/data/team";
+import { teamMembers as staticMembers } from "@/lib/data/team";
 import { SectionWrapper } from "../ui/SectionWrapper";
+import { ITeamMember } from "@/models/TeamMember";
+
+interface TeamProps {
+  members?: ITeamMember[];
+}
 
 function initials(name: string) {
   return name
@@ -46,7 +51,10 @@ const item = {
   },
 };
 
-export function Team() {
+export function Team({ members = [] }: TeamProps) {
+  // Fallback to static members if DB has none, so the site doesn't look blank
+  const displayMembers = members.length > 0 ? members : staticMembers;
+
   return (
     <SectionWrapper
       id="team"
@@ -62,9 +70,9 @@ export function Team() {
         viewport={{ once: true, margin: "-80px" }}
         className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
       >
-        {teamMembers.map((member) => (
+        {displayMembers.map((member) => (
           <motion.article
-            key={member.slug}
+            key={member.slug || String(member._id)}
             variants={item}
             whileHover={{
               y: -8,

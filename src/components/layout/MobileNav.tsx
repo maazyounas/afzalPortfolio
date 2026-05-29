@@ -18,11 +18,13 @@ type MobileNavProps = {
     e: MouseEvent<HTMLAnchorElement>,
     id: string
   ) => void;
+  siteName?: string;
 };
 
 export function MobileNav({
   activeSection = "",
   onNavigate,
+  siteName = "Softech Financials",
 }: MobileNavProps) {
   const [open, setOpen] = useState(false);
 
@@ -77,20 +79,20 @@ export function MobileNav({
             />
 
             <motion.aside
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 100 }}
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
               transition={{
                 type: "spring",
-                stiffness: 260,
-                damping: 24,
+                stiffness: 300,
+                damping: 30,
               }}
-              className="fixed inset-y-3 left-3 right-3 z-50 flex max-w-sm flex-col overflow-hidden rounded-[2rem] border border-white/30 bg-[rgba(255,255,255,0.9)] shadow-[0_20px_80px_rgba(15,23,42,0.25)] backdrop-blur-2xl sm:inset-y-4 sm:right-4 sm:left-auto sm:w-[88vw]"
+              className="fixed inset-y-0 right-0 z-50 flex w-[85vw] max-w-sm flex-col bg-white/95 shadow-[-20px_0_80px_rgba(15,23,42,0.15)] backdrop-blur-2xl sm:w-[400px]"
             >
               <div className="flex items-center justify-between border-b border-(--color-line) px-5 py-5 sm:px-6">
                 <div className="min-w-0">
-                  <h2 className="font-(family-name:--font-display) text-xl font-bold text-(--color-ink)">
-                    Softech
+                  <h2 className="font-(family-name:--font-display) text-xl font-bold text-(--color-ink) truncate">
+                    {siteName}
                   </h2>
 
                   <p className="mt-1 text-xs uppercase tracking-[0.2em] text-(--color-muted)">
@@ -148,21 +150,8 @@ export function MobileNav({
                 })}
               </nav>
 
-              <div className="border-t border-(--color-line) p-5">
-                <Link
-                  href="/#contact"
-                  onClick={(e) => {
-                    onNavigate?.(e, "contact");
-                    handleClose();
-                  }}
-                  className="group flex w-full items-center justify-center gap-2 rounded-2xl bg-(--color-accent) px-5 py-4 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-(--color-accent-strong) hover:shadow-xl"
-                >
-                  Get Started
-
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-
-                <p className="mt-4 text-center text-xs leading-relaxed text-(--color-muted)">
+              <div className="border-t border-(--color-line) bg-white p-6">
+                <p className="text-center text-sm leading-relaxed text-(--color-muted)">
                   Helping businesses grow with modern financial solutions.
                 </p>
               </div>

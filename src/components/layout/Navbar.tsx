@@ -5,17 +5,18 @@ import { usePathname } from "next/navigation";
 import type { MouseEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { AnimatePresence, motion } from "@/lib/motion";
+import { motion } from "@/lib/motion";
 
 import { navigation } from "@/lib/data/navigation";
 
 import { MobileNav } from "./MobileNav";
+import { siteConfig } from "@/lib/data/site-config";
 
-export function Navbar() {
+export function Navbar({ siteName }: { siteName?: string }) {
+  const displaySiteName = siteName || siteConfig.name;
   const pathname = usePathname();
   const [active, setActive] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
-  const [showCTA, setShowCTA] = useState(false);
 
   const sectionIds = useMemo(
     () =>
@@ -31,7 +32,6 @@ export function Navbar() {
       const marker = 160;
 
       setScrolled(scrollY > 20);
-      setShowCTA(scrollY > 320);
 
       if (pathname !== "/") {
         setActive("");
@@ -103,8 +103,9 @@ export function Navbar() {
 
   return (
     <>
+      <div className="h-[4.5rem] sm:h-20 w-full shrink-0" />
       <header
-        className={`sticky top-0 z-50 transition-all duration-300 ${
+        className={`fixed w-full top-0 z-50 transition-all duration-300 ${
           scrolled
             ? "border-b border-(--color-line) bg-[rgba(255,255,255,0.82)] shadow-[0_8px_30px_rgba(15,23,42,0.06)] backdrop-blur-xl"
             : "bg-transparent"
@@ -122,7 +123,7 @@ export function Navbar() {
 
             <div className="flex min-w-0 flex-col">
               <span className="truncate font-(family-name:--font-display) text-base font-bold tracking-tight text-(--color-ink) sm:text-xl">
-                Softech Financials
+                {displaySiteName}
               </span>
 
               <span className="truncate text-[10px] font-medium tracking-[0.18em] text-(--color-muted) uppercase sm:text-xs">
@@ -183,35 +184,11 @@ export function Navbar() {
           </div>
 
           <div className="lg:hidden">
-            <MobileNav activeSection={active} onNavigate={handleNavigation} />
+            <MobileNav activeSection={active} onNavigate={handleNavigation} siteName={displaySiteName} />
           </div>
         </div>
       </header>
 
-      <AnimatePresence>
-        {showCTA && (
-          <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 24, scale: 0.9 }}
-            transition={{ duration: 0.25 }}
-            className="fixed right-4 bottom-4 z-60 lg:hidden sm:right-5 sm:bottom-5"
-          >
-            <Link
-              href="/#contact"
-              onClick={(e) => handleNavigation(e, "contact")}
-              className="group flex items-center gap-2 rounded-full bg-(--color-accent) px-4 py-3 text-sm font-semibold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-(--color-accent-strong) sm:px-5"
-            >
-              Get Started
-
-              <ArrowRight
-                size={15}
-                className="transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }

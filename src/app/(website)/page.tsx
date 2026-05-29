@@ -1,5 +1,7 @@
 import { getBlogPosts } from "@/actions/blogs";
 import { getServices } from "@/actions/services";
+import { getTeamMembers } from "@/actions/team";
+import { getSettings } from "@/actions/settings";
 import { About } from "@/components/sections/About";
 import { BlogPreview } from "@/components/sections/BlogPreview";
 import { Contact } from "@/components/sections/Contact";
@@ -15,6 +17,8 @@ export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const services = await getServices(true);
+  const teamMembers = await getTeamMembers();
+  const settings = await getSettings();
   const blogPosts = await getBlogPosts();
   const featuredPosts =
     blogPosts.length > 0
@@ -28,12 +32,16 @@ export default async function HomePage() {
       <Hero />
       <Services services={services} />
       <About />
-      <Team />
+      <Team members={teamMembers} />
       <BlogPreview posts={featuredPosts} />
       <Process />
       <Testimonials />
       <FAQAccordion />
-      <Contact />
+      <Contact 
+        email={settings?.contactEmail} 
+        phone={settings?.contactPhone} 
+        mapLocation={settings?.mapLocation} 
+      />
     </>
   );
 }

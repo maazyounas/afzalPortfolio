@@ -3,7 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getSettings } from "@/actions/settings";
 import JsonLd from "@/components/seo/JsonLd";
-
+import { AnimationProvider } from "@/components/providers/AnimationProvider";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
 
@@ -104,9 +104,11 @@ export default async function WebsiteLayout({
 
       {/* App Shell */}
       <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased scroll-smooth">
-        <Navbar />
+        <Navbar siteName={settings?.siteName} />
 
-        <main className="flex-1">{children}</main>
+        <AnimationProvider>
+          <main className="flex-1">{children}</main>
+        </AnimationProvider>
 
         <Footer />
       </div>

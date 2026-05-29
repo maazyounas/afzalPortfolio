@@ -4,6 +4,7 @@ export interface IService extends Document {
   name: string;
   slug: string;
   description: string;
+  content?: string;
   icon?: string;
   order: number;
   isActive: boolean;
@@ -16,6 +17,7 @@ const ServiceSchema: Schema = new Schema(
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     description: { type: String, required: true },
+    content: { type: String },
     icon: { type: String },
     order: { type: Number, default: 0 },
     isActive: { type: Boolean, default: true },

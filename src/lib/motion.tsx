@@ -46,6 +46,13 @@ type TypedMotion = typeof framerMotion & {
   ul: MotionTag<"ul", HTMLUListElement>;
   li: MotionTag<"li", HTMLLIElement>;
   button: MotionTag<"button", HTMLButtonElement>;
+  p: MotionTag<"p", HTMLParagraphElement>;
+  h1: MotionTag<"h1", HTMLHeadingElement>;
+  h2: MotionTag<"h2", HTMLHeadingElement>;
+  h3: MotionTag<"h3", HTMLHeadingElement>;
+  h4: MotionTag<"h4", HTMLHeadingElement>;
+  h5: MotionTag<"h5", HTMLHeadingElement>;
+  h6: MotionTag<"h6", HTMLHeadingElement>;
 };
 
 export const motion = framerMotion as TypedMotion;

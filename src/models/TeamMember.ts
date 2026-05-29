@@ -2,8 +2,11 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface ITeamMember extends Document {
   name: string;
+  slug: string;
   role: string;
   bio?: string;
+  longBio?: string;
+  specialties?: string[];
   image?: string;
   order: number;
   socialLinks?: {
@@ -15,8 +18,11 @@ export interface ITeamMember extends Document {
 const TeamMemberSchema: Schema = new Schema(
   {
     name: { type: String, required: true },
+    slug: { type: String, required: true, unique: true },
     role: { type: String, required: true },
     bio: { type: String },
+    longBio: { type: String },
+    specialties: [{ type: String }],
     image: { type: String },
     order: { type: Number, default: 0 },
     socialLinks: {

@@ -4,6 +4,7 @@ import {
   MessageSquare, 
   FileText 
 } from "lucide-react";
+import Link from "next/link";
 import dbConnect from "@/lib/db/db";
 import Service from "@/models/Service";
 import TeamMember from "@/models/TeamMember";
@@ -63,9 +64,9 @@ export default async function AdminDashboard() {
             <button className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all hover:bg-white/10">
               Update Team
             </button>
-            <button className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all hover:bg-white/10">
+            <Link href="/admin/settings" className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all text-center hover:bg-white/10 block">
               Site Settings
-            </button>
+            </Link>
           </div>
         </div>
 

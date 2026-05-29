@@ -33,6 +33,7 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
       name: "",
       slug: "",
       description: "",
+      content: "",
       icon: "",
       isActive: true,
       order: 0,
@@ -84,14 +85,25 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Description</label>
+        <label className="text-sm font-medium">Description (Short Intro)</label>
         <textarea
           {...register("description")}
-          rows={5}
+          rows={3}
           className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-[var(--color-accent)]"
-          placeholder="Describe the service..."
+          placeholder="Brief summary of the service..."
         />
         {errors.description && <p className="text-xs text-red-400">{errors.description.message}</p>}
+      </div>
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Detailed Content</label>
+        <textarea
+          {...register("content")}
+          rows={12}
+          className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-[var(--color-accent)] font-mono text-sm"
+          placeholder="Write the full details here. You can use markdown or plain text with paragraphs..."
+        />
+        {errors.content && <p className="text-xs text-red-400">{errors.content.message}</p>}
       </div>
 
       <div className="flex items-center gap-4">

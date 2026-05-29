@@ -10,16 +10,22 @@ import { motion } from "@/lib/motion";
 import { SectionWrapper } from "../ui/SectionWrapper";
 import { ContactForm } from "@/components/ui/ContactForm";
 
-const infoCards = [
+type ContactProps = {
+  email?: string;
+  phone?: string;
+  mapLocation?: string;
+};
+
+const getInfoCards = (email?: string, phone?: string) => [
   {
     icon: Mail,
     title: "Email",
-    value: "hello@softechfinancials.com",
+    value: email || "hello@softechfinancials.com",
   },
   {
     icon: Phone,
     title: "Phone",
-    value: "+92 300 1234567",
+    value: phone || "+92 300 1234567",
   },
 ];
 
@@ -50,7 +56,13 @@ const item = {
   },
 };
 
-export function Contact() {
+export function Contact({ email, phone, mapLocation }: ContactProps) {
+  const infoCards = getInfoCards(email, phone);
+  const defaultMapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=0.0%2C51.5%2C0.1%2C51.52&layer=mapnik";
+  const googleMapUrl = mapLocation 
+    ? `https://maps.google.com/maps?q=${encodeURIComponent(mapLocation)}&output=embed` 
+    : defaultMapUrl;
+
   return (
     <SectionWrapper
       id="contact"
@@ -165,9 +177,10 @@ export function Contact() {
 
         <iframe
           title="office-location"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=0.0%2C51.5%2C0.1%2C51.52&layer=mapnik"
-          className="h-64 w-full"
+          src={googleMapUrl}
+          className="h-64 w-full border-0"
           loading="lazy"
+          allowFullScreen
         />
       </motion.div>
     </SectionWrapper>
