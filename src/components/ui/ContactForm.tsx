@@ -42,7 +42,7 @@ export function ContactForm() {
       <input
         {...register("name")}
         placeholder="Full name"
-        className="col-span-2 rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-sm text-[var(--color-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+        className="md:col-span-2 rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-sm text-[var(--color-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
         required
       />
 
@@ -62,11 +62,11 @@ export function ContactForm() {
       <textarea
         {...register("message")}
         placeholder="How can we help?"
-        className="col-span-2 min-h-[120px] rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-sm text-[var(--color-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+        className="md:col-span-2 min-h-[120px] rounded-lg border border-[var(--color-line)] bg-white px-3 py-2 text-sm text-[var(--color-ink)] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
         required
       />
 
-      <div className="col-span-2 flex items-center justify-between">
+      <div className="md:col-span-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between mt-2">
         <div className="text-sm text-[var(--color-muted)]">We respond within 2 business days.</div>
         <button
           type="submit"
@@ -77,7 +77,7 @@ export function ContactForm() {
         </button>
       </div>
       {toast ? (
-        <div aria-live="polite" className="col-span-2 mt-2">
+        <div aria-live="polite" className="md:col-span-2 mt-2">
           <div className="rounded-md bg-emerald-50 px-4 py-2 text-sm text-emerald-800 shadow-sm">{toast}</div>
         </div>
       ) : null}

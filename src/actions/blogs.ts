@@ -13,9 +13,10 @@ export async function createBlogPost(data: BlogPostInput) {
     revalidatePath("/admin/blogs");
     revalidatePath("/blog");
     return { success: true, data: JSON.parse(JSON.stringify(post)) };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to create blog post:", error);
-    return { error: "Failed to create blog post" };
+    const errorMessage = error?.errors?.[0]?.message || error?.message || "Failed to create blog post";
+    return { error: errorMessage };
   }
 }
 
@@ -27,9 +28,10 @@ export async function updateBlogPost(id: string, data: Partial<BlogPostInput>) {
     revalidatePath("/blog");
     revalidatePath(`/blog/${post.slug}`);
     return { success: true, data: JSON.parse(JSON.stringify(post)) };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to update blog post:", error);
-    return { error: "Failed to update blog post" };
+    const errorMessage = error?.errors?.[0]?.message || error?.message || "Failed to update blog post";
+    return { error: errorMessage };
   }
 }
 
@@ -54,5 +56,27 @@ export async function getBlogPosts() {
   } catch (error) {
     console.error("Failed to fetch blog posts:", error);
     return [];
+  }
+}
+
+export async function getBlogPostBySlug(slug: string) {
+  try {
+    await dbConnect();
+    const post = await BlogPost.findOne({ slug });
+    return post ? JSON.parse(JSON.stringify(post)) : null;
+  } catch (error) {
+    console.error("Failed to fetch blog post by slug:", error);
+    return null;
+  }
+}
+
+export async function getBlogPostById(id: string) {
+  try {
+    await dbConnect();
+    const post = await BlogPost.findById(id);
+    return post ? JSON.parse(JSON.stringify(post)) : null;
+  } catch (error) {
+    console.error("Failed to fetch blog post by id:", error);
+    return null;
   }
 }

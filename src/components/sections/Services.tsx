@@ -54,7 +54,7 @@ export function Services({ services }: ServicesProps) {
         className="
           grid gap-6
           sm:grid-cols-2
-          xl:grid-cols-3
+          lg:grid-cols-3
         "
       >
         {services?.length > 0 ? (
@@ -72,13 +72,13 @@ export function Services({ services }: ServicesProps) {
                 stiffness: 260,
                 damping: 18,
               }}
-              className="group relative"
+              className="group relative h-full flex flex-col"
             >
               {/* Glow Background */}
               <div className="absolute -inset-1 rounded-[2rem] bg-gradient-to-br from-[var(--color-accent)]/10 to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
 
               {/* Card */}
-              <div className="relative">
+              <div className="relative flex-1 flex flex-col h-full">
                 <Card
                   title={service.name}
                   description={service.description}

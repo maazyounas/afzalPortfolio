@@ -32,7 +32,7 @@ export function SectionWrapper({
   return (
     <motion.section
       id={sectionId}
-      className="mx-auto max-w-6xl scroll-mt-28 px-5 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-24"
+      className="mx-auto max-w-6xl scroll-mt-15 sm:scroll-mt-24 px-5 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-14"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}

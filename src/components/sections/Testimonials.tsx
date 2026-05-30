@@ -12,7 +12,17 @@ import {
 } from "lucide-react";
 
 import { motion } from "@/lib/motion";
-import { testimonials } from "@/lib/data/testimonials";
+import { testimonials as staticTestimonials } from "@/lib/data/testimonials";
+
+export type TestimonialData = {
+  _id: string;
+  author: string;
+  role?: string;
+  company?: string;
+  content: string;
+  rating: number;
+  image?: string;
+};
 
 import { SectionWrapper } from "../ui/SectionWrapper";
 
@@ -52,7 +62,14 @@ const cardVariants = {
   },
 };
 
-export function Testimonials() {
+export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
+  const testimonials = data.length > 0 
+    ? data.map(item => ({
+        name: item.author,
+        title: [item.role, item.company].filter(Boolean).join(" at "),
+        quote: item.content,
+      }))
+    : staticTestimonials;
   const sliderRef = useRef<HTMLDivElement | null>(null);
 
   const [index, setIndex] = useState(0);

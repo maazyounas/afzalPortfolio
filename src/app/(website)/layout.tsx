@@ -103,7 +103,7 @@ export default async function WebsiteLayout({
       {organizationSchema && <JsonLd data={organizationSchema} />}
 
       {/* App Shell */}
-      <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased scroll-smooth">
+      <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased scroll-smooth overflow-x-hidden">
         <Navbar siteName={settings?.siteName} />
 
         <AnimationProvider>

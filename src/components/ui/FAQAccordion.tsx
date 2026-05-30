@@ -21,13 +21,21 @@ const items: Item[] = [
   },
 ];
 
-export function FAQAccordion() {
+export type FaqData = {
+  _id: string;
+  question: string;
+  answer: string;
+};
+
+export function FAQAccordion({ faqs = [] }: { faqs?: FaqData[] }) {
   const [open, setOpen] = useState<number | null>(0);
+
+  const displayItems = faqs.length > 0 ? faqs.map(f => ({ q: f.question, a: f.answer })) : items;
 
   return (
     <div className="mx-auto max-w-3xl px-5 sm:px-0">
       <div className="space-y-4">
-        {items.map((it, i) => {
+        {displayItems.map((it, i) => {
           const isOpen = open === i;
 
           return (

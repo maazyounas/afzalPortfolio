@@ -2,6 +2,8 @@ import { getBlogPosts } from "@/actions/blogs";
 import { getServices } from "@/actions/services";
 import { getTeamMembers } from "@/actions/team";
 import { getSettings } from "@/actions/settings";
+import { getTestimonials } from "@/actions/testimonials";
+import { getFaqs } from "@/actions/faq";
 import { About } from "@/components/sections/About";
 import { BlogPreview } from "@/components/sections/BlogPreview";
 import { Contact } from "@/components/sections/Contact";
@@ -26,6 +28,12 @@ export default async function HomePage() {
           .filter((post: { isPublished?: boolean }) => post.isPublished !== false)
           .slice(0, 3)
       : siteConfig.blogPosts.slice(0, 3);
+  
+  const testimonialsData = await getTestimonials();
+  const activeTestimonials = testimonialsData.filter((t: any) => t.isActive);
+
+  const faqsData = await getFaqs();
+  const activeFaqs = faqsData.filter((f: any) => f.isActive);
 
   return (
     <>
@@ -35,8 +43,8 @@ export default async function HomePage() {
       <Team members={teamMembers} />
       <BlogPreview posts={featuredPosts} />
       <Process />
-      <Testimonials />
-      <FAQAccordion />
+      <Testimonials data={activeTestimonials} />
+      <FAQAccordion faqs={activeFaqs} />
       <Contact 
         email={settings?.contactEmail} 
         phone={settings?.contactPhone} 

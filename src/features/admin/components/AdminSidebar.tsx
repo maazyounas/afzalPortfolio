@@ -9,7 +9,8 @@ import {
   Settings, 
   FileText, 
   Star,
-  LogOut 
+  LogOut,
+  HelpCircle
 } from "lucide-react";
 import { logout } from "@/actions/auth";
 
@@ -19,6 +20,7 @@ const navItems = [
   { href: "/admin/team", icon: Users, label: "Team" },
   { href: "/admin/testimonials", icon: Star, label: "Testimonials" },
   { href: "/admin/blogs", icon: FileText, label: "Blogs" },
+  { href: "/admin/faq", icon: HelpCircle, label: "FAQ" },
   { href: "/admin/messages", icon: MessageSquare, label: "Messages" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];

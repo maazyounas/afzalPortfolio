@@ -7,7 +7,7 @@ export const BlogPostSchema = z.object({
   content: z.string().min(50, "Content must be at least 50 characters"),
   category: z.string().min(2, "Category is required"),
   author: z.string().min(2, "Author is required"),
-  featuredImage: z.string().url("Must be a valid image URL").optional(),
+  featuredImage: z.union([z.string().url("Must be a valid image URL"), z.literal("")]).optional(),
   isPublished: z.boolean().default(false),
   publishedAt: z.date().optional(),
 });

@@ -107,7 +107,7 @@ export function Navbar({ siteName }: { siteName?: string }) {
       <header
         className={`fixed w-full top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "border-b border-(--color-line) bg-[rgba(255,255,255,0.82)] shadow-[0_8px_30px_rgba(15,23,42,0.06)] backdrop-blur-xl"
+            ? "bg-[rgba(255,255,255,0.85)] shadow-sm backdrop-blur-xl"
             : "bg-transparent"
         }`}
       >
