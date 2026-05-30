@@ -104,14 +104,17 @@ export function Navbar({ siteName }: { siteName?: string }) {
   return (
     <>
       <div className="h-[4.5rem] sm:h-20 w-full shrink-0" />
-      <header
-        className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-[rgba(255,255,255,0.85)] shadow-sm backdrop-blur-xl"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
+      <header className="fixed w-full top-0 z-50">
+        {/* Background with blur (separated to prevent containing block bug for fixed MobileNav) */}
+        <div
+          className={`absolute inset-0 transition-all duration-300 ${
+            scrolled
+              ? "bg-[rgba(255,255,255,0.85)] shadow-sm backdrop-blur-xl"
+              : "bg-transparent"
+          }`}
+        />
+
+        <div className="relative mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
           <Link
             href="/"
             onClick={handleLogoClick}
