@@ -12,26 +12,26 @@ import { motion } from "@/lib/motion";
 const stats = [
   {
     value: "30%",
-    label: "Faster financial closes",
-    description: "Reduce reporting cycle delays across teams.",
+    label: "Faster reporting",
+    description: "Reduce closing time with streamlined workflows.",
     icon: Clock3,
   },
   {
     value: "100%",
-    label: "Workflow visibility",
-    description: "Unified dashboards for finance operations.",
+    label: "Data clarity",
+    description: "View all financial insights in one place.",
     icon: BarChart3,
   },
   {
     value: "24/7",
-    label: "Operational monitoring",
-    description: "Continuous access to reporting insights.",
+    label: "Real-time access",
+    description: "Stay updated with live business metrics.",
     icon: ShieldCheck,
   },
   {
     value: "1",
-    label: "Integrated ecosystem",
-    description: "Connected tools, reporting, and leadership.",
+    label: "Unified platform",
+    description: "All financial tools working in sync.",
     icon: Layers3,
   },
 ];
@@ -67,17 +67,16 @@ export function HeroStats() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.10),transparent_35%)]" />
 
       {/* Header */}
-      <div className="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="relative z-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-(--color-accent)">
-            Live Financial Snapshot
+            Performance Overview
           </p>
         </div>
 
         {/* Live Indicator */}
         <div className="flex items-center gap-2 rounded-full border border-emerald-100 bg-emerald-50 px-3 py-1">
           <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-
           <span className="text-xs font-medium text-emerald-700">
             Live
           </span>
@@ -85,7 +84,7 @@ export function HeroStats() {
       </div>
 
       {/* Stats Grid */}
-      <div className="relative z-10 mt-8 grid gap-4 sm:grid-cols-2">
+      <div className="relative z-10 mt-6 grid gap-4 sm:grid-cols-2">
         {stats.map((stat, index) => {
           const Icon = stat.icon;
 
@@ -98,14 +97,13 @@ export function HeroStats() {
                 delay: index * 0.08,
                 duration: 0.45,
               }}
-              whileHover={{
-                y: -4,
-              }}
+              whileHover={{ y: -3 }}
               className="
                 group rounded-3xl
                 border border-(--color-line)
                 bg-white/90
-                p-4 shadow-sm sm:p-5
+                p-4 sm:p-5
+                shadow-sm
                 transition-all duration-300
                 hover:border-(--color-accent-light)
                 hover:shadow-lg
@@ -113,7 +111,7 @@ export function HeroStats() {
             >
               {/* Top */}
               <div className="flex items-start justify-between">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-(--color-accent-light) to-white">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-(--color-accent-light) to-white">
                   <Icon className="h-5 w-5 text-(--color-accent-strong)" />
                 </div>
 
@@ -125,18 +123,18 @@ export function HeroStats() {
               </div>
 
               {/* Content */}
-              <div className="mt-5">
+              <div className="mt-4">
                 <h4 className="text-sm font-semibold text-(--color-ink)">
                   {stat.label}
                 </h4>
 
-                <p className="mt-2 text-sm leading-6 text-(--color-muted)">
+                <p className="mt-1 text-sm leading-6 text-(--color-muted)">
                   {stat.description}
                 </p>
               </div>
 
               {/* Accent Line */}
-              <div className="mt-5 h-0.5 w-0 bg-(--color-accent) transition-all duration-300 group-hover:w-14" />
+              <div className="mt-4 h-0.5 w-0 bg-(--color-accent) transition-all duration-300 group-hover:w-12" />
             </motion.div>
           );
         })}

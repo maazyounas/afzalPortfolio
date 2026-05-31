@@ -23,7 +23,6 @@ export function SectionWrapper({
   intro,
   children,
   id,
-  centered,
 }: SectionWrapperProps) {
   const slug = (s = "") =>
     s
@@ -39,19 +38,19 @@ export function SectionWrapper({
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
-      <motion.div variants={headerVariants} className={`mb-8 max-w-3xl sm:mb-10 ${centered ? "mx-auto text-center" : ""}`}>
+      <motion.div variants={headerVariants} className="mb-8 max-w-3xl sm:mb-10">
+        {" "}
         {eyebrow ? (
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-(--color-accent)">
             {eyebrow}
           </p>
         ) : null}
-
         <h2 className="mt-3 font-(family-name:--font-display) text-3xl font-bold leading-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
           {title}
         </h2>
-
         {intro ? (
-          <p className={`mt-4 text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8 ${centered ? "mx-auto" : "max-w-2xl"}`}>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
+            {" "}
             {intro}
           </p>
         ) : null}

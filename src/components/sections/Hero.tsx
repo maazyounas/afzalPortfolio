@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/lib/data/site-config";
 import { HeroStats } from "./HeroStats";
-import { TrustLogos } from "@/components/ui/TrustLogos";
 import { motion } from "@/lib/motion";
 
 export function Hero() {
@@ -17,7 +16,11 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.1 }}
+          transition={{
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1],
+            staggerChildren: 0.1,
+          }}
           className="max-w-2xl"
         >
           <motion.p
@@ -50,25 +53,20 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
           >
-            <Button href="/#contact" className="w-full sm:w-auto hover:scale-105 transition-transform duration-300">
+            <Button
+              href="/#contact"
+              className="w-full sm:w-auto hover:scale-105 transition-transform duration-300"
+            >
               Book a discovery call
             </Button>
 
-            <Button href="/#services" variant="secondary" className="w-full sm:w-auto hover:scale-105 transition-transform duration-300">
+            <Button
+              href="/#services"
+              variant="secondary"
+              className="w-full sm:w-auto hover:scale-105 transition-transform duration-300"
+            >
               Explore services
             </Button>
-          </motion.div>
-
-          {/* Trust */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-5"
-          >
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-(--color-muted)">
-              Trusted by
-            </span>
-            <TrustLogos />
           </motion.div>
         </motion.div>
 
