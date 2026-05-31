@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/db/db";
 import Service from "@/models/Service";
 import { ServiceSchema, type ServiceInput } from "@/validators/service";
+import { formatError } from "@/lib/formatError";
 
 export async function createService(data: ServiceInput) {
   try {
@@ -13,9 +14,10 @@ export async function createService(data: ServiceInput) {
     revalidatePath("/admin/services");
     revalidatePath("/services");
     return { success: true, data: JSON.parse(JSON.stringify(service)) };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to create service:", error);
-    return { error: "Failed to create service" };
+    const errorMessage = formatError(error);
+    return { error: errorMessage };
   }
 }
 

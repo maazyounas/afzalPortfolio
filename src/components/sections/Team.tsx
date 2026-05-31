@@ -70,9 +70,9 @@ export function Team({ members = [] }: TeamProps) {
         viewport={{ once: true, margin: "-80px" }}
         className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
       >
-        {displayMembers.map((member) => (
+        {displayMembers.map((member, index) => (
           <motion.article
-            key={member.slug || String(member._id)}
+            key={member.slug || index}
             variants={item}
             whileHover={{
               y: -8,

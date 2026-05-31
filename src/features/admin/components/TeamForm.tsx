@@ -60,6 +60,7 @@ export function TeamForm({ initialData }: TeamFormProps) {
 
     const finalData: TeamMemberInput = {
       ...data,
+      order: data.order || 0,
       specialties: specialtiesArray,
       image: data.image || undefined,
       socialLinks: {
@@ -160,6 +161,7 @@ export function TeamForm({ initialData }: TeamFormProps) {
           className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
           placeholder="Forecasting, close process, controls, board reporting"
         />
+        {errors.specialties && <p className="text-xs text-red-400">{errors.specialties.message}</p>}
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -170,6 +172,7 @@ export function TeamForm({ initialData }: TeamFormProps) {
             className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
             placeholder="https://linkedin.com/in/username"
           />
+          {errors.socialLinks?.linkedin && <p className="text-xs text-red-400">{errors.socialLinks.linkedin.message}</p>}
         </div>
 
         <div className="space-y-2">
@@ -179,6 +182,7 @@ export function TeamForm({ initialData }: TeamFormProps) {
             className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
             placeholder="https://twitter.com/username"
           />
+          {errors.socialLinks?.twitter && <p className="text-xs text-red-400">{errors.socialLinks.twitter.message}</p>}
         </div>
       </div>
 

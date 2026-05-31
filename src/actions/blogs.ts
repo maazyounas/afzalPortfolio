@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/db/db";
 import BlogPost from "@/models/BlogPost";
 import { BlogPostSchema, type BlogPostInput } from "@/validators/blog";
+import { formatError } from "@/lib/formatError";
 
 export async function createBlogPost(data: BlogPostInput) {
   try {
@@ -15,7 +16,7 @@ export async function createBlogPost(data: BlogPostInput) {
     return { success: true, data: JSON.parse(JSON.stringify(post)) };
   } catch (error: any) {
     console.error("Failed to create blog post:", error);
-    const errorMessage = error?.errors?.[0]?.message || error?.message || "Failed to create blog post";
+    const errorMessage = formatError(error);
     return { error: errorMessage };
   }
 }
