@@ -13,7 +13,8 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { service: slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const decodedSlug = decodeURIComponent(slug);
+  const service = await getServiceBySlug(decodedSlug);
 
   if (!service) {
     return {};
@@ -27,7 +28,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ServiceDetailPage({ params }: Props) {
   const { service: slug } = await params;
-  const service = await getServiceBySlug(slug);
+  const decodedSlug = decodeURIComponent(slug);
+  const service = await getServiceBySlug(decodedSlug);
 
   if (!service) {
     notFound();

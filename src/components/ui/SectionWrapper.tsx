@@ -9,6 +9,7 @@ type SectionWrapperProps = {
   intro?: string;
   children: ReactNode;
   id?: string;
+  centered?: boolean;
 };
 
 const headerVariants = {
@@ -22,6 +23,7 @@ export function SectionWrapper({
   intro,
   children,
   id,
+  centered,
 }: SectionWrapperProps) {
   const slug = (s = "") =>
     s
@@ -37,7 +39,7 @@ export function SectionWrapper({
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
     >
-      <motion.div variants={headerVariants} className="mb-8 max-w-3xl sm:mb-10">
+      <motion.div variants={headerVariants} className={`mb-8 max-w-3xl sm:mb-10 ${centered ? "mx-auto text-center" : ""}`}>
         {eyebrow ? (
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-(--color-accent)">
             {eyebrow}
@@ -49,7 +51,7 @@ export function SectionWrapper({
         </h2>
 
         {intro ? (
-          <p className="mt-4 max-w-2xl text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
+          <p className={`mt-4 text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8 ${centered ? "mx-auto" : "max-w-2xl"}`}>
             {intro}
           </p>
         ) : null}
