@@ -204,12 +204,24 @@ export function MobileNav({
                         <Link
                           href={item.href}
                           onClick={(e) => {
-                            onNavigate?.(e, id);
-                            setTimeout(handleClose, 100);
+                            e.preventDefault();
+
+                            const element = document.getElementById(id);
+
+                            if (element) {
+                              handleClose();
+
+                              setTimeout(() => {
+                                element.scrollIntoView({
+                                  behavior: "smooth",
+                                  block: "start",
+                                });
+                              }, 300);
+                            }
                           }}
                           className={`group relative flex items-center justify-between rounded-xl px-5 py-4 text-base font-semibold transition-all duration-300 ${
                             isActive
-                              ? "bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) text-white shadow-lg"
+                              ? "bg-(--color-accent) text-white shadow-lg"
                               : "text-gray-700 hover:bg-gray-50 hover:pl-6"
                           }`}
                         >
@@ -241,12 +253,7 @@ export function MobileNav({
                           {isActive && (
                             <motion.div
                               layoutId="activeNav"
-                              className="absolute inset-0 rounded-xl bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) -z-10"
-                              transition={{
-                                type: "spring",
-                                stiffness: 500,
-                                damping: 30,
-                              }}
+                              className="absolute inset-0 rounded-xl bg-(--color-accent) -z-10"
                             />
                           )}
                         </Link>

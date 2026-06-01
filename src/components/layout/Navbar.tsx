@@ -74,23 +74,26 @@ export function Navbar({ siteName }: { siteName?: string }) {
   }, [pathname, sectionIds]);
 
   const handleNavigation = (
-    e: MouseEvent<HTMLAnchorElement>,
-    id: string
-  ) => {
-    if (pathname !== "/" || !id) return;
+  e: MouseEvent<HTMLAnchorElement>,
+  id: string
+) => {
+  if (pathname !== "/" || !id) return;
 
+  e.preventDefault();
+
+  setActive(id); // 🔥 THIS is what drives active state
+
+  window.history.replaceState(null, "", `/#${id}`);
+
+  requestAnimationFrame(() => {
     const section = document.getElementById(id);
 
-    if (!section) return;
-
-    e.preventDefault();
-    setActive(id);
-    window.history.replaceState(null, "", `/#${id}`);
-    section.scrollIntoView({
+    section?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
-  };
+  });
+};
 
   const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (pathname !== "/") return;

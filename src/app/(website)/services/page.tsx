@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { motion } from "@/lib/motion";
+import Link from "next/link";
 
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
-import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { getServices } from "@/actions/services";
 import type { IService } from "@/models/Service";
@@ -11,36 +11,55 @@ import {
   LineChart,
   Calculator,
   BriefcaseBusiness,
+  ArrowRight,
+  Sparkles,
+  TrendingUp,
+  Award,
+  Clock,
+  ChevronRight,
 } from "lucide-react";
+import { Card } from "@/components/ui/Card";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Services | Softech Financials",
   description:
-    "Explore Softech Financials service lines across advisory, tax, reporting, and compliance.",
+    "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
 };
 
 const highlights = [
   {
     icon: LineChart,
     title: "Strategic Forecasting",
-    text: "Real-time reporting and decision-ready dashboards.",
+    text: "Real-time reporting and decision-ready dashboards with predictive analytics.",
+    gradient: "from-emerald-50 to-cyan-50",
+    stat: "95% Accuracy",
+    color: "emerald",
   },
   {
     icon: ShieldCheck,
     title: "Audit & Compliance",
-    text: "Reliable controls and audit-ready documentation.",
+    text: "Reliable controls and audit-ready documentation with automated workflows.",
+    gradient: "from-blue-50 to-indigo-50",
+    stat: "100% Compliant",
+    color: "blue",
   },
   {
     icon: Calculator,
     title: "Tax Planning",
-    text: "Structured tax strategies aligned with growth.",
+    text: "Structured tax strategies aligned with growth and regulatory requirements.",
+    gradient: "from-amber-50 to-orange-50",
+    stat: "Max Savings",
+    color: "amber",
   },
   {
     icon: BriefcaseBusiness,
     title: "Operational Finance",
-    text: "Systems that scale with leadership and teams.",
+    text: "Systems that scale with leadership and teams for sustainable growth.",
+    gradient: "from-purple-50 to-pink-50",
+    stat: "3x Efficiency",
+    color: "purple",
   },
 ];
 
@@ -84,91 +103,227 @@ export default async function ServicesPage() {
       intro="Each engagement is structured around measurable reporting improvements, stronger controls, and sharper executive visibility."
     >
       {/* Breadcrumb */}
-      <Breadcrumb items={[{ label: "Services", href: "/services" }]} />
+      <div className="mb-6">
+        <Breadcrumb items={[{ label: "Services", href: "/services" }]} />
+      </div>
 
       {/* Hero Highlight Section */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55 }}
-        className="relative mt-8 overflow-hidden rounded-[2.5rem] border border-(--color-line) bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-8 lg:p-10"
+        className="relative mt-4 overflow-hidden rounded-[2rem] border border-(--color-line) bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-8 lg:p-10"
       >
         {/* Background Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.10),_transparent_35%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_40%)]" />
 
         <div className="relative">
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {highlights.map((highlight) => {
+            {highlights.map((highlight, idx) => {
               const Icon = highlight.icon;
 
               return (
-                <div
+                <motion.div
                   key={highlight.title}
-                  className="group rounded-3xl border border-(--color-line) bg-white/70 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group relative rounded-2xl border border-(--color-line) bg-white/70 p-5 transition-all duration-300 hover:shadow-xl"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-50 to-cyan-50 text-(--color-accent)">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
+
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${highlight.gradient} text-(--color-accent)`}>
                     <Icon className="h-5 w-5" />
                   </div>
 
-                  <h3 className="mt-5 text-base font-semibold text-(--color-ink)">
-                    {highlight.title}
-                  </h3>
+                  <div className="mt-4 flex items-center justify-between">
+                    <h3 className="text-base font-semibold text-(--color-ink)">
+                      {highlight.title}
+                    </h3>
+                    {highlight.stat && (
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-(--color-accent)">
+                        {highlight.stat}
+                      </span>
+                    )}
+                  </div>
 
-                  <p className="mt-2 text-sm leading-7 text-(--color-muted)">
+                  <p className="mt-2 text-sm leading-6 text-(--color-muted)">
                     {highlight.text}
                   </p>
-                </div>
+
+                  <div className="mt-4 h-0.5 w-8 rounded-full bg-(--color-accent-light) transition-all duration-300 group-hover:w-12" />
+                </motion.div>
               );
             })}
           </div>
         </div>
       </motion.div>
 
-      {/* Services Grid */}
+      {/* Services Section Title */}
       <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="mt-16 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
       >
-        {services?.length > 0 ? (
-          services.map((service: IService) => (
-            <motion.div
-              key={service.slug}
-              variants={item}
-              whileHover={{
-                y: -8,
-                scale: 1.01,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 18,
-              }}
-            >
-              <Card
-                title={service.name}
-                description={service.description}
-                href={`/services/${service.slug}`}
-              />
-            </motion.div>
-          ))
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="col-span-full rounded-3xl border border-dashed border-(--color-line) bg-white/70 px-6 py-14 text-center shadow-sm"
-          >
-            <h3 className="text-lg font-semibold text-(--color-ink)">
-              No services available
-            </h3>
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-(--color-ink) sm:text-3xl">
+            Our Service Offerings
+          </h2>
+          <p className="mt-2 text-(--color-muted)">
+            Comprehensive solutions designed for modern financial challenges
+          </p>
+        </div>
 
-            <p className="mt-2 text-sm text-(--color-muted)">
-              Service offerings will appear here once they are published.
-            </p>
-          </motion.div>
-        )}
+        <div className="flex items-center gap-2 text-xs text-(--color-muted) sm:hidden">
+          <span>Swipe to explore</span>
+          <ChevronRight className="h-3 w-3 animate-pulse" />
+        </div>
+      </motion.div>
+
+      {/* Services Grid with Horizontal Scroll on Mobile */}
+      <div className="mt-6">
+        {/* Mobile Horizontal Scroll View */}
+        <div className="overflow-x-auto pb-4 sm:hidden">
+          <div className="flex gap-4 px-1" style={{ width: "max-content" }}>
+            {services?.length > 0 ? (
+              services.map((service: IService, index: number) => (
+                <Link href={`/services/${service.slug}`} key={service.slug}>
+                  <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-[280px] shrink-0"
+                  >
+                    <div className="group relative">
+                      <div className="absolute -bottom-2 -right-2 h-full w-full rounded-2xl bg-(--color-accent-light)/20 transition-all duration-300 group-hover:-bottom-3 group-hover:-right-3" />
+                      <div className="absolute -bottom-1 -right-1 h-full w-full rounded-2xl bg-(--color-accent-light)/10 transition-all duration-300 group-hover:-bottom-2 group-hover:-right-2" />
+                      
+                      <div className="relative rounded-2xl border border-(--color-line) bg-white p-5 shadow-md transition-all duration-300 group-hover:shadow-xl">
+                        <div className="mb-4 flex items-start justify-between">
+                          <div className="rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) p-2.5">
+                            <Sparkles className="h-4 w-4 text-white" />
+                          </div>
+                          <ArrowRight className="h-4 w-4 text-(--color-muted) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-(--color-accent)" />
+                        </div>
+
+                        <h3 className="text-lg font-semibold text-(--color-ink)">
+                          {service.name}
+                        </h3>
+                        
+                        <p className="mt-2 text-sm leading-relaxed text-(--color-muted) line-clamp-3">
+                          {service.description}
+                        </p>
+
+                        <div className="mt-4 flex items-center gap-2 pt-3">
+                          <div className="h-px flex-1 bg-(--color-line)" />
+                          <span className="text-[10px] font-medium uppercase tracking-wider text-(--color-accent)">
+                            Learn More
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))
+            ) : (
+              <div className="w-[calc(100vw-2rem)] rounded-2xl border border-dashed border-(--color-line) bg-white/70 px-6 py-14 text-center">
+                <h3 className="text-lg font-semibold text-(--color-ink)">
+                  No services available
+                </h3>
+                <p className="mt-2 text-sm text-(--color-muted)">
+                  Service offerings will appear here once they are published.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Desktop Grid View */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services?.length > 0 ? (
+            services.map((service: IService) => (
+              <motion.div
+                key={service.slug}
+                variants={item}
+                whileHover={{
+                  y: -8,
+                  scale: 1.02,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 18,
+                }}
+              >
+                <Link href={`/services/${service.slug}`}>
+                  <div className="group relative h-full">
+                    <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) opacity-0 blur transition duration-500 group-hover:opacity-20" />
+                    <Card
+                      title={service.name}
+                      description={service.description}
+                      href={`/services/${service.slug}`}
+                    />
+                  </div>
+                </Link>
+              </motion.div>
+            ))
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="col-span-full rounded-3xl border border-dashed border-(--color-line) bg-white/70 px-6 py-14 text-center shadow-sm"
+            >
+              <h3 className="text-lg font-semibold text-(--color-ink)">
+                No services available
+              </h3>
+              <p className="mt-2 text-sm text-(--color-muted)">
+                Service offerings will appear here once they are published.
+              </p>
+            </motion.div>
+          )}
+        </div>
+      </div>
+
+      {/* Trust Indicators Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="mt-20 rounded-2xl border border-(--color-line) bg-gradient-to-br from-(--color-accent-light)/5 to-transparent p-6 sm:p-8"
+      >
+        <div className="grid gap-6 sm:grid-cols-3">
+          <div className="flex items-center gap-3">
+            <div className="rounded-full bg-emerald-100 p-2">
+              <TrendingUp className="h-5 w-5 text-emerald-600" />
+            </div>
+            <div>
+              <div className="font-semibold text-(--color-ink)">500+</div>
+              <div className="text-xs text-(--color-muted)">Clients Served</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="rounded-full bg-blue-100 p-2">
+              <Award className="h-5 w-5 text-blue-600" />
+            </div>
+            <div>
+              <div className="font-semibold text-(--color-ink)">15+ Years</div>
+              <div className="text-xs text-(--color-muted)">Industry Experience</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="rounded-full bg-purple-100 p-2">
+              <Clock className="h-5 w-5 text-purple-600" />
+            </div>
+            <div>
+              <div className="font-semibold text-(--color-ink)">24/7 Support</div>
+              <div className="text-xs text-(--color-muted)">Dedicated Assistance</div>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </SectionWrapper>
   );

@@ -5,34 +5,42 @@ import {
   ShieldCheck,
   Clock3,
   Layers3,
+  TrendingUp,
+  Zap,
+  Target,
+  Rocket,
 } from "lucide-react";
 
 import { motion } from "@/lib/motion";
 
 const stats = [
   {
-    value: "30%",
-    label: "Faster reporting",
-    description: "Reduce closing time with streamlined workflows.",
-    icon: Clock3,
+    value: "45%",
+    label: "Efficiency Gain",
+    description: "Automated workflows reduce manual tasks significantly.",
+    icon: TrendingUp,
+    trend: "+12%",
   },
   {
-    value: "100%",
-    label: "Data clarity",
-    description: "View all financial insights in one place.",
-    icon: BarChart3,
+    value: "99.9%",
+    label: "Accuracy Rate",
+    description: "AI-powered insights eliminate human errors.",
+    icon: Target,
+    trend: "Certified",
   },
   {
-    value: "24/7",
-    label: "Real-time access",
-    description: "Stay updated with live business metrics.",
-    icon: ShieldCheck,
+    value: "Real-time",
+    label: "Instant Sync",
+    description: "Live data updates across all your devices.",
+    icon: Zap,
+    trend: "24/7",
   },
   {
-    value: "1",
-    label: "Unified platform",
-    description: "All financial tools working in sync.",
-    icon: Layers3,
+    value: "3x",
+    label: "Faster Growth",
+    description: "Accelerate decisions with predictive analytics.",
+    icon: Rocket,
+    trend: "Scale",
   },
 ];
 
@@ -119,6 +127,11 @@ export function HeroStats() {
                   <div className="text-3xl font-bold tracking-tight text-(--color-ink)">
                     {stat.value}
                   </div>
+                  {stat.trend && (
+                    <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-(--color-accent)">
+                      {stat.trend}
+                    </div>
+                  )}
                 </div>
               </div>
 
