@@ -73,17 +73,13 @@ const item = {
 
 export function Process() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const scrollAmount = 300;
       const newScrollLeft = scrollRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
-      scrollRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: 'smooth'
-      });
+      scrollRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
     }
   };
 
@@ -146,7 +142,7 @@ export function Process() {
             <motion.div
               key={step.title}
               initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
               className="w-[300px] shrink-0"
             >
@@ -189,8 +185,8 @@ export function Process() {
 // Separate Process Card Component
 function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0]; index: number; isMobile?: boolean }) {
   const Icon = step.icon;
-  const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-50px" });
+  const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef as unknown as React.RefObject<Element>, { once: true, margin: "-50px" });
 
   return (
     <motion.div

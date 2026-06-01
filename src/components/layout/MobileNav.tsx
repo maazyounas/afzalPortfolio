@@ -26,7 +26,7 @@ type MobileNavProps = {
   siteName?: string;
 };
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ComponentType<{className?: string}>> = {
   home: Home,
   about: Info,
   services: Briefcase,

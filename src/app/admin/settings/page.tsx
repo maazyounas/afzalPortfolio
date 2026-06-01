@@ -9,7 +9,7 @@ export default async function SettingsPage() {
       <header className="mb-10">
         <h1 className="text-3xl font-bold">Site Settings</h1>
         <p className="mt-2 text-neutral-400">
-          Manage your website's global settings, footer content, and contact information.
+          Manage your website&apos;s global settings, footer content, and contact information.
         </p>
       </header>
 

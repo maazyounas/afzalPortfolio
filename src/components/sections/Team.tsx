@@ -3,14 +3,16 @@
 import {
   BadgeCheck,
   BriefcaseBusiness,
-  Mail,
+
   Sparkles,
   Star,
   Quote,
   ArrowRight,
-  ExternalLink,
+
 } from "lucide-react";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
+
+
 
 import { motion, useInView } from "@/lib/motion";
 import { teamMembers as staticMembers } from "@/lib/data/team";
@@ -18,10 +20,13 @@ import { SectionWrapper } from "../ui/SectionWrapper";
 import { ITeamMember } from "@/models/TeamMember";
 import { useRef } from "react";
 import Image from "next/image";
+import type { TeamMember } from "@/types";
 
-interface TeamProps {
-  members?: ITeamMember[];
+export interface TeamProps {
+  members?: (ITeamMember | TeamMember)[];
 }
+
+
 
 function initials(name: string) {
   return name
@@ -160,8 +165,8 @@ export function Team({ members = [] }: TeamProps) {
 }
 
 // Separate Team Card Component for better organization
-function TeamCard({ member, isMobile = false }: { member: ITeamMember; isMobile?: boolean }) {
-  const cardRef = useRef(null);
+function TeamCard({ member, isMobile = false }: { member: ITeamMember | TeamMember; isMobile?: boolean }) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
 
   // Get social links

@@ -8,6 +8,7 @@ export interface IService extends Document {
   icon?: string;
   order: number;
   isActive: boolean;
+  featuredImage?: string;
   createdAt: Date;
   updatedAt: Date;
 }

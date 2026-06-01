@@ -79,7 +79,8 @@ export function Contact({ email, phone, mapLocation }: ContactProps) {
     : defaultMapUrl;
   
   const [copiedField, setCopiedField] = useState<string | null>(null);
-  const sectionRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement>(null!);
+  const sectionRef = useRef<HTMLDivElement>(null!);
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   const handleCopy = (text: string, field: string) => {
@@ -90,11 +91,9 @@ export function Contact({ email, phone, mapLocation }: ContactProps) {
 
   const handleAction = (action: string, value: string) => {
     if (action === "mailto") {
-      window.location.href = `mailto:${value}`;
-    } else if (action === "tel") {
-      window.location.href = `tel:${value.replace(/\s/g, '')}`;
-    } else if (action === "chat") {
-      // Implement chat functionality
+        window.location.assign(`mailto:${value}`);
+      } else if (action === "tel") {
+        window.location.assign(`tel:${value.replace(/\s/g, '')}`);
       console.log("Open chat");
     }
   };

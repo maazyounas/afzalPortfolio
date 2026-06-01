@@ -252,8 +252,8 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
 }
 
 // Separate Testimonial Card Component
-function TestimonialCard({ testimonial, isCarousel = false }: { testimonial: any; isCarousel?: boolean }) {
-  const cardRef = useRef(null);
+function TestimonialCard({ testimonial, isCarousel = false }: { testimonial: TestimonialData; isCarousel?: boolean }) {
+  const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
   const hasImage = !!testimonial.image;
 
