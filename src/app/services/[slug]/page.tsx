@@ -16,7 +16,7 @@ interface ServicePageProps {
  */
 export default async function ServicePage({ params }: ServicePageProps) {
   const { slug } = params;
-  const service: Service | null = await getServiceBySlug(slug);
+  const service: IService | null = await getServiceBySlug(slug);
 
   if (!service) {
     notFound();

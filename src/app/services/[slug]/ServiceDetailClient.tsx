@@ -16,7 +16,7 @@ import { useState } from "react";
 import type { IService } from "@/models/Service";
 
 interface ServiceDetailClientProps {
-  service: Service;
+  service: IService;
 }
 
 export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
