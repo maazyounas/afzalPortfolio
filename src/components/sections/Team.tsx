@@ -3,16 +3,12 @@
 import {
   BadgeCheck,
   BriefcaseBusiness,
-
   Sparkles,
   Star,
   Quote,
   ArrowRight,
-
 } from "lucide-react";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
-
-
 
 import { motion, useInView } from "@/lib/motion";
 import { teamMembers as staticMembers } from "@/lib/data/team";
@@ -25,8 +21,6 @@ import type { TeamMember } from "@/types";
 export interface TeamProps {
   members?: (ITeamMember | TeamMember)[];
 }
-
-
 
 function initials(name: string) {
   return name
@@ -66,17 +60,19 @@ const item = {
 
 export function Team({ members = [] }: TeamProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+
   // Fallback to static members if DB has none, so the site doesn't look blank
   const displayMembers = members.length > 0 ? members : staticMembers;
 
-  const scroll = (direction: 'left' | 'right') => {
+  const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const scrollAmount = 300;
-      const newScrollLeft = scrollRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
+      const newScrollLeft =
+        scrollRef.current.scrollLeft +
+        (direction === "left" ? -scrollAmount : scrollAmount);
       scrollRef.current.scrollTo({
         left: newScrollLeft,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -112,15 +108,15 @@ export function Team({ members = [] }: TeamProps) {
 
         {/* Scroll Buttons */}
         <button
-          onClick={() => scroll('left')}
+          onClick={() => scroll("left")}
           className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
           aria-label="Scroll left"
         >
           <ArrowRight className="h-4 w-4 rotate-180 text-(--color-accent)" />
         </button>
-        
+
         <button
-          onClick={() => scroll('right')}
+          onClick={() => scroll("right")}
           className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
           aria-label="Scroll right"
         >
@@ -132,9 +128,9 @@ export function Team({ members = [] }: TeamProps) {
           ref={scrollRef}
           className="flex overflow-x-auto gap-5 pb-6 scrollbar-hide"
           style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
           }}
         >
           {displayMembers.map((member, index) => (
@@ -165,13 +161,19 @@ export function Team({ members = [] }: TeamProps) {
 }
 
 // Separate Team Card Component for better organization
-function TeamCard({ member, isMobile = false }: { member: ITeamMember | TeamMember; isMobile?: boolean }) {
+function TeamCard({
+  member,
+  isMobile = false,
+}: {
+  member: ITeamMember | TeamMember;
+  isMobile?: boolean;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
 
   // Get social links
   const socialLinks = member.socialLinks || {};
-  
+
   // Determine if we should show image or initials
   const hasImage = !!member.image;
 
@@ -331,8 +333,6 @@ function TeamCard({ member, isMobile = false }: { member: ITeamMember | TeamMemb
         </div>
       ) : null}
 
-      
-
       {/* Experience Level Indicator */}
       <div className="relative z-10 mt-5 flex items-center gap-2">
         <div className="flex flex-1 gap-0.5">
@@ -347,9 +347,6 @@ function TeamCard({ member, isMobile = false }: { member: ITeamMember | TeamMemb
           Senior Level
         </span>
       </div>
-
-      {/* Bottom Accent Bar */}
-      <div className="absolute bottom-0 left-0 h-1 w-0 rounded-r-full bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) transition-all duration-500 group-hover:w-full" />
 
       {/* Card Decorative Elements */}
       <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-(--color-accent-light) opacity-0 transition-opacity duration-500 group-hover:opacity-10" />

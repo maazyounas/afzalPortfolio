@@ -15,7 +15,7 @@ interface ServicePageProps {
  * If the service is not found, Next.js' `notFound` is called to render the 404 page.
  */
 export default async function ServicePage({ params }: ServicePageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const service: IService | null = await getServiceBySlug(slug);
 
   if (!service) {

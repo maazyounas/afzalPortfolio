@@ -1,10 +1,19 @@
 import Link from "next/link";
 import { Plus, Edit, Trash2 } from "lucide-react";
-import { getServices } from "@/actions/services";
+import { revalidatePath } from "next/cache";
+import { getServices, deleteService } from "@/actions/services";
 import { IService } from "@/models/Service";
 
 export default async function AdminServicesPage() {
   const services = await getServices();
+
+  async function handleDelete(formData: FormData) {
+    "use server";
+    const id = String(formData.get("id"));
+    await deleteService(id);
+    revalidatePath("/admin/services");
+    revalidatePath("/services");
+  }
 
   return (
     <div>
@@ -54,12 +63,15 @@ export default async function AdminServicesPage() {
                       >
                         <Edit className="h-4 w-4" />
                       </Link>
-                      <button
-                        className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-red-400/10 hover:text-red-400"
-                        // Add deletion logic here or via a separate client component
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                      <form action={handleDelete} className="inline">
+                        <input type="hidden" name="id" value={String(service._id)} />
+                        <button
+                          type="submit"
+                          className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-red-400/10 hover:text-red-400"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </form>
                     </div>
                   </td>
                 </tr>

@@ -5,12 +5,17 @@ import dbConnect from "@/lib/db/db";
 import BlogPost from "@/models/BlogPost";
 import { BlogPostSchema, type BlogPostInput } from "@/validators/blog";
 import { formatError } from "@/lib/formatError";
+import slugify from "@/lib/slugify";
 
 export async function createBlogPost(data: BlogPostInput) {
   try {
     await dbConnect();
     const validatedData = BlogPostSchema.parse(data);
-    const post = await BlogPost.create(validatedData);
+    const normalizedData = {
+      ...validatedData,
+      slug: slugify(validatedData.slug),
+    };
+    const post = await BlogPost.create(normalizedData);
     revalidatePath("/admin/blogs");
     revalidatePath("/blog");
     return { success: true, data: JSON.parse(JSON.stringify(post)) };
@@ -24,7 +29,11 @@ export async function createBlogPost(data: BlogPostInput) {
 export async function updateBlogPost(id: string, data: Partial<BlogPostInput>) {
   try {
     await dbConnect();
-    const post = await BlogPost.findByIdAndUpdate(id, data, { new: true });
+    const updateData = { ...data };
+    if (updateData.slug) {
+      updateData.slug = slugify(updateData.slug);
+    }
+    const post = await BlogPost.findByIdAndUpdate(id, updateData, { new: true });
     revalidatePath("/admin/blogs");
     revalidatePath("/blog");
     revalidatePath(`/blog/${post.slug}`);
@@ -63,7 +72,18 @@ export async function getBlogPosts() {
 export async function getBlogPostBySlug(slug: string) {
   try {
     await dbConnect();
-    const post = await BlogPost.findOne({ slug });
+    const normalizedSlug = slugify(slug);
+    let post =
+      (await BlogPost.findOne({ slug })) ||
+      (await BlogPost.findOne({ slug: normalizedSlug }));
+    if (!post) {
+      const altSlug1 = slug.replace(/-/g, " ");
+      post = await BlogPost.findOne({ slug: altSlug1 });
+    }
+    if (!post) {
+      const altSlug2 = slug.replace(/\s+/g, "-");
+      post = await BlogPost.findOne({ slug: altSlug2 });
+    }
     return post ? JSON.parse(JSON.stringify(post)) : null;
   } catch (error) {
     console.error("Failed to fetch blog post by slug:", error);

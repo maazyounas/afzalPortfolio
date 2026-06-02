@@ -2,14 +2,11 @@
 
 import {
   Mail,
-  MapPin,
   Phone,
-  Clock,
   Sparkles,
   Send,
   CheckCircle,
   Globe,
-  MessageCircle,
   ArrowRight,
 } from "lucide-react";
 
@@ -217,7 +214,6 @@ export function Contact({ email, phone, mapLocation }: ContactProps) {
             <div className="relative rounded-2xl border border-(--color-line) bg-white/90 p-6 shadow-xl backdrop-blur-sm sm:p-7">
               <div className="mb-6">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-(--color-accent)" />
                   <p className="text-xs font-semibold uppercase tracking-wider text-(--color-accent)">
                     Contact Form
                   </p>

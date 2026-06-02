@@ -3,38 +3,37 @@ import { notFound } from "next/navigation";
 
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
-import { teamMembers } from "@/lib/data/team";
+import { getTeamMemberBySlug } from "@/actions/team";
+import type { ITeamMember } from "@/models/TeamMember";
+
+export const dynamic = "force-dynamic";
 
 type Props = {
-  params: Promise<{ member: string }>;
+  params: { member: string };
 };
 
-export async function generateStaticParams() {
-  return teamMembers.map((member) => ({ member: member.slug }));
-}
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { member: slug } = await params;
-  const member = teamMembers.find((item) => item.slug === slug);
+  const { member: slug } = params;
+  const teamMember = await getTeamMemberBySlug(slug);
 
-  return member
+  return teamMember
     ? {
-        title: member.name,
-        description: member.bio,
+        title: teamMember.name,
+        description: teamMember.bio || teamMember.longBio || "",
       }
     : {};
 }
 
 export default async function TeamMemberPage({ params }: Props) {
-  const { member: slug } = await params;
-  const member = teamMembers.find((item) => item.slug === slug);
+  const { member: slug } = params;
+  const member: ITeamMember | null = await getTeamMemberBySlug(slug);
 
   if (!member) {
     notFound();
   }
 
   return (
-    <SectionWrapper eyebrow="Team Member" title={member.name} intro={member.bio}>
+    <SectionWrapper eyebrow="Team Member" title={member.name} intro={member.bio || ""}>
       <Breadcrumb
         items={[
           { label: "Team", href: "/team" },
@@ -47,7 +46,7 @@ export default async function TeamMemberPage({ params }: Props) {
             Focus Areas
           </p>
           <ul className="mt-4 space-y-3 text-[var(--color-muted)]">
-            {member.specialties.map((specialty) => (
+            {(member.specialties || []).map((specialty) => (
               <li key={specialty}>• {specialty}</li>
             ))}
           </ul>

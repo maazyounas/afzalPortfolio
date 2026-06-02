@@ -15,6 +15,11 @@ export type TeamMember = {
   bio: string;
   longBio: string;
   specialties: string[];
+  image?: string;
+  socialLinks?: {
+    linkedin?: string;
+    twitter?: string;
+  };
   updatedAt: string;
 };
 

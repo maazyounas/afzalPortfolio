@@ -67,7 +67,6 @@ export function ContactForm() {
       />
 
       <div className="md:col-span-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between mt-2">
-        <div className="text-sm text-[var(--color-muted)]">We respond within 2 business days.</div>
         <button
           type="submit"
           className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:shadow-lg"

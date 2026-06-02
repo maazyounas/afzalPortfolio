@@ -10,7 +10,6 @@ import {
   Star,
   BadgeCheck,
   Sparkles,
-  
 } from "lucide-react";
 
 import { motion, useInView } from "@/lib/motion";
@@ -65,20 +64,19 @@ const cardVariants = {
   },
 };
 
-
-
 export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
-  const testimonials = data.length > 0 
-    ? data.map(item => ({
-        id: item._id,
-        name: item.author,
-        title: [item.role, item.company].filter(Boolean).join(" at "),
-        quote: item.content,
-        rating: item.rating,
-        image: item.image,
-      }))
-    : staticTestimonials.map((t, idx) => ({ ...t, id: String(idx) }));
-    
+  const testimonials =
+    data.length > 0
+      ? data.map((item) => ({
+          id: item._id,
+          name: item.author,
+          title: [item.role, item.company].filter(Boolean).join(" at "),
+          quote: item.content,
+          rating: item.rating,
+          image: item.image,
+        }))
+      : staticTestimonials.map((t, idx) => ({ ...t, id: String(idx) }));
+
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [index, setIndex] = useState(0);
   const [isHover, setIsHover] = useState(false);
@@ -104,7 +102,8 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
     const child = slider.children[index] as HTMLElement;
     if (!child) return;
 
-    const scrollLeft = child.offsetLeft - (slider.offsetWidth / 2) + (child.offsetWidth / 2);
+    const scrollLeft =
+      child.offsetLeft - slider.offsetWidth / 2 + child.offsetWidth / 2;
     slider.scrollTo({
       left: scrollLeft,
       behavior: "smooth",
@@ -153,7 +152,6 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
       intro="We help organizations improve reporting visibility, operational clarity, and decision-making confidence."
       centered
     >
-
       {/* Testimonials Carousel */}
       <div
         className="relative"
@@ -191,9 +189,9 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
             ref={sliderRef}
             className="relative z-10 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-5 scrollbar-hide"
             style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+              WebkitOverflowScrolling: "touch",
             }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -212,7 +210,11 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
           {/* Navigation Controls */}
           <div className="mt-8 flex items-center justify-center gap-4">
             <button
-              onClick={() => setIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))}
+              onClick={() =>
+                setIndex((prev) =>
+                  prev === 0 ? testimonials.length - 1 : prev - 1,
+                )
+              }
               className="flex h-10 w-10 items-center justify-center rounded-full border border-(--color-line) bg-white shadow-sm transition-all hover:border-(--color-accent-light) hover:text-(--color-accent) hover:shadow-md"
               aria-label="Previous testimonial"
             >
@@ -236,7 +238,9 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
             </div>
 
             <button
-              onClick={() => setIndex((prev) => (prev + 1) % testimonials.length)}
+              onClick={() =>
+                setIndex((prev) => (prev + 1) % testimonials.length)
+              }
               className="flex h-10 w-10 items-center justify-center rounded-full border border-(--color-line) bg-white shadow-sm transition-all hover:border-(--color-accent-light) hover:text-(--color-accent) hover:shadow-md"
               aria-label="Next testimonial"
             >
@@ -244,15 +248,19 @@ export function Testimonials({ data = [] }: { data?: TestimonialData[] }) {
             </button>
           </div>
         </div>
-
-        
       </div>
     </SectionWrapper>
   );
 }
 
 // Separate Testimonial Card Component
-function TestimonialCard({ testimonial, isCarousel = false }: { testimonial: TestimonialData; isCarousel?: boolean }) {
+function TestimonialCard({
+  testimonial,
+  isCarousel = false,
+}: {
+  testimonial: TestimonialData;
+  isCarousel?: boolean;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-50px" });
   const hasImage = !!testimonial.image;
@@ -297,10 +305,7 @@ function TestimonialCard({ testimonial, isCarousel = false }: { testimonial: Tes
 
         <div className="flex items-center gap-0.5">
           {[...Array(testimonial.rating || 5)].map((_, i) => (
-            <Star
-              key={i}
-              className="h-4 w-4 fill-amber-400 text-amber-400"
-            />
+            <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
           ))}
         </div>
       </div>
@@ -328,7 +333,7 @@ function TestimonialCard({ testimonial, isCarousel = false }: { testimonial: Tes
               {initials(testimonial.name)}
             </div>
           )}
-          
+
           {/* Verified Badge */}
           <div className="absolute -bottom-1 -right-1 rounded-full border-2 border-white bg-emerald-500 p-0.5">
             <BadgeCheck className="h-2.5 w-2.5 text-white" />
@@ -350,9 +355,6 @@ function TestimonialCard({ testimonial, isCarousel = false }: { testimonial: Tes
           )}
         </div>
       </div>
-
-      {/* Bottom Accent Bar */}
-      <div className="absolute bottom-0 left-0 h-1 w-0 rounded-r-full bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) transition-all duration-500 group-hover:w-full" />
 
       {/* Card Decorative Elements */}
       <div className="absolute -right-6 -top-6 h-16 w-16 rounded-full bg-(--color-accent-light) opacity-0 transition-opacity duration-500 group-hover:opacity-10" />

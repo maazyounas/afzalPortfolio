@@ -5,11 +5,22 @@ import dbConnect from "@/lib/db/db";
 import Service from "@/models/Service";
 import { ServiceSchema, type ServiceInput } from "@/validators/service";
 import { formatError } from "@/lib/formatError";
+import slugify from "@/lib/slugify";
 
 export async function createService(data: ServiceInput) {
   try {
     await dbConnect();
-    const validatedData = ServiceSchema.parse(data);
+    // Ensure slug is URL-friendly (lowercase, hyphens)
+    let validatedData = ServiceSchema.parse(data);
+    if (!validatedData.slug) {
+      validatedData = {
+        ...validatedData,
+        slug: slugify(validatedData.name),
+      };
+    } else {
+      // sanitize provided slug
+      validatedData.slug = slugify(validatedData.slug);
+    }
     const service = await Service.create(validatedData);
     revalidatePath("/admin/services");
     revalidatePath("/services");
@@ -24,7 +35,11 @@ export async function createService(data: ServiceInput) {
 export async function updateService(id: string, data: Partial<ServiceInput>) {
   try {
     await dbConnect();
-    const service = await Service.findByIdAndUpdate(id, data, { new: true });
+    const updateData = { ...data };
+    if (updateData.slug) {
+      updateData.slug = slugify(updateData.slug);
+    }
+    const service = await Service.findByIdAndUpdate(id, updateData, { new: true });
     revalidatePath("/admin/services");
     revalidatePath("/services");
     return { success: true, data: JSON.parse(JSON.stringify(service)) };
@@ -62,7 +77,19 @@ export async function getServices(activeOnly = false) {
 export async function getServiceBySlug(slug: string) {
   try {
     await dbConnect();
-    const service = await Service.findOne({ slug });
+    const normalizedSlug = slugify(slug);
+    let service = await Service.findOne({ slug });
+    if (!service) {
+      service = await Service.findOne({ slug: normalizedSlug });
+    }
+    if (!service) {
+      const altSlug1 = slug.replace(/-/g, " ");
+      service = await Service.findOne({ slug: altSlug1 });
+    }
+    if (!service) {
+      const altSlug2 = slug.replace(/\s+/g, "-");
+      service = await Service.findOne({ slug: altSlug2 });
+    }
     return service ? JSON.parse(JSON.stringify(service)) : null;
   } catch (error) {
     console.error("Failed to fetch service by slug:", error);

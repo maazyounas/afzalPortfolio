@@ -258,16 +258,14 @@ export default async function ServicesPage() {
                   damping: 18,
                 }}
               >
-                <Link href={`/services/${service.slug}`}>
-                  <div className="group relative h-full">
-                    <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) opacity-0 blur transition duration-500 group-hover:opacity-20" />
-                    <Card
-                      title={service.name}
-                      description={service.description}
-                      href={`/services/${service.slug}`}
-                    />
-                  </div>
-                </Link>
+                <div className="group relative h-full">
+                  <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) opacity-0 blur transition duration-500 group-hover:opacity-20" />
+                  <Card
+                    title={service.name}
+                    description={service.description}
+                    href={`/services/${service.slug}`}
+                  />
+                </div>
               </motion.div>
             ))
           ) : (

@@ -315,8 +315,6 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
         </div>
       </div>
 
-      {/* Bottom Accent Bar */}
-      <div className="absolute bottom-0 left-0 h-1 w-0 rounded-r-full bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) transition-all duration-500 group-hover:w-full" />
 
       {/* Card Decorative Elements */}
       <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-(--color-accent-light) opacity-0 transition-opacity duration-500 group-hover:opacity-10" />

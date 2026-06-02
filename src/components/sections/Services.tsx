@@ -82,7 +82,7 @@ export function Services({ services }: ServicesProps) {
                 <Card
                   title={service.name}
                   description={service.description}
-                  href={`/services/${service.slug}`}
+                  href={`/services/${encodeURIComponent(service.slug)}`}
                 />
               </div>
             </motion.div>

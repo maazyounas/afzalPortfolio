@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createBlogPost, updateBlogPost } from "@/actions/blogs";
+import slugify from "@/lib/slugify";
 
 type BlogFormData = {
   title: string;
@@ -67,6 +68,7 @@ export function BlogForm({ initialData }: BlogFormProps) {
 
     const payload = {
       ...data,
+      slug: slugify(data.slug),
       publishedAt: data.isPublished ? new Date() : undefined,
     };
 
