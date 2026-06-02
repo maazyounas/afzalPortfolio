@@ -8,11 +8,9 @@ import {
   MapPin,
   Phone,
   Share2,
-  Sparkles,
   Clock,
   Shield,
   Heart,
-  ChevronUp,
 } from "lucide-react";
 
 import { navigation } from "@/lib/data/navigation";
@@ -40,13 +38,10 @@ export async function Footer() {
   const quickLinks = [
     { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
-    { label: "Case Studies", href: "/case-studies" },
     { label: "Blog", href: "/blog" },
-    { label: "Careers", href: "/careers" },
   ];
 
   const resources = [
-    { label: "Documentation", href: "/docs" },
     { label: "Help Center", href: "/help" },
     { label: "FAQs", href: "/faq" },
     { label: "Support", href: "/support" },
@@ -185,14 +180,12 @@ export async function Footer() {
             </div>
           </div>
 
-          {/* Contact & Newsletter */}
+          {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-(--color-ink)">
-              Stay Updated
+              Contact 
             </h3>
-            <p className="mt-3 text-sm text-(--color-muted)">
-              Subscribe to our newsletter for updates and insights.
-            </p>
+            
             
            
 
@@ -239,18 +232,7 @@ export async function Footer() {
             >
               Terms of Service
             </Link>
-            <Link
-              href="/cookies"
-              className="transition-colors duration-300 hover:text-(--color-accent)"
-            >
-              Cookie Policy
-            </Link>
-            <Link
-              href="/accessibility"
-              className="transition-colors duration-300 hover:text-(--color-accent)"
-            >
-              Accessibility
-            </Link>
+            
           </div>
 
           <ScrollToTopButton />
