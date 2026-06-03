@@ -7,7 +7,9 @@ import { useRouter } from "next/navigation";
 import { TeamMemberSchema, type TeamMemberInput } from "@/validators/team";
 import { createTeamMember, updateTeamMember } from "@/actions/team";
 import { ITeamMember } from "@/models/TeamMember";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { uploadTeamImage } from "@/actions/upload";
+import { Upload, X } from "lucide-react";
 
 type TeamFormValues = z.input<typeof TeamMemberSchema>;
 type TeamInitialData = Partial<TeamFormValues> & {
@@ -20,6 +22,10 @@ interface TeamFormProps {
 
 export function TeamForm({ initialData }: TeamFormProps) {
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const isEdit = !!initialData;
 
@@ -32,6 +38,8 @@ export function TeamForm({ initialData }: TeamFormProps) {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
   } = useForm<TeamFormValues, unknown, TeamMemberInput>({
     resolver: zodResolver(TeamMemberSchema),
     defaultValues: {
@@ -48,6 +56,62 @@ export function TeamForm({ initialData }: TeamFormProps) {
       },
     },
   });
+
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      alert("Please select an image file");
+      return;
+    }
+
+    setUploading(true);
+    setUploadProgress("Uploading...");
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const result = await uploadTeamImage(formData);
+
+      if (result.success) {
+        setUploadProgress(null);
+        setValue("image", result.url);
+      } else {
+        alert(result.error || "Upload failed");
+        setUploadProgress(null);
+      }
+    } catch (error) {
+      alert("Upload error: " + (error instanceof Error ? error.message : "Unknown error"));
+      setUploadProgress(null);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleImageUpload(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      handleImageUpload(e.target.files[0]);
+    }
+  };
+
+
 
   async function onSubmit(data: TeamFormValues) {
     setLoading(true);
@@ -121,14 +185,82 @@ export function TeamForm({ initialData }: TeamFormProps) {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">Image URL</label>
+          <label className="text-sm font-medium text-neutral-200">Display Order</label>
           <input
-            {...register("image")}
+            type="number"
+            {...register("order", { valueAsNumber: true })}
             className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-            placeholder="https://example.com/avatar.jpg"
           />
-          {errors.image && <p className="text-xs text-red-400">{errors.image.message}</p>}
+          {errors.order && <p className="text-xs text-red-400">{errors.order.message}</p>}
         </div>
+      </div>
+
+      {/* Image Upload - Full Width */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-neutral-200">Team Member Image</label>
+        
+        {/* Upload Area */}
+        <div
+          onDragEnter={handleDrag}
+          onDragLeave={handleDrag}
+          onDragOver={handleDrag}
+          onDrop={handleDrop}
+          className={`relative rounded-xl border-2 border-dashed transition-all p-6 text-center cursor-pointer ${
+            dragActive
+              ? "border-[var(--color-accent)] bg-[var(--color-accent)]/5"
+              : "border-white/20 bg-white/[0.02] hover:border-white/30"
+          }`}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            disabled={uploading}
+            className="hidden"
+          />
+          
+          <div className="flex flex-col items-center gap-2">
+            <Upload className="h-6 w-6 text-[var(--color-accent)]" />
+            <div>
+              <p className="text-sm font-medium text-white">Drag image here or click to browse</p>
+              <p className="text-xs text-neutral-400">PNG, JPG, WebP (any size)</p>
+            </div>
+          </div>
+
+          {uploading && (
+            <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/40 backdrop-blur-sm">
+              <div className="text-center">
+                <div className="h-8 w-8 animate-spin rounded-full border-2 border-[var(--color-accent)] border-t-transparent mx-auto mb-2" />
+                <p className="text-xs text-white">{uploadProgress}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Image Preview */}
+        {watch("image") && (
+          <div className="relative rounded-lg overflow-hidden bg-white/5 border border-white/10 h-48">
+            <img
+              src={watch("image") || ""}
+              alt="preview"
+              className="h-full w-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = "";
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => setValue("image", "")}
+              className="absolute top-2 right-2 rounded-full bg-red-500/80 hover:bg-red-600 p-1 transition-all"
+            >
+              <X className="h-4 w-4 text-white" />
+            </button>
+          </div>
+        )}
+
+        {errors.image && <p className="text-xs text-red-400">{errors.image.message}</p>}
       </div>
 
       <div className="space-y-2">
@@ -183,17 +315,6 @@ export function TeamForm({ initialData }: TeamFormProps) {
             placeholder="https://twitter.com/username"
           />
           {errors.socialLinks?.twitter && <p className="text-xs text-red-400">{errors.socialLinks.twitter.message}</p>}
-        </div>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <label className="text-sm text-neutral-200">Display Order</label>
-          <input
-            type="number"
-            {...register("order", { valueAsNumber: true })}
-            className="w-24 rounded-lg bg-white/5 px-3 py-1.5 outline-none ring-1 ring-white/10 text-white"
-          />
         </div>
       </div>
 

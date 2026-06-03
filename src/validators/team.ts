@@ -7,7 +7,7 @@ export const TeamMemberSchema = z.object({
   bio: z.string().optional(),
   longBio: z.string().optional(),
   specialties: z.array(z.string()).optional(),
-  image: z.string().url("Must be a valid image URL").optional().or(z.literal("")),
+  image: z.string().refine(val => !val || val.startsWith('/') || val.startsWith('http'), "Must be a valid image path or URL").optional().or(z.literal("")),
   order: z.number().default(0),
   socialLinks: z.object({
     linkedin: z.string().url().optional().or(z.literal("")),
