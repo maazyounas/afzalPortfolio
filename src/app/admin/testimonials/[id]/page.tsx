@@ -5,9 +5,14 @@ import dbConnect from "@/lib/db/db";
 import Testimonial from "@/models/Testimonial";
 import { notFound } from "next/navigation";
 
-export default async function EditTestimonialPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function EditTestimonialPage({ params }: Props) {
+  const { id } = await params;
   await dbConnect();
-  const testimonial = await Testimonial.findById(params.id);
+  const testimonial = await Testimonial.findById(id);
 
   if (!testimonial) {
     notFound();

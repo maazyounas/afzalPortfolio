@@ -5,9 +5,14 @@ import dbConnect from "@/lib/db/db";
 import Faq from "@/models/Faq";
 import { notFound } from "next/navigation";
 
-export default async function EditFaqPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function EditFaqPage({ params }: Props) {
+  const { id } = await params;
   await dbConnect();
-  const faq = await Faq.findById(params.id);
+  const faq = await Faq.findById(id);
 
   if (!faq) {
     notFound();

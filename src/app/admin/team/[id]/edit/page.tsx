@@ -3,13 +3,14 @@ import dbConnect from "@/lib/db/db";
 import TeamMember from "@/models/TeamMember";
 import { notFound } from "next/navigation";
 
-export default async function EditTeamMemberPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function EditTeamMemberPage({ params }: Props) {
+  const { id } = await params;
   await dbConnect();
-  const member = await TeamMember.findById(params.id);
+  const member = await TeamMember.findById(id);
 
   if (!member) {
     notFound();

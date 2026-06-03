@@ -3,8 +3,11 @@
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import { randomUUID } from "crypto";
 
-export async function uploadTeamImage(formData: FormData) {
+type UploadFolder = "team" | "blogs" | "testimonials";
+
+async function uploadImageToFolder(formData: FormData, folder: UploadFolder) {
   try {
     const file = formData.get("file") as File;
     if (!file) {
@@ -15,16 +18,15 @@ export async function uploadTeamImage(formData: FormData) {
     if (!file.type.startsWith("image/")) {
       return { success: false, error: "Only image files are allowed" };
     }
+    if (file.size > 10 * 1024 * 1024) {
+      return { success: false, error: "Image must be 10MB or smaller" };
+    }
 
-
-
-    // Create a unique filename with timestamp
-    const timestamp = Date.now();
-    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const fileName = `${timestamp}-${originalName}`;
+    const extension = file.type.split("/")[1] || "png";
+    const fileName = `${Date.now()}-${randomUUID()}.${extension}`;
 
     // Ensure directory exists
-    const uploadDir = join(process.cwd(), "public", "images", "team");
+    const uploadDir = join(process.cwd(), "public", "uploads", folder);
     if (!existsSync(uploadDir)) {
       await mkdir(uploadDir, { recursive: true });
     }
@@ -35,10 +37,22 @@ export async function uploadTeamImage(formData: FormData) {
     await writeFile(filePath, Buffer.from(bytes));
 
     // Return the public URL
-    const publicUrl = `/images/team/${fileName}`;
+    const publicUrl = `/uploads/${folder}/${fileName}`;
     return { success: true, url: publicUrl, fileName };
   } catch (error) {
     console.error("Upload error:", error);
     return { success: false, error: "Failed to upload image" };
   }
+}
+
+export async function uploadTeamImage(formData: FormData) {
+  return uploadImageToFolder(formData, "team");
+}
+
+export async function uploadBlogImage(formData: FormData) {
+  return uploadImageToFolder(formData, "blogs");
+}
+
+export async function uploadTestimonialImage(formData: FormData) {
+  return uploadImageToFolder(formData, "testimonials");
 }

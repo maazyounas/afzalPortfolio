@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
@@ -57,6 +58,14 @@ export default async function BlogPostPage({ params }: Props) {
         ]}
       />
       <article className="rounded-[2rem] border border-[var(--color-line)] bg-white p-8 shadow-[0_18px_60px_rgba(17,33,31,0.08)]">
+        {post.featuredImage && (
+          <div className="relative mb-8 overflow-hidden rounded-[1.75rem]">
+            <div className="relative aspect-[16/9] w-full">
+              <Image src={post.featuredImage} alt={post.title} fill className="object-cover" priority />
+            </div>
+          </div>
+        )}
+
         <div className="flex flex-wrap items-center gap-4 text-sm">
           {publishedDate && (
             <p className="uppercase tracking-[0.18em] text-[var(--color-accent)]">

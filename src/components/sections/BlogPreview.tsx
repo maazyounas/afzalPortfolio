@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
+import Image from "next/image";
 
 import { motion } from "@/lib/motion";
 import { SectionWrapper } from "../ui/SectionWrapper";
@@ -13,6 +14,7 @@ type BlogPreviewPost = {
   excerpt: string;
   category: string;
   publishedAt?: string | Date | null;
+  featuredImage?: string;
 };
 
 interface BlogPreviewProps {
@@ -106,6 +108,14 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
                     hover:shadow-2xl
                   "
                 >
+                  {post.featuredImage && (
+                    <div className="relative z-10 overflow-hidden rounded-[1.5rem]">
+                      <div className="relative aspect-[16/10] w-full">
+                        <Image src={post.featuredImage} alt={post.title} fill className="object-cover" />
+                      </div>
+                    </div>
+                  )}
+
                   {/* Glow background */}
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -179,8 +189,15 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
       <div className="sm:hidden">
         {posts?.length > 0 ? (
           <MobileScroller itemClassName="w-[85%] flex-shrink-0">
-            {posts.map((post) => (
+          {posts.map((post) => (
               <article key={post.slug} className="relative rounded-2xl border border-[var(--color-line)] bg-white/85 p-5 shadow-sm">
+                {post.featuredImage && (
+                  <div className="mb-4 overflow-hidden rounded-xl">
+                    <div className="relative aspect-[16/10] w-full">
+                      <Image src={post.featuredImage} alt={post.title} fill className="object-cover" />
+                    </div>
+                  </div>
+                )}
                 <div className="text-xs font-semibold uppercase text-[var(--color-muted)]">{post.category}</div>
                 <h3 className="mt-3 text-lg font-semibold text-[var(--color-ink)]">{post.title}</h3>
                 <p className="mt-2 text-sm text-[var(--color-muted)] line-clamp-3">{post.excerpt}</p>

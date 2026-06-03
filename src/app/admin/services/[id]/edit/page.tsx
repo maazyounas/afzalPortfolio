@@ -3,13 +3,14 @@ import dbConnect from "@/lib/db/db";
 import Service from "@/models/Service";
 import { notFound } from "next/navigation";
 
-export default async function EditServicePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function EditServicePage({ params }: Props) {
+  const { id } = await params;
   await dbConnect();
-  const service = await Service.findById(params.id);
+  const service = await Service.findById(id);
 
   if (!service) {
     notFound();

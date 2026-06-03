@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
+import Image from "next/image";
 
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
@@ -43,7 +44,7 @@ export default async function BlogPage() {
       {/* Grid */}
       {posts.length > 0 ? (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {posts.map((post: { slug: string; title: string; excerpt: string; category: string; publishedAt?: string; createdAt?: string }) => {
+          {posts.map((post: { slug: string; title: string; excerpt: string; category: string; publishedAt?: string; createdAt?: string; featuredImage?: string }) => {
             const dateStr = formatDate(post.publishedAt || post.createdAt);
             return (
               <article
@@ -59,6 +60,14 @@ export default async function BlogPage() {
                   hover:border-[var(--color-accent-light)]
                 "
               >
+                {post.featuredImage && (
+                  <div className="relative z-10 mb-5 overflow-hidden rounded-[1.5rem]">
+                    <div className="relative aspect-[16/10] w-full">
+                      <Image src={post.featuredImage} alt={post.title} fill className="object-cover" />
+                    </div>
+                  </div>
+                )}
+
                 {/* Glow */}
                 <div className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 

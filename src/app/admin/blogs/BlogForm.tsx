@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createBlogPost, updateBlogPost } from "@/actions/blogs";
 import slugify from "@/lib/slugify";
+import { ImageUploadField } from "@/features/admin/components/ImageUploadField";
 
 type BlogFormData = {
   title: string;
@@ -51,6 +52,7 @@ export function BlogForm({ initialData }: BlogFormProps) {
   });
 
   const title = watch("title");
+  const featuredImage = watch("featuredImage");
 
   function generateSlug() {
     const slug = title
@@ -191,15 +193,19 @@ export function BlogForm({ initialData }: BlogFormProps) {
         </p>
       </div>
 
-      {/* Featured Image */}
-      <div>
-        <label className={labelClasses}>Featured Image URL (Optional)</label>
-        <input
-          {...register("featuredImage")}
-          className={inputClasses}
-          placeholder="https://example.com/my-image.jpg"
-        />
-      </div>
+      <ImageUploadField
+        label="Featured Image"
+        helperText="Upload a cover image, then drag and zoom to frame it before saving."
+        value={featuredImage}
+        onChange={(url) =>
+          setValue("featuredImage", url, {
+            shouldDirty: true,
+            shouldValidate: true,
+          })
+        }
+        folder="blogs"
+        aspectRatio={16 / 9}
+      />
 
       {/* Publish Toggle */}
       <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-4">

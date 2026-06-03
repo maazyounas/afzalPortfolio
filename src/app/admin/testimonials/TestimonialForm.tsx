@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createTestimonial, updateTestimonial } from "@/actions/testimonials";
+import { ImageUploadField } from "@/features/admin/components/ImageUploadField";
 
 type TestimonialFormData = {
   author: string;
@@ -32,6 +33,8 @@ export function TestimonialForm({ initialData }: TestimonialFormProps) {
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<TestimonialFormData>({
     defaultValues: {
@@ -44,6 +47,8 @@ export function TestimonialForm({ initialData }: TestimonialFormProps) {
       isActive: initialData?.isActive ?? true,
     },
   });
+
+  const avatarImage = watch("image");
 
   async function onSubmit(data: TestimonialFormData) {
     setLoading(true);
@@ -146,14 +151,19 @@ export function TestimonialForm({ initialData }: TestimonialFormProps) {
         {errors.content && <p className="mt-1 text-xs text-red-400">{errors.content.message}</p>}
       </div>
 
-      <div>
-        <label className={labelClasses}>Avatar Image URL (Optional)</label>
-        <input
-          {...register("image")}
-          className={inputClasses}
-          placeholder="https://example.com/avatar.jpg"
-        />
-      </div>
+      <ImageUploadField
+        label="Avatar Image"
+        helperText="Upload a headshot, then crop it like a social profile photo before saving."
+        value={avatarImage}
+        onChange={(url) =>
+          setValue("image", url, {
+            shouldDirty: true,
+            shouldValidate: true,
+          })
+        }
+        folder="testimonials"
+        aspectRatio={1}
+      />
 
       <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-4">
         <input
