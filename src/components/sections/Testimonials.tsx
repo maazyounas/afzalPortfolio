@@ -258,11 +258,18 @@ function TestimonialCard({
   testimonial,
   isCarousel = false,
 }: {
-  testimonial: TestimonialData;
+  testimonial: {
+    id: string;
+    name: string;
+    title?: string;
+    quote: string;
+    rating?: number;
+    image?: string;
+  };
   isCarousel?: boolean;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-50px" });
+  const cardRef = useRef<HTMLQuoteElement>(null);
+  const isInView = useInView(cardRef as unknown as any, { once: true, margin: "-50px" });
   const hasImage = !!testimonial.image;
 
   return (

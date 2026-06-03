@@ -106,22 +106,7 @@ export function Team({ members = [] }: TeamProps) {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-white to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-white to-transparent" />
 
-        {/* Scroll Buttons */}
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
-          aria-label="Scroll left"
-        >
-          <ArrowRight className="h-4 w-4 rotate-180 text-(--color-accent)" />
-        </button>
-
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
-          aria-label="Scroll right"
-        >
-          <ArrowRight className="h-4 w-4 text-(--color-accent)" />
-        </button>
+        {/* Horizontal swipe-only view (no explicit arrow buttons) */}
 
         {/* Horizontal Scroll Container */}
         <div
@@ -168,8 +153,8 @@ function TeamCard({
   member: ITeamMember | TeamMember;
   isMobile?: boolean;
 }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef, { once: true, margin: "-50px" });
+  const cardRef = useRef<HTMLDivElement>(null!);
+  const isInView = useInView(cardRef as unknown as React.RefObject<Element>, { once: true, margin: "-50px" });
 
   // Get social links
   const socialLinks = member.socialLinks || {};

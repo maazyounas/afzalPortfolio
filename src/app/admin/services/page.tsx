@@ -3,6 +3,7 @@ import { Plus, Edit, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { getServices, deleteService } from "@/actions/services";
 import { IService } from "@/models/Service";
+import { ServiceIcon } from "@/lib/utils/icons";
 
 export default async function AdminServicesPage() {
   const services = await getServices();
@@ -32,6 +33,7 @@ export default async function AdminServicesPage() {
         <table className="w-full text-left">
           <thead>
             <tr className="border-b border-white/5 bg-white/5 text-sm font-medium text-neutral-400">
+              <th className="px-6 py-4">Icon</th>
               <th className="px-6 py-4">Name</th>
               <th className="px-6 py-4">Slug</th>
               <th className="px-6 py-4">Status</th>
@@ -48,6 +50,11 @@ export default async function AdminServicesPage() {
             ) : (
               services.map((service: IService) => (
                 <tr key={service._id.toString()} className="group hover:bg-white/[0.02]">
+                  <td className="px-6 py-4">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-(--color-accent)">
+                      <ServiceIcon name={service.icon} className="h-4 w-4" />
+                    </div>
+                  </td>
                   <td className="px-6 py-4 font-medium">{service.name}</td>
                   <td className="px-6 py-4 text-sm text-neutral-400">{service.slug}</td>
                   <td className="px-6 py-4">

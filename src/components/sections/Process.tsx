@@ -111,22 +111,7 @@ export function Process() {
         <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-white to-transparent" />
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-white to-transparent" />
 
-        {/* Scroll Buttons */}
-        <button
-          onClick={() => scroll('left')}
-          className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
-          aria-label="Scroll left"
-        >
-          <ArrowRight className="h-5 w-5 rotate-180 text-(--color-accent)" />
-        </button>
-        
-        <button
-          onClick={() => scroll('right')}
-          className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/90 p-2 shadow-lg backdrop-blur-sm transition-all hover:scale-110 hover:bg-white"
-          aria-label="Scroll right"
-        >
-          <ArrowRight className="h-5 w-5 text-(--color-accent)" />
-        </button>
+        {/* Horizontal swipe-only view (no explicit arrow buttons) */}
 
         {/* Horizontal Scroll Container */}
         <div

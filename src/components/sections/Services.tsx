@@ -6,10 +6,9 @@ import { motion } from "@/lib/motion";
 import { IService } from "@/models/Service";
 
 interface ServicesProps {
-  services: Pick<IService, "slug" | "name" | "description">[];
+  services: Pick<IService, "slug" | "name" | "description" | "icon">[];
 }
 
-/* ----------------------------- Animation Set ----------------------------- */
 
 const container = {
   hidden: {},
@@ -83,6 +82,7 @@ export function Services({ services }: ServicesProps) {
                   title={service.name}
                   description={service.description}
                   href={`/services/${encodeURIComponent(service.slug)}`}
+                  icon={service.icon}
                 />
               </div>
             </motion.div>

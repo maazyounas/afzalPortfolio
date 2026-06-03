@@ -7,18 +7,15 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { getServices } from "@/actions/services";
 import type { IService } from "@/models/Service";
 import {
-  ShieldCheck,
-  LineChart,
-  Calculator,
-  BriefcaseBusiness,
   ArrowRight,
-  Sparkles,
   TrendingUp,
   Award,
   Clock,
   ChevronRight,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
+import { getServiceIcon } from "@/lib/utils/icons";
+import MobileScroller from "@/components/ui/MobileScroller";
 
 export const dynamic = "force-dynamic";
 
@@ -28,40 +25,6 @@ export const metadata: Metadata = {
     "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
 };
 
-const highlights = [
-  {
-    icon: LineChart,
-    title: "Strategic Forecasting",
-    text: "Real-time reporting and decision-ready dashboards with predictive analytics.",
-    gradient: "from-emerald-50 to-cyan-50",
-    stat: "95% Accuracy",
-    color: "emerald",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Audit & Compliance",
-    text: "Reliable controls and audit-ready documentation with automated workflows.",
-    gradient: "from-blue-50 to-indigo-50",
-    stat: "100% Compliant",
-    color: "blue",
-  },
-  {
-    icon: Calculator,
-    title: "Tax Planning",
-    text: "Structured tax strategies aligned with growth and regulatory requirements.",
-    gradient: "from-amber-50 to-orange-50",
-    stat: "Max Savings",
-    color: "amber",
-  },
-  {
-    icon: BriefcaseBusiness,
-    title: "Operational Finance",
-    text: "Systems that scale with leadership and teams for sustainable growth.",
-    gradient: "from-purple-50 to-pink-50",
-    stat: "3x Efficiency",
-    color: "purple",
-  },
-];
 
 const container = {
   hidden: {},
@@ -92,6 +55,37 @@ const item = {
   },
 };
 
+const highlights = [
+  {
+    title: "Faster Turnaround",
+    text: "Actionable insights delivered with speed and precision.",
+    icon: TrendingUp,
+    gradient: "from-emerald-400 to-blue-500",
+    stat: "Fast",
+  },
+  {
+    title: "Trusted Expertise",
+    text: "A proven team with compliance-first financial strategy.",
+    icon: Award,
+    gradient: "from-violet-500 to-pink-500",
+    stat: "Trusted",
+  },
+  {
+    title: "Reliable Delivery",
+    text: "Clear timelines, dependable execution, and consistent results.",
+    icon: Clock,
+    gradient: "from-sky-500 to-cyan-500",
+    stat: "Reliable",
+  },
+  {
+    title: "Smooth Transitions",
+    text: "Seamless onboarding and continuous support for every client.",
+    icon: ChevronRight,
+    gradient: "from-orange-400 to-amber-500",
+    stat: "Seamless",
+  },
+];
+
 export default async function ServicesPage() {
   const services = await getServices(true);
 
@@ -114,8 +108,6 @@ export default async function ServicesPage() {
         transition={{ duration: 0.55 }}
         className="relative mt-4 overflow-hidden rounded-[2rem] border border-(--color-line) bg-white/80 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl sm:p-8 lg:p-10"
       >
-        {/* Background Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_40%)]" />
 
         <div className="relative">
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
@@ -131,7 +123,6 @@ export default async function ServicesPage() {
                   whileHover={{ y: -5, scale: 1.02 }}
                   className="group relative rounded-2xl border border-(--color-line) bg-white/70 p-5 transition-all duration-300 hover:shadow-xl"
                 >
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
 
                   <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${highlight.gradient} text-(--color-accent)`}>
                     <Icon className="h-5 w-5" />
@@ -185,10 +176,10 @@ export default async function ServicesPage() {
       {/* Services Grid with Horizontal Scroll on Mobile */}
       <div className="mt-6">
         {/* Mobile Horizontal Scroll View */}
-        <div className="overflow-x-auto pb-4 sm:hidden">
-          <div className="flex gap-4 px-1" style={{ width: "max-content" }}>
-            {services?.length > 0 ? (
-              services.map((service: IService, index: number) => (
+        <div className="sm:hidden">
+          {services?.length > 0 ? (
+            <MobileScroller>
+              {services.map((service: IService, index: number) => (
                 <Link href={`/services/${service.slug}`} key={service.slug}>
                   <motion.div
                     initial={{ opacity: 0, x: 50 }}
@@ -204,7 +195,10 @@ export default async function ServicesPage() {
                       <div className="relative rounded-2xl border border-(--color-line) bg-white p-5 shadow-md transition-all duration-300 group-hover:shadow-xl">
                         <div className="mb-4 flex items-start justify-between">
                           <div className="rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) p-2.5">
-                            <Sparkles className="h-4 w-4 text-white" />
+                            {(() => {
+                              const Icon = getServiceIcon(service.icon);
+                              return <Icon className="h-4 w-4 text-white" />;
+                            })()}
                           </div>
                           <ArrowRight className="h-4 w-4 text-(--color-muted) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-(--color-accent)" />
                         </div>
@@ -227,18 +221,18 @@ export default async function ServicesPage() {
                     </div>
                   </motion.div>
                 </Link>
-              ))
-            ) : (
-              <div className="w-[calc(100vw-2rem)] rounded-2xl border border-dashed border-(--color-line) bg-white/70 px-6 py-14 text-center">
-                <h3 className="text-lg font-semibold text-(--color-ink)">
-                  No services available
-                </h3>
-                <p className="mt-2 text-sm text-(--color-muted)">
-                  Service offerings will appear here once they are published.
-                </p>
-              </div>
-            )}
-          </div>
+              ))}
+            </MobileScroller>
+          ) : (
+            <div className="w-[calc(100vw-2rem)] rounded-2xl border border-dashed border-(--color-line) bg-white/70 px-6 py-14 text-center">
+              <h3 className="text-lg font-semibold text-(--color-ink)">
+                No services available
+              </h3>
+              <p className="mt-2 text-sm text-(--color-muted)">
+                Service offerings will appear here once they are published.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Desktop Grid View */}
@@ -264,6 +258,7 @@ export default async function ServicesPage() {
                     title={service.name}
                     description={service.description}
                     href={`/services/${service.slug}`}
+                    icon={service.icon}
                   />
                 </div>
               </motion.div>

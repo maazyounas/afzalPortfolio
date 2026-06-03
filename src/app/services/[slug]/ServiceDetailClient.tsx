@@ -2,7 +2,6 @@
 
 import { motion } from "@/lib/motion";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   ArrowLeft,
   Calendar,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import type { IService } from "@/models/Service";
+import { ServiceIcon } from "@/lib/utils/icons";
 
 interface ServiceDetailClientProps {
   service: IService;
@@ -21,7 +21,6 @@ interface ServiceDetailClientProps {
 
 export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const pathname = usePathname();
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -71,15 +70,21 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
               transition={{ duration: 0.5 }}
               className="flex-1"
             >
-              <div className="mb-4 flex items-center gap-2">
-                <div className="h-1 w-12 rounded-full bg-(--color-accent)" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-(--color-accent)">
-                  Service Detail
-                </span>
+              <div className="mb-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-4 rounded-3xl bg-white/90 px-4 py-3 shadow-sm ring-1 ring-(--color-line)">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) text-white">
+                    <ServiceIcon name={service.icon} className="h-7 w-7" />
+                  </div>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-(--color-accent)">
+                      Service Detail
+                    </div>
+                    <h1 className="text-2xl font-bold text-(--color-ink) sm:text-3xl">
+                      {service.name}
+                    </h1>
+                  </div>
+                </div>
               </div>
-              <h1 className="text-3xl font-bold tracking-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
-                {service.name}
-              </h1>
               <p className="mt-4 text-lg leading-relaxed text-(--color-muted) lg:text-xl">
                 {service.description}
               </p>

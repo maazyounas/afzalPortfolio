@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "@/lib/motion";
+import { ServiceIcon } from "@/lib/utils/icons";
 
 interface CardProps {
   title: string;
   description: string;
   href: string;
+  icon?: string;
 }
 
-export function Card({ title, description, href }: CardProps) {
+export function Card({ title, description, href, icon }: CardProps) {
   return (
     <Link href={href} className="block h-full">
       <motion.div
@@ -23,7 +25,7 @@ export function Card({ title, description, href }: CardProps) {
 
         {/* Icon */}
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) transition-transform duration-300 group-hover:scale-110">
-          <Sparkles className="h-5 w-5 text-white" />
+          <ServiceIcon name={icon} className="h-5 w-5 text-white" />
         </div>
 
         {/* Content */}
@@ -41,8 +43,6 @@ export function Card({ title, description, href }: CardProps) {
           <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
         </div>
 
-        {/* Decorative Line */}
-        <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-(--color-accent-light) to-(--color-accent) transition-all duration-500 group-hover:w-full" />
       </motion.div>
     </Link>
   );

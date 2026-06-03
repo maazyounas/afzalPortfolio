@@ -84,6 +84,33 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
         </div>
       </div>
 
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Icon</label>
+        <input
+          {...register("icon")}
+          list="service-icon-list"
+          className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-[var(--color-accent)]"
+          placeholder="e.g. Calculator, ShieldCheck, Briefcase"
+        />
+        <datalist id="service-icon-list">
+          <option value="Briefcase" />
+          <option value="ShieldCheck" />
+          <option value="Calculator" />
+          <option value="TrendingUp" />
+          <option value="Sparkles" />
+          <option value="PieChart" />
+          <option value="BarChart3" />
+          <option value="Clock" />
+          <option value="CheckCircle" />
+          <option value="FileText" />
+        </datalist>
+        <p className="text-xs text-(--color-muted)">Enter a Lucide icon name. Invalid names will fall back to the default service icon.</p>
+        {errors.icon && (
+          <p className="text-xs text-red-400">{errors.icon.message}</p>
+        )}
+      </div>
+
       <div className="space-y-2">
         <label className="text-sm font-medium">Description (Short Intro)</label>
         <textarea
