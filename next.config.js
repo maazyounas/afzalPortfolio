@@ -8,6 +8,11 @@ const nextConfig = {
         hostname: 'img.magnific.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
     ],
   },
 };

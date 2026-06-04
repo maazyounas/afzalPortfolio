@@ -6,6 +6,7 @@ import Service from "@/models/Service";
 import { ServiceSchema, type ServiceInput } from "@/validators/service";
 import { formatError } from "@/lib/formatError";
 import slugify from "@/lib/slugify";
+import { sanitizeRichText } from "@/lib/utils/richText";
 
 export async function createService(data: ServiceInput) {
   try {
@@ -20,6 +21,9 @@ export async function createService(data: ServiceInput) {
     } else {
       // sanitize provided slug
       validatedData.slug = slugify(validatedData.slug);
+    }
+    if (validatedData.content) {
+      validatedData.content = sanitizeRichText(validatedData.content);
     }
     const service = await Service.create(validatedData);
     revalidatePath("/admin/services");
@@ -38,6 +42,9 @@ export async function updateService(id: string, data: Partial<ServiceInput>) {
     const updateData = { ...data };
     if (updateData.slug) {
       updateData.slug = slugify(updateData.slug);
+    }
+    if (updateData.content) {
+      updateData.content = sanitizeRichText(updateData.content);
     }
     const service = await Service.findByIdAndUpdate(id, updateData, { new: true });
     revalidatePath("/admin/services");

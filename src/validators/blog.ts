@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { stripRichText } from "@/lib/utils/richText";
 
 const imagePathSchema = z
   .string()
@@ -11,7 +12,9 @@ export const BlogPostSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
   slug: z.string().min(5, "Slug must be at least 5 characters"),
   excerpt: z.string().min(10, "Excerpt must be at least 10 characters"),
-  content: z.string().min(50, "Content must be at least 50 characters"),
+  content: z
+    .string()
+    .refine((value) => stripRichText(value).length >= 50, "Content must be at least 50 characters"),
   category: z.string().min(2, "Category is required"),
   author: z.string().min(2, "Author is required"),
   featuredImage: imagePathSchema.optional().or(z.literal("")),

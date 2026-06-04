@@ -1,9 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import dynamic from "next/dynamic";
+import { useForm, useWatch } from "react-hook-form";
 import { updateSettings } from "@/actions/settings";
 import type { ISettings } from "@/models/Settings";
+
+const LocationMapPicker = dynamic(
+  () => import("@/features/admin/components/LocationMapPicker").then((module) => module.LocationMapPicker),
+  { ssr: false },
+);
 
 type FormData = {
   siteName: string;
@@ -13,6 +19,8 @@ type FormData = {
   contactPhone: string;
   address: string;
   mapLocation: string;
+  mapLatitude?: number;
+  mapLongitude?: number;
   socialLinks: {
     linkedin: string;
     twitter: string;
@@ -27,6 +35,8 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -37,6 +47,8 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
       contactPhone: initialData?.contactPhone || "",
       address: initialData?.address || "",
       mapLocation: initialData?.mapLocation || "",
+      mapLatitude: initialData?.mapLatitude,
+      mapLongitude: initialData?.mapLongitude,
       socialLinks: {
         linkedin: initialData?.socialLinks?.linkedin || "",
         twitter: initialData?.socialLinks?.twitter || "",
@@ -44,6 +56,10 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
       },
     },
   });
+
+  const mapLocation = useWatch({ control, name: "mapLocation" });
+  const mapLatitude = useWatch({ control, name: "mapLatitude" });
+  const mapLongitude = useWatch({ control, name: "mapLongitude" });
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -139,14 +155,37 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
             {errors.address && <p className="mt-1 text-xs text-red-400">{errors.address.message}</p>}
           </div>
 
-          <div>
-            <label className={labelClasses}>Map Location Search</label>
-            <input
-              {...register("mapLocation")}
-              className={inputClasses}
-              placeholder="e.g. New York, USA or exact address"
+          <div className="space-y-3">
+            <div>
+              <label className={labelClasses}>Office Location</label>
+              <p className="mt-1 text-xs text-neutral-400">
+                Search an address or click on the map to save latitude, longitude, and the address.
+              </p>
+            </div>
+
+            <LocationMapPicker
+              address={mapLocation}
+              latitude={mapLatitude ?? null}
+              longitude={mapLongitude ?? null}
+              onAddressChange={(value) =>
+                setValue("mapLocation", value, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                })
+              }
+              onLatitudeChange={(value) =>
+                setValue("mapLatitude", value ?? undefined, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                })
+              }
+              onLongitudeChange={(value) =>
+                setValue("mapLongitude", value ?? undefined, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                })
+              }
             />
-            <p className="mt-1 text-xs text-neutral-400">Used to generate the dynamic map on the contact page.</p>
           </div>
         </div>
       </div>

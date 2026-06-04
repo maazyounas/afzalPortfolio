@@ -1,5 +1,6 @@
 import { manrope, merriweather } from "@/styles/fonts";
 import "@/styles/globals.css";
+import "leaflet/dist/leaflet.css";
 export default function RootLayout({
   children,
 }: {

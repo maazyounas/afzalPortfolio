@@ -14,7 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
-import { getServiceIcon } from "@/lib/utils/icons";
+import { ServiceIcon } from "@/lib/utils/icons";
 import MobileScroller from "@/components/ui/MobileScroller";
 
 export const dynamic = "force-dynamic";
@@ -195,10 +195,7 @@ export default async function ServicesPage() {
                       <div className="relative rounded-2xl border border-(--color-line) bg-white p-5 shadow-md transition-all duration-300 group-hover:shadow-xl">
                         <div className="mb-4 flex items-start justify-between">
                           <div className="rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) p-2.5">
-                            {(() => {
-                              const Icon = getServiceIcon(service.icon);
-                              return <Icon className="h-4 w-4 text-white" />;
-                            })()}
+                            <ServiceIcon name={service.icon} className="h-4 w-4 text-white" />
                           </div>
                           <ArrowRight className="h-4 w-4 text-(--color-muted) transition-transform duration-300 group-hover:translate-x-1 group-hover:text-(--color-accent)" />
                         </div>

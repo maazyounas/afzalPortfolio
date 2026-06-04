@@ -1,6 +1,8 @@
 import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Sparkles } from "lucide-react";
+import { createElement } from "react";
+import { isEmojiLike } from "./richText";
 
 const DEFAULT_SERVICE_ICON = Sparkles;
 
@@ -20,8 +22,12 @@ export function ServiceIcon({
   name?: string;
   className?: string;
 }) {
+  if (name && isEmojiLike(name)) {
+    return <span className={`inline-flex select-none items-center justify-center leading-none ${className || ""}`.trim()}>{name}</span>;
+  }
+
   const Icon = getServiceIcon(name);
-  return <Icon className={className} />;
+  return createElement(Icon, { className });
 }
 
 export const serviceIconSuggestions = [

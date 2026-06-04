@@ -6,6 +6,7 @@ import BlogPost from "@/models/BlogPost";
 import { BlogPostSchema, type BlogPostInput } from "@/validators/blog";
 import { formatError } from "@/lib/formatError";
 import slugify from "@/lib/slugify";
+import { sanitizeRichText } from "@/lib/utils/richText";
 
 export async function createBlogPost(data: BlogPostInput) {
   try {
@@ -13,6 +14,7 @@ export async function createBlogPost(data: BlogPostInput) {
     const validatedData = BlogPostSchema.parse(data);
     const normalizedData = {
       ...validatedData,
+      content: sanitizeRichText(validatedData.content),
       slug: slugify(validatedData.slug),
     };
     const post = await BlogPost.create(normalizedData);
@@ -32,6 +34,9 @@ export async function updateBlogPost(id: string, data: Partial<BlogPostInput>) {
     const updateData = { ...data };
     if (updateData.slug) {
       updateData.slug = slugify(updateData.slug);
+    }
+    if (updateData.content) {
+      updateData.content = sanitizeRichText(updateData.content);
     }
     const post = await BlogPost.findByIdAndUpdate(id, updateData, { new: true });
     revalidatePath("/admin/blogs");

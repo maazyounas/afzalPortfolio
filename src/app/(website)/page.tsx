@@ -49,6 +49,8 @@ export default async function HomePage() {
         email={settings?.contactEmail} 
         phone={settings?.contactPhone} 
         mapLocation={settings?.mapLocation} 
+        mapLatitude={settings?.mapLatitude}
+        mapLongitude={settings?.mapLongitude}
       />
     </>
   );

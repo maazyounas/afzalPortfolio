@@ -7,18 +7,20 @@ import {
   Send,
   CheckCircle,
   Globe,
-  ArrowRight,
 } from "lucide-react";
 
 import { motion, useInView } from "@/lib/motion";
 import { SectionWrapper } from "../ui/SectionWrapper";
 import { ContactForm } from "@/components/ui/ContactForm";
 import { useRef, useState } from "react";
+import { buildMapEmbedUrl } from "@/lib/utils/location";
 
 type ContactProps = {
   email?: string;
   phone?: string;
   mapLocation?: string;
+  mapLatitude?: number | null;
+  mapLongitude?: number | null;
 };
 
 const getInfoCards = (email?: string, phone?: string) => [
@@ -68,12 +70,13 @@ const item = {
   },
 };
 
-export function Contact({ email, phone, mapLocation }: ContactProps) {
+export function Contact({ email, phone, mapLocation, mapLatitude, mapLongitude }: ContactProps) {
   const infoCards = getInfoCards(email, phone);
-  const defaultMapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=0.0%2C51.5%2C0.1%2C51.52&layer=mapnik";
-  const googleMapUrl = mapLocation 
-    ? `https://maps.google.com/maps?q=${encodeURIComponent(mapLocation)}&output=embed` 
-    : defaultMapUrl;
+  const googleMapUrl = buildMapEmbedUrl({
+    address: mapLocation,
+    latitude: mapLatitude,
+    longitude: mapLongitude,
+  });
   
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null!);
@@ -258,18 +261,10 @@ export function Contact({ email, phone, mapLocation }: ContactProps) {
                     Our Location
                   </p>
                   <p className="mt-0.5 text-xs text-(--color-muted)">
-                    Virtual headquarters with global reach
+                    {mapLocation || "Virtual headquarters with global reach"}
                   </p>
                 </div>
-                <a
-                  href={googleMapUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-medium text-(--color-accent) transition-all hover:gap-2"
-                >
-                  View larger map
-                  <ArrowRight className="h-3 w-3" />
-                </a>
+                
               </div>
             </div>
 

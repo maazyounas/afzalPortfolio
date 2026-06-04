@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { getBlogPostBySlug } from "@/actions/blogs";
+import { richTextToHtml } from "@/lib/utils/richText";
 
 export const dynamic = "force-dynamic";
 
@@ -44,10 +45,7 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const publishedDate = formatDate(post.publishedAt || post.createdAt);
-  const paragraphs = post.content
-    .split(/\n\s*\n/)
-    .map((p: string) => p.trim())
-    .filter(Boolean);
+  const contentHtml = richTextToHtml(post.content);
 
   return (
     <SectionWrapper eyebrow={post.category} title={post.title} intro={post.excerpt}>
@@ -78,11 +76,10 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
           )}
         </div>
-        <div className="prose prose-zinc mt-6 max-w-none">
-          {paragraphs.map((paragraph: string, index: number) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
+        <div
+          className="prose prose-zinc mt-6 max-w-none"
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+        />
       </article>
     </SectionWrapper>
   );

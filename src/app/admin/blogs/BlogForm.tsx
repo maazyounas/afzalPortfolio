@@ -6,6 +6,7 @@ import { useState } from "react";
 import { createBlogPost, updateBlogPost } from "@/actions/blogs";
 import slugify from "@/lib/slugify";
 import { ImageUploadField } from "@/features/admin/components/ImageUploadField";
+import { RichTextEditor } from "@/features/admin/components/RichTextEditor";
 
 type BlogFormData = {
   title: string;
@@ -180,17 +181,19 @@ export function BlogForm({ initialData }: BlogFormProps) {
 
       {/* Content */}
       <div>
-        <label className={labelClasses}>Full Content</label>
-        <textarea
-          {...register("content", { required: "Content is required" })}
-          rows={16}
-          className={`${inputClasses} resize-y font-mono text-sm leading-relaxed`}
-          placeholder="Write the full blog post content here. Use double-newlines to create separate paragraphs..."
+        <RichTextEditor
+          label="Full Content"
+          helperText="Use the toolbar to make text bold, italic, or underlined."
+          value={watch("content")}
+          onChange={(html) =>
+            setValue("content", html, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
+          }
+          placeholder="Write the full blog post content here..."
         />
         {errors.content && <p className="mt-1 text-xs text-red-400">{errors.content.message}</p>}
-        <p className="mt-1 text-xs text-neutral-500">
-          Separate paragraphs with blank lines. Content is displayed on the individual blog post page.
-        </p>
       </div>
 
       <ImageUploadField

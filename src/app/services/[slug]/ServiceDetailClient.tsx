@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import type { IService } from "@/models/Service";
 import { ServiceIcon } from "@/lib/utils/icons";
+import { richTextToHtml } from "@/lib/utils/richText";
 
 interface ServiceDetailClientProps {
   service: IService;
@@ -21,6 +22,8 @@ interface ServiceDetailClientProps {
 
 export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const hasCustomContent = Boolean(service.content?.trim());
+  const contentHtml = richTextToHtml(hasCustomContent ? service.content || "" : service.description);
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -153,14 +156,19 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
                 <h2 className="mb-4 text-2xl font-bold text-(--color-ink)">
                   Overview
                 </h2>
-                <div className="prose prose-lg max-w-none text-(--color-muted)">
-                  <p>{service.description}</p>
-                  <p className="mt-4">
-                    Our comprehensive {service.name} solutions are designed to help
-                    businesses achieve financial excellence through innovative
-                    strategies and cutting-edge technology.
-                  </p>
-                </div>
+                <div
+                  className="prose prose-lg max-w-none text-(--color-muted)"
+                  dangerouslySetInnerHTML={{ __html: contentHtml }}
+                />
+                {!hasCustomContent && (
+                  <div className="prose prose-lg mt-4 max-w-none text-(--color-muted)">
+                    <p>
+                      Our comprehensive {service.name} solutions are designed to help
+                      businesses achieve financial excellence through innovative
+                      strategies and cutting-edge technology.
+                    </p>
+                  </div>
+                )}
               </section>
 
               {/* Key Features */}

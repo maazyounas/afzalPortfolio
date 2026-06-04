@@ -2,17 +2,9 @@
 
 import { useEffect, useRef, useState, type ChangeEvent, type PointerEvent } from "react";
 import { Move, RotateCcw, Upload, ZoomIn } from "lucide-react";
-import { uploadBlogImage, uploadTeamImage, uploadTestimonialImage } from "@/actions/upload";
 
 type UploadFolder = "team" | "blogs" | "testimonials";
 type UploadResult = { success?: boolean; url?: string; error?: string };
-type UploadAction = (formData: FormData) => Promise<UploadResult>;
-
-const uploadActions: Record<UploadFolder, UploadAction> = {
-  team: uploadTeamImage,
-  blogs: uploadBlogImage,
-  testimonials: uploadTestimonialImage,
-};
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -238,10 +230,16 @@ export function ImageUploadField({
       const formData = new FormData();
       formData.append("file", file);
 
-      const upload = uploadActions[folder];
-      const result = await upload(formData);
+      formData.append("folder", folder);
 
-      if (!result.success || !result.url) {
+      const response = await fetch("/api/uploads/image", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = (await response.json()) as UploadResult;
+
+      if (!response.ok || !result.success || !result.url) {
         throw new Error(result.error || "Upload failed");
       }
 
@@ -370,12 +368,12 @@ export function ImageUploadField({
                 >
                   Cancel
                 </button>
-            <button
-              type="button"
-              onClick={handleUpload}
-              disabled={uploading || frameSize.width === 0 || frameSize.height === 0}
-              className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-            >
+                <button
+                  type="button"
+                  onClick={handleUpload}
+                  disabled={uploading || frameSize.width === 0 || frameSize.height === 0}
+                  className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-xs font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                >
                   {uploading ? "Uploading..." : "Use image"}
                 </button>
               </div>

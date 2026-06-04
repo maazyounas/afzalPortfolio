@@ -8,6 +8,7 @@ import { ServiceSchema, type ServiceInput } from "@/validators/service";
 import { createService, updateService } from "@/actions/services";
 import { IService } from "@/models/Service";
 import { useState } from "react";
+import { RichTextEditor } from "./RichTextEditor";
 
 type ServiceFormValues = z.input<typeof ServiceSchema>;
 type ServiceInitialData = Partial<ServiceFormValues> & {
@@ -26,6 +27,8 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<ServiceFormValues, unknown, ServiceInput>({
     resolver: zodResolver(ServiceSchema),
@@ -91,7 +94,7 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
           {...register("icon")}
           list="service-icon-list"
           className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-[var(--color-accent)]"
-          placeholder="e.g. Calculator, ShieldCheck, Briefcase"
+          placeholder="e.g. Calculator, ShieldCheck, Briefcase, or 💻"
         />
         <datalist id="service-icon-list">
           <option value="Briefcase" />
@@ -104,8 +107,9 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
           <option value="Clock" />
           <option value="CheckCircle" />
           <option value="FileText" />
+          <option value="💻" />
         </datalist>
-        <p className="text-xs text-(--color-muted)">Enter a Lucide icon name. Invalid names will fall back to the default service icon.</p>
+        <p className="text-xs text-(--color-muted)">Use a Lucide icon name or a single emoji like 💻. Unknown values still fall back to the default service icon.</p>
         {errors.icon && (
           <p className="text-xs text-red-400">{errors.icon.message}</p>
         )}
@@ -123,12 +127,17 @@ export function ServiceForm({ initialData }: ServiceFormProps) {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium">Detailed Content</label>
-        <textarea
-          {...register("content")}
-          rows={12}
-          className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-[var(--color-accent)] font-mono text-sm"
-          placeholder="Write the full details here. You can use markdown or plain text with paragraphs..."
+        <RichTextEditor
+          label="Detailed Content"
+          helperText="Bold and italic formatting are available here too."
+          value={watch("content") || ""}
+          onChange={(html) =>
+            setValue("content", html, {
+              shouldDirty: true,
+              shouldValidate: true,
+            })
+          }
+          placeholder="Write the full details here..."
         />
         {errors.content && <p className="text-xs text-red-400">{errors.content.message}</p>}
       </div>

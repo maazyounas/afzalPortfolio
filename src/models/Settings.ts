@@ -9,6 +9,8 @@ export interface ISettings extends Document {
   contactPhone: string;
   address: string;
   mapLocation?: string;
+  mapLatitude?: number;
+  mapLongitude?: number;
   socialLinks: {
     linkedin?: string;
     twitter?: string;
@@ -30,6 +32,8 @@ const SettingsSchema: Schema = new Schema(
     contactPhone: { type: String, required: true },
     address: { type: String, required: true },
     mapLocation: { type: String },
+    mapLatitude: { type: Number },
+    mapLongitude: { type: Number },
     socialLinks: {
       linkedin: { type: String },
       twitter: { type: String },
