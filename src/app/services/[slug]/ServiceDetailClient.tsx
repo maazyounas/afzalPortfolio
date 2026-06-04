@@ -2,15 +2,7 @@
 
 import { motion } from "@/lib/motion";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  Calendar,
-  Clock,
-  Share2,
-  Bookmark,
-  CheckCircle,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowLeft, Bookmark, Share2 } from "lucide-react";
 import { useState } from "react";
 import type { IService } from "@/models/Service";
 import { ServiceIcon } from "@/lib/utils/icons";
@@ -22,8 +14,12 @@ interface ServiceDetailClientProps {
 
 export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const hasCustomContent = Boolean(service.content?.trim());
-  const contentHtml = richTextToHtml(hasCustomContent ? service.content || "" : service.description);
+  const contentHtml = richTextToHtml(service.content || service.description);
+  const publishedOrUpdated = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(service.updatedAt || service.createdAt));
 
   const handleShare = async () => {
     if (navigator.share) {
@@ -45,18 +41,18 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
 
   return (
     <article className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-(--color-accent-light)/10 via-white to-white">
-        {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, var(--color-accent) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px'
-          }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "radial-gradient(circle at 2px 2px, var(--color-accent) 1px, transparent 1px)",
+              backgroundSize: "40px 40px",
+            }}
+          />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-          {/* Back Button */}
           <Link
             href="/services"
             className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-(--color-muted) transition-colors hover:text-(--color-accent)"
@@ -65,55 +61,53 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
             Back to Services
           </Link>
 
-          {/* Title and Actions */}
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex-1"
+              transition={{ duration: 0.45 }}
+              className="max-w-3xl"
             >
-              <div className="mb-6 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-4 rounded-3xl bg-white/90 px-4 py-3 shadow-sm ring-1 ring-(--color-line)">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) text-white">
-                    <ServiceIcon name={service.icon} className="h-7 w-7" />
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wider text-(--color-accent)">
-                      Service Detail
-                    </div>
-                    <h1 className="text-2xl font-bold text-(--color-ink) sm:text-3xl">
-                      {service.name}
-                    </h1>
-                  </div>
+              <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-(--color-line) bg-white/90 px-4 py-2 shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) text-white">
+                  <ServiceIcon name={service.icon} className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-(--color-accent)">
+                    Service Detail
+                  </p>
+                  <p className="text-xs text-(--color-muted)">Updated {publishedOrUpdated}</p>
                 </div>
               </div>
+
+              <h1 className="text-3xl font-bold tracking-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
+                {service.name}
+              </h1>
               <p className="mt-4 text-lg leading-relaxed text-(--color-muted) lg:text-xl">
                 {service.description}
               </p>
             </motion.div>
 
-            {/* Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.45, delay: 0.1 }}
               className="flex gap-3"
             >
               <button
-                onClick={() => setIsBookmarked(!isBookmarked)}
-                className="group flex items-center gap-2 rounded-xl border border-(--color-line) bg-white px-4 py-2 text-sm font-medium text-(--color-ink) transition-all hover:border-(--color-accent-light) hover:shadow-md"
+                type="button"
+                onClick={() => setIsBookmarked((current) => !current)}
+                className="group inline-flex items-center gap-2 rounded-xl border border-(--color-line) bg-white px-4 py-2 text-sm font-medium text-(--color-ink) transition-all hover:border-(--color-accent-light) hover:shadow-md"
               >
                 <Bookmark
-                  className={`h-4 w-4 transition-all ${
-                    isBookmarked ? "fill-(--color-accent) text-(--color-accent)" : ""
-                  }`}
+                  className={`h-4 w-4 transition-all ${isBookmarked ? "fill-(--color-accent) text-(--color-accent)" : ""}`}
                 />
                 {isBookmarked ? "Saved" : "Save"}
               </button>
               <button
+                type="button"
                 onClick={handleShare}
-                className="group flex items-center gap-2 rounded-xl border border-(--color-line) bg-white px-4 py-2 text-sm font-medium text-(--color-ink) transition-all hover:border-(--color-accent-light) hover:shadow-md"
+                className="group inline-flex items-center gap-2 rounded-xl border border-(--color-line) bg-white px-4 py-2 text-sm font-medium text-(--color-ink) transition-all hover:border-(--color-accent-light) hover:shadow-md"
               >
                 <Share2 className="h-4 w-4" />
                 Share
@@ -123,176 +117,81 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-3">
-          {/* Left Column - Main Content */}
-          <div className="lg:col-span-2">
-            {/* Featured Image */}
+      <div className="mx-auto max-w-7xl px-4 pb-20 pt-10 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+          <motion.article
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="rounded-[2rem] border border-[var(--color-line)] bg-white p-6 shadow-[0_18px_60px_rgba(17,33,31,0.08)] sm:p-8"
+          >
             {service.featuredImage && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="mb-8 overflow-hidden rounded-2xl shadow-lg"
-              >
+              <div className="mb-8 overflow-hidden rounded-[1.5rem]">
                 <img
                   src={service.featuredImage}
                   alt={service.name}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  className="h-full w-full object-cover"
                 />
-              </motion.div>
+              </div>
             )}
 
-            {/* Content Sections */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="space-y-8"
-            >
-              {/* Overview Section */}
-              <section>
-                <h2 className="mb-4 text-2xl font-bold text-(--color-ink)">
-                  Overview
-                </h2>
-                <div
-                  className="prose prose-lg max-w-none text-(--color-muted)"
-                  dangerouslySetInnerHTML={{ __html: contentHtml }}
-                />
-                {!hasCustomContent && (
-                  <div className="prose prose-lg mt-4 max-w-none text-(--color-muted)">
-                    <p>
-                      Our comprehensive {service.name} solutions are designed to help
-                      businesses achieve financial excellence through innovative
-                      strategies and cutting-edge technology.
-                    </p>
-                  </div>
-                )}
-              </section>
+            <div
+              className="prose prose-zinc max-w-none prose-headings:text-(--color-ink) prose-p:text-(--color-muted)"
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
+            />
 
-              {/* Key Features */}
-              <section>
-                <h2 className="mb-4 text-2xl font-bold text-(--color-ink)">
-                  Key Features
-                </h2>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {[
-                    "Expert Consultation",
-                    "Real-time Analytics",
-                    "24/7 Support",
-                    "Custom Solutions",
-                    "Secure Platform",
-                    "Scalable Infrastructure",
-                  ].map((feature, idx) => (
-                    <motion.div
-                      key={feature}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4 + idx * 0.05 }}
-                      className="flex items-center gap-3 rounded-xl border border-(--color-line) bg-white p-3"
-                    >
-                      <CheckCircle className="h-5 w-5 text-(--color-accent)" />
-                      <span className="text-sm font-medium text-(--color-ink)">
-                        {feature}
-                      </span>
-                    </motion.div>
-                  ))}
+            <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-[var(--color-line)] pt-6">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-xl bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+              >
+                Request This Service
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex items-center justify-center rounded-xl border border-[var(--color-line)] px-5 py-3 text-sm font-semibold text-(--color-ink) transition hover:bg-gray-50"
+              >
+                View All Services
+              </Link>
+            </div>
+          </motion.article>
+
+          <aside className="space-y-6">
+            <div className="rounded-[1.75rem] border border-[var(--color-line)] bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-(--color-ink)">Service Info</h2>
+              <dl className="mt-4 space-y-4 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-(--color-muted)">Slug</dt>
+                  <dd className="font-medium text-(--color-ink)">{service.slug}</dd>
                 </div>
-              </section>
-
-              {/* Benefits Section */}
-              <section>
-                <h2 className="mb-4 text-2xl font-bold text-(--color-ink)">
-                  Why Choose This Service?
-                </h2>
-                <div className="space-y-4">
-                  {[
-                    "Industry-leading expertise and proven methodologies",
-                    "Tailored solutions that scale with your business",
-                    "Transparent pricing with no hidden costs",
-                    "Dedicated account manager and priority support",
-                  ].map((benefit, idx) => (
-                    <motion.div
-                      key={benefit}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + idx * 0.05 }}
-                      className="flex items-start gap-3 rounded-xl p-3 transition-all hover:bg-gray-50"
-                    >
-                      <ChevronRight className="mt-0.5 h-4 w-4 text-(--color-accent)" />
-                      <span className="text-(--color-muted)">{benefit}</span>
-                    </motion.div>
-                  ))}
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-(--color-muted)">Order</dt>
+                  <dd className="font-medium text-(--color-ink)">{service.order}</dd>
                 </div>
-              </section>
-            </motion.div>
-          </div>
-
-          {/* Right Column - Sidebar */}
-          <div className="lg:col-span-1">
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="sticky top-24 space-y-6"
-            >
-              {/* Info Card */}
-              <div className="rounded-2xl border border-(--color-line) bg-white p-6 shadow-sm">
-                <h3 className="mb-4 text-lg font-semibold text-(--color-ink)">
-                  Service Information
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 text-sm">
-                    <Clock className="h-4 w-4 text-(--color-accent)" />
-                    <span className="text-(--color-muted)">Delivery: 2-4 weeks</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm">
-                    <Calendar className="h-4 w-4 text-(--color-accent)" />
-                    <span className="text-(--color-muted)">Support: 24/7</span>
-                  </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-(--color-muted)">Status</dt>
+                  <dd className="font-medium text-(--color-ink)">{service.isActive ? "Active" : "Inactive"}</dd>
                 </div>
-              </div>
-
-              {/* CTA Card */}
-              <div className="rounded-2xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) p-6 text-white shadow-lg">
-                <h3 className="mb-2 text-xl font-bold">Ready to get started?</h3>
-                <p className="mb-4 text-sm opacity-90">
-                  Contact our team to discuss how we can help your business grow.
-                </p>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-sm font-semibold text-(--color-accent) transition-all hover:gap-3 hover:bg-gray-50"
-                >
-                  Contact Us
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-              </div>
-
-              {/* Related Services */}
-              <div className="rounded-2xl border border-(--color-line) bg-white p-6 shadow-sm">
-                <h3 className="mb-4 text-lg font-semibold text-(--color-ink)">
-                  Related Services
-                </h3>
-                <div className="space-y-3">
-                  {["Financial Advisory", "Tax Planning", "Audit Services"].map(
-                    (service) => (
-                      <Link
-                        key={service}
-                        href="#"
-                        className="group flex items-center justify-between rounded-lg p-2 transition-all hover:bg-gray-50"
-                      >
-                        <span className="text-sm text-(--color-muted) group-hover:text-(--color-accent)">
-                          {service}
-                        </span>
-                        <ChevronRight className="h-3 w-3 text-(--color-muted) transition-transform group-hover:translate-x-1" />
-                      </Link>
-                    )
-                  )}
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-(--color-muted)">Updated</dt>
+                  <dd className="font-medium text-(--color-ink)">{publishedOrUpdated}</dd>
                 </div>
-              </div>
-            </motion.div>
-          </div>
+              </dl>
+            </div>
+
+            <div className="rounded-[1.75rem] bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) p-6 text-white shadow-lg">
+              <h2 className="text-xl font-bold">Need help with this service?</h2>
+              <p className="mt-2 text-sm leading-6 opacity-90">
+                Reach out and we&apos;ll walk you through the details, process, and next steps.
+              </p>
+              <Link
+                href="/contact"
+                className="mt-5 inline-flex items-center rounded-xl bg-white px-4 py-2 text-sm font-semibold text-(--color-accent) transition hover:bg-gray-50"
+              >
+                Contact Us
+              </Link>
+            </div>
+          </aside>
         </div>
       </div>
     </article>
