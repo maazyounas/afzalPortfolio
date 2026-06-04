@@ -11,7 +11,7 @@ export function Hero() {
       {/* Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.10),transparent_30%),radial-gradient(circle_at_80%_20%,rgba(99,102,241,0.05),transparent_25%)]" />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-5 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:px-8 lg:py-16">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:px-8 lg:py-16">
         {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ export function Hero() {
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-5 font-(family-name:--font-display) text-4xl font-bold leading-[1.02] text-(--color-ink) sm:text-5xl lg:text-6xl"
+            className="mt-5 font-(family-name:--font-display) text-[2.2rem] font-bold leading-[1.02] text-(--color-ink) sm:text-5xl lg:text-6xl"
           >
             Financial clarity that scales with your business.
           </motion.h1>
@@ -42,7 +42,7 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-5 max-w-2xl text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8"
+            className="mt-5 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8"
           >
             {siteConfig.description}
           </motion.p>
@@ -71,7 +71,7 @@ export function Hero() {
         </motion.div>
 
         {/* Right Content */}
-        <div className="relative w-full">
+        <div className="relative w-full lg:pl-4">
           <HeroStats />
         </div>
       </div>

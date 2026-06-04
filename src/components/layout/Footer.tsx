@@ -13,7 +13,6 @@ import {
   Heart,
 } from "lucide-react";
 
-import { navigation } from "@/lib/data/navigation";
 import { siteConfig } from "@/lib/data/site-config";
 import { getSettings } from "@/actions/settings";
 
@@ -33,7 +32,7 @@ export async function Footer() {
     { icon: Link2, href: settings?.socialLinks?.linkedin || "#", label: "LinkedIn" },
     { icon: Share2, href: settings?.socialLinks?.twitter || "#", label: "Twitter" },
     { icon: Globe, href: settings?.socialLinks?.facebook || "#", label: "Facebook" },
-  ].filter(link => link.href !== "#" && link.href !== "");
+  ].filter((link) => link.href !== "#" && link.href !== "");
 
   const quickLinks = [
     { label: "About Us", href: "/about" },
@@ -47,27 +46,17 @@ export async function Footer() {
     { label: "Support", href: "/support" },
   ];
 
-
-
   return (
     <footer className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50/80">
-      {/* Background Glow */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-(--color-accent-light) opacity-30 blur-3xl" />
         <div className="absolute -bottom-20 -right-20 h-80 w-80 rounded-full bg-cyan-100 opacity-30 blur-3xl" />
       </div>
 
-      {/* Main Footer Content */}
-      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-16 sm:px-6 lg:px-8">
-        {/* Top Grid */}
-        <div className="grid gap-12 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr]">
-          
-          {/* Brand Section */}
-          <div className="max-w-md">
-            <Link
-              href="/"
-              className="group inline-flex items-center gap-3 transition-transform hover:scale-105"
-            >
+      <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr]">
+          <div className="max-w-md sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="group inline-flex items-center gap-3 transition-transform hover:scale-105">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) text-lg font-bold text-white shadow-lg transition-all duration-300 group-hover:shadow-xl">
                 S
               </div>
@@ -80,11 +69,8 @@ export async function Footer() {
               </div>
             </Link>
 
-            <p className="mt-5 text-sm leading-relaxed text-(--color-muted)">
-              {description}
-            </p>
+            <p className="mt-5 text-sm leading-relaxed text-(--color-muted)">{description}</p>
 
-            {/* Trust Badges */}
             <div className="mt-6 flex flex-wrap gap-3">
               <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1">
                 <Shield className="h-3 w-3 text-emerald-600" />
@@ -100,7 +86,6 @@ export async function Footer() {
               </div>
             </div>
 
-            {/* Social Links */}
             <div className="mt-6 flex flex-wrap items-center gap-2">
               {dynamicSocialLinks.map((social) => {
                 const Icon = social.icon;
@@ -112,16 +97,7 @@ export async function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="
-                      group relative flex h-10 w-10 items-center justify-center
-                      rounded-xl border border-(--color-line)
-                      bg-white text-(--color-muted)
-                      shadow-sm transition-all duration-300
-                      hover:-translate-y-1
-                      hover:border-(--color-accent-light)
-                      hover:text-(--color-accent)
-                      hover:shadow-lg
-                    "
+                    className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-(--color-line) bg-white text-(--color-muted) shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-(--color-accent-light) hover:text-(--color-accent) hover:shadow-lg"
                   >
                     <Icon className="h-4 w-4 transition-transform group-hover:scale-110" />
                   </Link>
@@ -130,7 +106,6 @@ export async function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-(--color-ink)">
               Quick Links
@@ -140,13 +115,7 @@ export async function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="
-                    group flex items-center gap-2
-                    text-sm text-(--color-muted)
-                    transition-all duration-300
-                    hover:translate-x-1
-                    hover:text-(--color-accent)
-                  "
+                  className="group flex items-center gap-2 text-sm text-(--color-muted) transition-all duration-300 hover:translate-x-1 hover:text-(--color-accent)"
                 >
                   <ArrowRight className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
                   <span>{item.label}</span>
@@ -155,7 +124,6 @@ export async function Footer() {
             </div>
           </div>
 
-          {/* Resources */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-(--color-ink)">
               Resources
@@ -165,13 +133,7 @@ export async function Footer() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="
-                    group flex items-center gap-2
-                    text-sm text-(--color-muted)
-                    transition-all duration-300
-                    hover:translate-x-1
-                    hover:text-(--color-accent)
-                  "
+                  className="group flex items-center gap-2 text-sm text-(--color-muted) transition-all duration-300 hover:translate-x-1 hover:text-(--color-accent)"
                 >
                   <ExternalLink className="h-3 w-3 opacity-0 transition-all group-hover:opacity-100" />
                   <span>{item.label}</span>
@@ -180,26 +142,27 @@ export async function Footer() {
             </div>
           </div>
 
-          {/* Contact */}
-          <div>
+          <div className="sm:col-span-2 lg:col-span-1">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-(--color-ink)">
-              Contact 
+              Contact
             </h3>
-            
-            
-           
 
-            {/* Contact Info */}
             <div className="mt-6 space-y-3">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-(--color-accent)" />
-                <a href={`mailto:${email}`} className="text-sm text-(--color-muted) transition-colors hover:text-(--color-accent)">
+                <a
+                  href={`mailto:${email}`}
+                  className="text-sm text-(--color-muted) transition-colors hover:text-(--color-accent)"
+                >
                   {email}
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-(--color-accent)" />
-                <a href={`tel:${phone.replace(/\s/g, '')}`} className="text-sm text-(--color-muted) transition-colors hover:text-(--color-accent)">
+                <a
+                  href={`tel:${phone.replace(/\s/g, "")}`}
+                  className="text-sm text-(--color-muted) transition-colors hover:text-(--color-accent)"
+                >
                   {phone}
                 </a>
               </div>
@@ -213,26 +176,22 @@ export async function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-(--color-line) pt-6 text-center text-sm text-(--color-muted) md:flex-row md:text-left">
-          <p>
-            © {currentYear} {siteName}. All rights reserved.
-          </p>
+          <p>© {currentYear} {siteName}. All rights reserved.</p>
 
-          <div className="flex flex-wrap items-center justify-center gap-5">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
               href="/privacy"
-              className="transition-colors duration-300 hover:text-(--color-accent)"
+              className="rounded-full border border-transparent px-3 py-1 transition-colors duration-300 hover:border-(--color-line) hover:text-(--color-accent)"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="transition-colors duration-300 hover:text-(--color-accent)"
+              className="rounded-full border border-transparent px-3 py-1 transition-colors duration-300 hover:border-(--color-line) hover:text-(--color-accent)"
             >
               Terms of Service
             </Link>
-            
           </div>
 
           <ScrollToTopButton />

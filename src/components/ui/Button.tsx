@@ -11,7 +11,7 @@ type ButtonProps = {
 };
 
 const baseStyles =
-  "inline-flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition";
+  "inline-flex min-h-12 items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition will-change-transform";
 
 const variants = {
   primary:

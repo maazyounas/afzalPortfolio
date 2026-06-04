@@ -33,7 +33,7 @@ export function SectionWrapper({
   return (
     <motion.section
       id={sectionId}
-      className="mx-auto max-w-6xl scroll-mt-15 sm:scroll-mt-24 px-5 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-14"
+      className="mx-auto max-w-6xl scroll-mt-20 px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-16"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
@@ -45,12 +45,11 @@ export function SectionWrapper({
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="mt-3 font-(family-name:--font-display) text-3xl font-bold leading-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
+        <h2 className="mt-3 font-(family-name:--font-display) text-2xl font-bold leading-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
           {title}
         </h2>
         {intro ? (
-          <p className="mt-4 max-w-2xl text-base leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
-            {" "}
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
             {intro}
           </p>
         ) : null}

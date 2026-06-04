@@ -62,5 +62,17 @@ html {
 
 body {
   overflow-x: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(20, 184, 166, 0.08), transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  color: var(--color-ink);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(20, 184, 166, 0.18);
+  color: var(--color-ink);
 }
 

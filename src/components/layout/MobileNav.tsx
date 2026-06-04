@@ -150,7 +150,7 @@ export function MobileNav({
                 damping: 35,
                 mass: 0.8,
               }}
-              className="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col bg-white shadow-2xl lg:hidden"
+              className="fixed inset-y-0 right-0 z-50 flex w-full flex-col bg-white shadow-2xl sm:max-w-md lg:hidden"
             >
               {/* Header */}
               <div className="relative flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-white to-gray-50/50 px-6 py-6">
@@ -219,7 +219,7 @@ export function MobileNav({
                               }, 300);
                             }
                           }}
-                          className={`group relative flex items-center justify-between rounded-xl px-5 py-4 text-base font-semibold transition-all duration-300 ${
+                          className={`group relative flex items-center justify-between rounded-xl px-5 py-4 text-sm font-semibold transition-all duration-300 sm:text-base ${
                             isActive
                               ? "bg-(--color-accent) text-white shadow-lg"
                               : "text-gray-700 hover:bg-gray-50 hover:pl-6"
