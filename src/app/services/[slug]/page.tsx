@@ -5,6 +5,8 @@ import type { IService } from "@/models/Service";
 import { ServiceDetailClient } from "./ServiceDetailClient";
 import { ServiceSkeleton } from "./ServiceSkeleton";
 
+export const dynamic = "force-dynamic";
+
 interface ServicePageProps {
   params: { slug: string };
 }
