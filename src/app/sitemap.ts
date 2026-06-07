@@ -1,41 +1,33 @@
-import { MetadataRoute } from "next";
-import { getServices } from "@/actions/services";
-import { getBlogPosts } from "@/actions/blogs";
-import { IService } from "@/models/Service";
-import { IBlogPost } from "@/models/BlogPost";
+import type { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/data/site-config";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.softechfinancials.com";
+export default function sitemap(): MetadataRoute.Sitemap {
+  const siteUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.NEXT_PUBLIC_SITE_URL || siteConfig.url;
 
-  const services = await getServices();
-  const blogs = (await getBlogPosts()) as Array<
-    Pick<IBlogPost, "slug" | "createdAt" | "updatedAt">
-  >;
+  const now = new Date();
 
-  const serviceUrls = services.map((service: IService) => ({
-    url: `${baseUrl}/services/${service.slug}`,
-    lastModified: new Date(),
+  const staticRoutes = [
+    "/",
+    "/about",
+    "/contact",
+    "/blog",
+    "/services",
+    "/team",
+    "/help",
+    "/privacy",
+    "/support",
+    "/terms",
+  ].map((path) => ({
+    url: `${siteUrl}${path}`,
+    lastModified: now,
   }));
 
-  const blogUrls = blogs.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedAt || post.createdAt),
+  const blogRoutes = siteConfig.blogPosts.map((post) => ({
+    url: `${siteUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedAt),
   }));
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-    },
-    ...serviceUrls,
-    ...blogUrls,
-  ];
+  return [...staticRoutes, ...blogRoutes];
 }
