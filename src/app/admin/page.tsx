@@ -1,82 +1,59 @@
-import { 
-  Briefcase, 
-  Users, 
-  MessageSquare, 
-  FileText 
-} from "lucide-react";
 import Link from "next/link";
-import dbConnect from "@/lib/db/db";
-import Service from "@/models/Service";
-import TeamMember from "@/models/TeamMember";
-import BlogPost from "@/models/BlogPost";
-import ContactMessage from "@/models/ContactMessage";
+import { ArrowRight, FileText, Settings, Shield, Users, Wrench } from "lucide-react";
 
-export default async function AdminDashboard() {
-  await dbConnect();
+export const dynamic = "force-dynamic";
 
-  const [services, team, blogs, messages] = await Promise.all([
-    Service.countDocuments(),
-    TeamMember.countDocuments(),
-    BlogPost.countDocuments(),
-    ContactMessage.countDocuments({ isRead: false }),
-  ]);
+const quickLinks = [
+  { href: "/admin/blogs", label: "Manage Blogs", icon: FileText, description: "Create, update, and publish blog content." },
+  { href: "/admin/services", label: "Manage Services", icon: Wrench, description: "Edit service offerings and public descriptions." },
+  { href: "/admin/team", label: "Manage Team", icon: Users, description: "Update team member profiles and bios." },
+  { href: "/admin/settings", label: "Site Settings", icon: Settings, description: "Adjust contact and branding settings." },
+];
 
-  const stats = [
-    { label: "Services", value: services, icon: Briefcase, color: "text-blue-400" },
-    { label: "Team Members", value: team, icon: Users, color: "text-green-400" },
-    { label: "Blog Posts", value: blogs, icon: FileText, color: "text-purple-400" },
-    { label: "Unread Messages", value: messages, icon: MessageSquare, color: "text-orange-400" },
-  ];
-
+export default function AdminPage() {
   return (
-    <div>
-      <header className="mb-10">
-        <h1 className="text-3xl font-bold">Dashboard Overview</h1>
-        <p className="mt-2 text-neutral-400">Welcome back. Here is what is happening with your portfolio.</p>
-      </header>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <div key={stat.label} className="rounded-2xl border border-white/5 bg-white/5 p-6 transition-all hover:border-white/10">
-            <div className="flex items-center gap-4">
-              <div className={`rounded-lg bg-white/5 p-3 ${stat.color}`}>
-                <stat.icon className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm text-neutral-400">{stat.label}</p>
-                <p className="text-2xl font-bold">{stat.value}</p>
-              </div>
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl">
+        <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+          <div className="border-b border-slate-100 bg-slate-950 px-6 py-8 text-white sm:px-8">
+            <div className="flex items-center gap-3 text-sm uppercase tracking-[0.18em] text-cyan-300">
+              <Shield className="h-4 w-4" />
+              Admin Dashboard
             </div>
+            <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+              Welcome back.
+            </h1>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
+              Use the links below to manage your site content, services, team, and settings.
+              This landing page stays static so Vercel can build without needing MongoDB at compile time.
+            </p>
           </div>
-        ))}
-      </div>
 
-      <div className="mt-12 grid gap-8 lg:grid-cols-2">
-        <div className="rounded-2xl border border-white/5 bg-white/5 p-8">
-          <h2 className="text-xl font-semibold">Quick Actions</h2>
-          <div className="mt-6 grid grid-cols-2 gap-4">
-            <button className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all hover:bg-white/10">
-              New Blog Post
-            </button>
-            <button className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all hover:bg-white/10">
-              Add Service
-            </button>
-            <button className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all hover:bg-white/10">
-              Update Team
-            </button>
-            <Link href="/admin/settings" className="rounded-xl bg-white/5 p-4 text-sm font-medium transition-all text-center hover:bg-white/10 block">
-              Site Settings
-            </Link>
-          </div>
-        </div>
+          <div className="grid gap-4 p-6 sm:grid-cols-2 lg:grid-cols-4 sm:p-8">
+            {quickLinks.map((item) => {
+              const Icon = item.icon;
 
-        <div className="rounded-2xl border border-white/5 bg-white/5 p-8">
-          <h2 className="text-xl font-semibold">Recent Messages</h2>
-          <div className="mt-6 space-y-4">
-            <p className="text-sm text-neutral-500 italic">No new messages in the last 24 hours.</p>
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group rounded-2xl border border-slate-200 bg-slate-50 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400 hover:bg-white hover:shadow-lg"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 transition group-hover:bg-cyan-600 group-hover:text-white">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <h2 className="mt-4 text-lg font-semibold text-slate-900">{item.label}</h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                  <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-cyan-700">
+                    Open
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              );
+            })}
           </div>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
