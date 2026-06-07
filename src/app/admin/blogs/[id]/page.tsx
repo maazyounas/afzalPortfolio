@@ -16,14 +16,14 @@ export default async function EditBlogPostPage({ params }: Props) {
 
   return (
     <div>
-      <header className="mb-10">
-        <h1 className="text-3xl font-bold">Edit Post</h1>
-        <p className="mt-2 text-neutral-400">
+      <header className="mb-8 sm:mb-10">
+        <h1 className="text-2xl font-bold sm:text-3xl">Edit Post</h1>
+        <p className="mt-2 max-w-2xl text-sm text-neutral-400">
           Update the details for &ldquo;{post.title}&rdquo;
         </p>
       </header>
 
-      <div className="rounded-2xl border border-white/5 bg-white/5 p-6 sm:p-8">
+      <div className="rounded-2xl border border-white/5 bg-white/5 p-5 sm:p-6 lg:p-8">
         <BlogForm initialData={post} />
       </div>
     </div>

@@ -6,22 +6,34 @@ const secret = new TextEncoder().encode(JWT_SECRET);
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const token = request.cookies.get("admin_token")?.value;
 
-  // Protect /admin routes (except login)
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    const token = request.cookies.get("admin_token")?.value;
-
-    if (!token) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
-    }
+  async function isValidAdminToken(value?: string) {
+    if (!value) return false;
 
     try {
-      await jwtVerify(token, secret);
-      return NextResponse.next();
+      await jwtVerify(value, secret);
+      return true;
     } catch (error) {
       console.error("JWT Verification failed:", error);
+      return false;
+    }
+  }
+
+  if (pathname === "/admin/login") {
+    if (await isValidAdminToken(token)) {
+      return NextResponse.redirect(new URL("/admin", request.url));
+    }
+
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/admin")) {
+    if (!(await isValidAdminToken(token))) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
     }
+
+    return NextResponse.next();
   }
 
   return NextResponse.next();

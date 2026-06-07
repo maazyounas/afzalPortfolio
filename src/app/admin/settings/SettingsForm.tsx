@@ -220,7 +220,7 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
         </div>
       </div>
 
-      <div className="flex justify-end border-t border-white/10 pt-8">
+      <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-8 sm:flex-row sm:justify-end sm:gap-4">
         <button
           type="submit"
           disabled={isSubmitting}

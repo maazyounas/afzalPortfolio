@@ -18,12 +18,12 @@ export default async function EditTeamMemberPage({ params }: Props) {
 
   return (
     <div className="max-w-2xl text-white">
-      <header className="mb-8">
-        <h1 className="text-2xl font-bold">Edit Team Member</h1>
-        <p className="text-sm text-neutral-400">Update the details for &quot;{member.name}&quot;.</p>
+      <header className="mb-8 sm:mb-10">
+        <h1 className="text-2xl font-bold sm:text-3xl">Edit Team Member</h1>
+        <p className="max-w-xl text-sm text-neutral-400">Update the details for &quot;{member.name}&quot;.</p>
       </header>
 
-      <div className="rounded-2xl border border-white/5 bg-white/5 p-8">
+      <div className="rounded-2xl border border-white/5 bg-white/5 p-5 sm:p-6 lg:p-8">
         <TeamForm initialData={JSON.parse(JSON.stringify(member))} />
       </div>
     </div>
