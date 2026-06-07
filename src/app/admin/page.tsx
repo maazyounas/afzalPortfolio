@@ -12,7 +12,7 @@ const quickLinks = [
 
 export default function AdminPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100 py-8 sm:py-12">
       <div className="mx-auto max-w-6xl">
         <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
           <div className="border-b border-slate-100 bg-slate-950 px-6 py-8 text-white sm:px-8">
@@ -54,6 +54,6 @@ export default function AdminPage() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

@@ -54,8 +54,8 @@ export function FaqList({ faqs }: { faqs: FaqItem[] }) {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-white/5">
-      <table className="w-full text-left text-sm">
+    <div className="overflow-x-auto rounded-2xl border border-white/5">
+      <table className="min-w-[720px] w-full text-left text-sm">
         <thead className="border-b border-white/10 bg-white/5">
           <tr>
             <th className="px-6 py-4 font-semibold text-neutral-300">Question</th>

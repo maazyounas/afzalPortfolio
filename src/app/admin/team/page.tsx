@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Plus, Edit, Trash2, Shield } from "lucide-react";
+import { Plus, Edit } from "lucide-react";
 import { getTeamMembers, deleteTeamMember } from "@/actions/team";
 import { ITeamMember } from "@/models/TeamMember";
 import { revalidatePath } from "next/cache";
@@ -20,19 +20,19 @@ export default async function AdminTeamPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="text-2xl font-bold text-white">Team Members</h1>
         <Link
           href="/admin/team/new"
-          className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 sm:w-auto"
         >
           <Plus className="h-4 w-4" />
           Add Member
         </Link>
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-xl border border-white/5 bg-white/5">
-        <table className="w-full text-left text-white">
+      <div className="mt-8 overflow-x-auto rounded-xl border border-white/5 bg-white/5">
+        <table className="min-w-[820px] w-full text-left text-white">
           <thead>
             <tr className="border-b border-white/5 bg-white/5 text-sm font-medium text-neutral-400">
               <th className="px-6 py-4">Name</th>
