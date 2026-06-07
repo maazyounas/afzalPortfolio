@@ -1,29 +1,67 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import dbConnect from "@/lib/db/db";
-import Settings, { ISettings } from "@/models/Settings";
+import Settings from "@/models/Settings";
+import { formatError } from "@/lib/formatError";
+import { siteConfig } from "@/lib/data/site-config";
+
+const fallbackSettings = {
+  siteName: siteConfig.name,
+  siteDescription: siteConfig.description,
+  companyName: siteConfig.company.legalName,
+  contactEmail: siteConfig.company.email,
+  contactPhone: siteConfig.company.phone,
+  email: siteConfig.company.email,
+  phone: siteConfig.company.phone,
+  address: siteConfig.location.address,
+  mapLocation: siteConfig.location.address,
+  mapLatitude: null,
+  mapLongitude: null,
+  website: siteConfig.url,
+  logoUrl: "",
+  facebook: "",
+  instagram: "",
+  linkedin: siteConfig.social.linkedin,
+  twitter: "",
+  whatsapp: "",
+  workingHours: siteConfig.businessHours,
+};
 
 export async function getSettings() {
+  if (!process.env.MONGODB_URI) {
+    return fallbackSettings;
+  }
+
   try {
     await dbConnect();
-    const settings = await Settings.findOne();
-    return settings ? JSON.parse(JSON.stringify(settings)) : null;
+    const settings = await Settings.findOne({});
+    return settings ? JSON.parse(JSON.stringify(settings)) : fallbackSettings;
   } catch (error) {
     console.error("Failed to fetch settings:", error);
-    return null;
+    return fallbackSettings;
   }
 }
 
-export async function updateSettings(data: Partial<ISettings>) {
+export async function updateSettings(data: Record<string, unknown>) {
   try {
+    if (!process.env.MONGODB_URI) {
+      return { success: false, error: "Database is not configured" };
+    }
+
     await dbConnect();
     const settings = await Settings.findOneAndUpdate({}, data, {
-      upsert: true,
       new: true,
+      upsert: true,
+      setDefaultsOnInsert: true,
     });
+
+    revalidatePath("/");
+    revalidatePath("/admin/settings");
+
     return { success: true, data: JSON.parse(JSON.stringify(settings)) };
   } catch (error) {
     console.error("Failed to update settings:", error);
-    return { error: "Failed to update settings" };
+    return { success: false, error: formatError(error) };
   }
 }
