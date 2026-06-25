@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, FileText, Settings, Shield, Users, Wrench } from "lucide-react";
+import { ArrowRight, FileText, KeyRound, Settings, Shield, Users, Wrench } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -7,6 +7,7 @@ const quickLinks = [
   { href: "/admin/blogs", label: "Manage Blogs", icon: FileText, description: "Create, update, and publish blog content." },
   { href: "/admin/services", label: "Manage Services", icon: Wrench, description: "Edit service offerings and public descriptions." },
   { href: "/admin/team", label: "Manage Team", icon: Users, description: "Update team member profiles and bios." },
+  { href: "/admin/change-password", label: "Change Credentials", icon: KeyRound, description: "Update the admin username and password securely." },
   { href: "/admin/settings", label: "Site Settings", icon: Settings, description: "Adjust contact and branding settings." },
 ];
 

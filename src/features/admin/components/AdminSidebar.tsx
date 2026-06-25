@@ -12,7 +12,8 @@ import {
   Star,
   LogOut,
   HelpCircle,
-  X
+  X,
+  KeyRound,
 } from "lucide-react";
 import { logout } from "@/actions/auth";
 
@@ -24,6 +25,7 @@ const navItems = [
   { href: "/admin/blogs", icon: FileText, label: "Blogs" },
   { href: "/admin/faq", icon: HelpCircle, label: "FAQ" },
   { href: "/admin/messages", icon: MessageSquare, label: "Messages" },
+  { href: "/admin/change-password", icon: KeyRound, label: "Credentials" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
 
@@ -106,6 +108,7 @@ export function AdminSidebar() {
 
         <div className="mt-6 border-t border-white/10 pt-4">
           <button
+            type="button"
             onClick={() => logout()}
             className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-red-400 transition-all hover:bg-red-400/10"
           >
