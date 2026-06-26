@@ -271,11 +271,6 @@ export function MobileNav({
                 className="border-t border-gray-100 bg-gradient-to-b from-white to-gray-50/50 p-6"
               >
                 <div className="space-y-3 text-center">
-                  <div className="flex justify-center gap-2">
-                    <Zap className="h-4 w-4 text-(--color-accent)" />
-                    <Shield className="h-4 w-4 text-(--color-accent)" />
-                    <Sparkles className="h-4 w-4 text-(--color-accent)" />
-                  </div>
                   <p className="text-xs leading-relaxed text-gray-500">
                     Empowering businesses with innovative financial solutions
                     and expert guidance.
