@@ -283,7 +283,6 @@ function TeamCard({
       {member.specialties?.length ? (
         <div className="relative z-10 mt-5">
           <div className="mb-2 flex items-center gap-1.5">
-            <Sparkles className="h-3 w-3 text-(--color-accent)" />
             <span className="text-xs font-semibold uppercase tracking-wider text-(--color-muted)">
               Expertise
             </span>
@@ -318,20 +317,6 @@ function TeamCard({
         </div>
       ) : null}
 
-      {/* Experience Level Indicator */}
-      <div className="relative z-10 mt-5 flex items-center gap-2">
-        <div className="flex flex-1 gap-0.5">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Star
-              key={star}
-              className="h-3 w-3 fill-(--color-accent-light) text-(--color-accent-light)"
-            />
-          ))}
-        </div>
-        <span className="text-[10px] font-medium text-(--color-muted)">
-          Senior Level
-        </span>
-      </div>
 
       {/* Card Decorative Elements */}
       <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-(--color-accent-light) opacity-0 transition-opacity duration-500 group-hover:opacity-10" />

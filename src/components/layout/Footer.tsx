@@ -28,12 +28,7 @@ export async function Footer() {
   const phone = settings?.contactPhone || siteConfig.company.phone;
   const address = settings?.address || siteConfig.location.address;
 
-  const dynamicSocialLinks = [
-    { icon: Link2, href: settings?.socialLinks?.linkedin || "#", label: "LinkedIn" },
-    { icon: Share2, href: settings?.socialLinks?.twitter || "#", label: "Twitter" },
-    { icon: Globe, href: settings?.socialLinks?.facebook || "#", label: "Facebook" },
-  ].filter((link) => link.href !== "#" && link.href !== "");
-
+  
   const quickLinks = [
     { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
@@ -86,24 +81,7 @@ export async function Footer() {
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-2">
-              {dynamicSocialLinks.map((social) => {
-                const Icon = social.icon;
-
-                return (
-                  <Link
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="group relative flex h-10 w-10 items-center justify-center rounded-xl border border-(--color-line) bg-white text-(--color-muted) shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-(--color-accent-light) hover:text-(--color-accent) hover:shadow-lg"
-                  >
-                    <Icon className="h-4 w-4 transition-transform group-hover:scale-110" />
-                  </Link>
-                );
-              })}
-            </div>
+            
           </div>
 
           <div>
