@@ -1,16 +1,13 @@
 import Link from "next/link";
 import {
   ArrowRight,
+  Clock,
   ExternalLink,
-  Globe,
-  Link2,
+  Heart,
   Mail,
   MapPin,
   Phone,
-  Share2,
-  Clock,
   Shield,
-  Heart,
 } from "lucide-react";
 
 import { siteConfig } from "@/lib/data/site-config";
@@ -28,7 +25,6 @@ export async function Footer() {
   const phone = settings?.contactPhone || siteConfig.company.phone;
   const address = settings?.address || siteConfig.location.address;
 
-  
   const quickLinks = [
     { label: "About Us", href: "/about" },
     { label: "Services", href: "/services" },
@@ -42,7 +38,7 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-white to-gray-50/80">
+    <footer className="relative overflow-hidden bg-linear-to-b from-white to-gray-50/80">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute -left-20 -top-20 h-80 w-80 rounded-full bg-(--color-accent-light) opacity-30 blur-3xl" />
         <div className="absolute -bottom-20 -right-20 h-80 w-80 rounded-full bg-cyan-100 opacity-30 blur-3xl" />
@@ -51,20 +47,25 @@ export async function Footer() {
       <div className="relative mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_0.8fr_1fr]">
           <div className="max-w-md sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="group inline-flex items-center gap-3 transition-transform hover:scale-105">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) text-lg font-bold text-white shadow-lg transition-all duration-300 group-hover:shadow-xl">
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-3 transition-transform hover:scale-105"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-(--color-accent-light) to-(--color-accent) text-lg font-bold text-white shadow-lg transition-all duration-300 group-hover:shadow-xl">
                 S
               </div>
 
               <div>
-                <h2 className="font-(--font-display) text-xl font-bold tracking-tight text-(--color-ink)">
+                <h2 className="font-[family-name:var(--font-display)] text-xl font-bold tracking-tight text-(--color-ink)">
                   {siteName}
                 </h2>
                 <p className="text-xs text-(--color-muted)">Financial Excellence</p>
               </div>
             </Link>
 
-            <p className="mt-5 text-sm leading-relaxed text-(--color-muted)">{description}</p>
+            <p className="mt-5 text-sm leading-relaxed text-(--color-muted)">
+              {description}
+            </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1">
@@ -80,8 +81,6 @@ export async function Footer() {
                 <span className="text-xs font-medium text-purple-700">Trusted</span>
               </div>
             </div>
-
-            
           </div>
 
           <div>

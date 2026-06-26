@@ -1,12 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import {
   BadgeCheck,
   BriefcaseBusiness,
-  Sparkles,
-  Star,
   Quote,
-  ArrowRight,
 } from "lucide-react";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 
@@ -14,7 +12,6 @@ import { motion, useInView } from "@/lib/motion";
 import { teamMembers as staticMembers } from "@/lib/data/team";
 import { SectionWrapper } from "../ui/SectionWrapper";
 import { ITeamMember } from "@/models/TeamMember";
-import { useRef } from "react";
 import Image from "next/image";
 import type { TeamMember } from "@/types";
 
@@ -59,23 +56,7 @@ const item = {
 };
 
 export function Team({ members = [] }: TeamProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Fallback to static members if DB has none, so the site doesn't look blank
   const displayMembers = members.length > 0 ? members : staticMembers;
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const scrollAmount = 300;
-      const newScrollLeft =
-        scrollRef.current.scrollLeft +
-        (direction === "left" ? -scrollAmount : scrollAmount);
-      scrollRef.current.scrollTo({
-        left: newScrollLeft,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <SectionWrapper
@@ -85,7 +66,6 @@ export function Team({ members = [] }: TeamProps) {
       intro="Our model keeps experienced operators involved in both strategic direction and hands-on implementation."
       centered
     >
-      {/* Desktop Grid View */}
       <div className="hidden sm:block">
         <motion.div
           variants={container}
@@ -100,18 +80,12 @@ export function Team({ members = [] }: TeamProps) {
         </motion.div>
       </div>
 
-      {/* Mobile Horizontal Scroll View */}
       <div className="relative sm:hidden">
-        {/* Gradient Overlays for scroll indication */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-white to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-white to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-linear-to-r from-white to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-linear-to-l from-white to-transparent" />
 
-        {/* Horizontal swipe-only view (no explicit arrow buttons) */}
-
-        {/* Horizontal Scroll Container */}
         <div
-          ref={scrollRef}
-          className="flex overflow-x-auto gap-5 pb-6 scrollbar-hide"
+          className="flex gap-5 overflow-x-auto pb-6 scrollbar-hide"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
@@ -131,7 +105,6 @@ export function Team({ members = [] }: TeamProps) {
           ))}
         </div>
 
-        {/* Scroll Indicator */}
         <div className="mt-4 flex justify-center gap-1">
           {displayMembers.map((_, idx) => (
             <div
@@ -145,7 +118,6 @@ export function Team({ members = [] }: TeamProps) {
   );
 }
 
-// Separate Team Card Component for better organization
 function TeamCard({
   member,
   isMobile = false,
@@ -154,12 +126,12 @@ function TeamCard({
   isMobile?: boolean;
 }) {
   const cardRef = useRef<HTMLDivElement>(null!);
-  const isInView = useInView(cardRef as unknown as React.RefObject<Element>, { once: true, margin: "-50px" });
+  const isInView = useInView(cardRef as unknown as React.RefObject<Element>, {
+    once: true,
+    margin: "-50px",
+  });
 
-  // Get social links
   const socialLinks = member.socialLinks || {};
-
-  // Determine if we should show image or initials
   const hasImage = !!member.image;
 
   return (
@@ -180,7 +152,7 @@ function TeamCard({
       className="
         group relative h-full overflow-hidden rounded-2xl
         border border-(--color-line)
-        bg-gradient-to-br from-white to-gray-50/50
+        bg-linear-to-br from-white to-gray-50/50
         p-6 shadow-md
         backdrop-blur-sm
         transition-all duration-300
@@ -188,19 +160,15 @@ function TeamCard({
         hover:shadow-2xl
       "
     >
-      {/* Animated Gradient Border */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-(--color-accent-light) via-(--color-accent) to-(--color-accent-light) opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-20" />
+      <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-(--color-accent-light) via-(--color-accent) to-(--color-accent-light) opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-20" />
 
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-(--color-accent)" />
       </div>
 
-      {/* Card Header with Avatar */}
       <div className="relative z-10">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
-            {/* Enhanced Avatar / Image */}
             <div className="relative">
               {hasImage ? (
                 <div className="relative h-20 w-20 overflow-hidden rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-105">
@@ -210,36 +178,32 @@ function TeamCard({
                     fill
                     className="object-cover"
                   />
-                  {/* Status Indicator */}
                   <div className="absolute -bottom-1 -right-1 rounded-full border-2 border-white bg-emerald-500 p-1">
-                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
                   </div>
                 </div>
               ) : (
-                <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-(--color-accent-light) via-(--color-accent) to-(--color-accent-strong) text-2xl font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-105">
+                <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br from-(--color-accent-light) via-(--color-accent) to-(--color-accent-strong) text-2xl font-bold text-white shadow-lg transition-transform duration-300 group-hover:scale-105">
                   {initials(member.name)}
-                  {/* Status Indicator */}
                   <div className="absolute -bottom-1 -right-1 rounded-full border-2 border-white bg-emerald-500 p-1">
-                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Name & Role */}
             <div>
               <div className="inline-flex items-center gap-1 rounded-full border border-(--color-line) bg-white/80 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-(--color-accent) shadow-sm backdrop-blur-sm">
                 <BriefcaseBusiness className="h-3 w-3" />
                 {member.role}
               </div>
 
-              <h3 className="mt-3 text-xl font-bold tracking-tight text-(--color-ink) group-hover:text-(--color-accent) transition-colors">
+              <h3 className="mt-3 text-xl font-bold tracking-tight text-(--color-ink) transition-colors group-hover:text-(--color-accent)">
                 {member.name}
               </h3>
             </div>
           </div>
 
-          {/* Social Icons */}
           {(socialLinks.linkedin || socialLinks.twitter) && (
             <div className="flex gap-1">
               {socialLinks.linkedin && (
@@ -269,17 +233,14 @@ function TeamCard({
         </div>
       </div>
 
-      {/* Quote Icon */}
       <div className="relative z-10 mt-4">
         <Quote className="h-6 w-6 text-(--color-accent-light) opacity-50" />
       </div>
 
-      {/* Bio */}
-      <p className="relative z-10 mt-2 text-sm leading-relaxed text-(--color-muted) line-clamp-3">
+      <p className="relative z-10 mt-2 line-clamp-3 text-sm leading-relaxed text-(--color-muted)">
         {member.bio}
       </p>
 
-      {/* Specialties Section */}
       {member.specialties?.length ? (
         <div className="relative z-10 mt-5">
           <div className="mb-2 flex items-center gap-1.5">
@@ -317,8 +278,6 @@ function TeamCard({
         </div>
       ) : null}
 
-
-      {/* Card Decorative Elements */}
       <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-(--color-accent-light) opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
     </motion.article>
   );

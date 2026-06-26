@@ -1,18 +1,15 @@
 "use client";
 
+import { useRef } from "react";
 import {
   BarChart3,
   CheckCircle2,
   LayoutDashboard,
-  ArrowRight,
-  Sparkles,
   TrendingUp,
-  Zap,
 } from "lucide-react";
 
 import { motion, useInView } from "@/lib/motion";
 import { SectionWrapper } from "../ui/SectionWrapper";
-import { useRef } from "react";
 
 const steps = [
   {
@@ -21,7 +18,6 @@ const steps = [
       "We identify reporting gaps, operational friction, and financial blind spots affecting leadership decisions.",
     icon: BarChart3,
     gradient: "from-emerald-50 to-cyan-50",
-    color: "emerald",
     duration: "2-3 weeks",
   },
   {
@@ -30,7 +26,6 @@ const steps = [
       "We design scalable finance systems, workflows, and governance structures with clear milestones.",
     icon: LayoutDashboard,
     gradient: "from-blue-50 to-indigo-50",
-    color: "blue",
     duration: "3-4 weeks",
   },
   {
@@ -39,7 +34,6 @@ const steps = [
       "We deploy practical tools, dashboards, and reporting processes your teams can sustain long-term.",
     icon: CheckCircle2,
     gradient: "from-purple-50 to-pink-50",
-    color: "purple",
     duration: "4-6 weeks",
   },
 ];
@@ -73,15 +67,6 @@ const item = {
 
 export function Process() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 300;
-      const newScrollLeft = scrollRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
-      scrollRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
-    }
-  };
 
   return (
     <SectionWrapper
@@ -90,8 +75,7 @@ export function Process() {
       intro="We focus on lean execution, transparent collaboration, and measurable outcomes instead of bloated transformation programs."
       centered
     >
-      {/* Desktop Grid View */}
-      <div ref={sectionRef} className="hidden sm:block">
+      <div className="hidden sm:block">
         <motion.div
           variants={container}
           initial="hidden"
@@ -105,22 +89,17 @@ export function Process() {
         </motion.div>
       </div>
 
-      {/* Mobile Horizontal Scroll View */}
       <div className="relative sm:hidden">
-        {/* Gradient Overlays */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-white to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-white to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-linear-to-r from-white to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-linear-to-l from-white to-transparent" />
 
-        {/* Horizontal swipe-only view (no explicit arrow buttons) */}
-
-        {/* Horizontal Scroll Container */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto gap-5 pb-6 scrollbar-hide"
+          className="flex gap-5 overflow-x-auto pb-6 scrollbar-hide"
           style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
           }}
         >
           {steps.map((step, index) => (
@@ -129,14 +108,13 @@ export function Process() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="w-[300px] shrink-0"
+              className="w-75 shrink-0"
             >
               <ProcessCard step={step} index={index} isMobile />
             </motion.div>
           ))}
         </div>
 
-        {/* Scroll Indicator Dots */}
         <div className="mt-6 flex justify-center gap-2">
           {steps.map((_, idx) => (
             <button
@@ -146,27 +124,36 @@ export function Process() {
                   const scrollAmount = idx * 320;
                   scrollRef.current.scrollTo({
                     left: scrollAmount,
-                    behavior: 'smooth'
+                    behavior: "smooth",
                   });
                 }
               }}
               className="transition-all duration-300"
             >
-              <div className="h-2 w-2 rounded-full bg-(--color-muted)/30 hover:bg-(--color-accent) transition-colors" />
+              <div className="h-2 w-2 rounded-full bg-(--color-muted)/30 transition-colors hover:bg-(--color-accent)" />
             </button>
           ))}
         </div>
-
       </div>
     </SectionWrapper>
   );
 }
 
-// Separate Process Card Component
-function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0]; index: number; isMobile?: boolean }) {
+function ProcessCard({
+  step,
+  index,
+  isMobile = false,
+}: {
+  step: (typeof steps)[0];
+  index: number;
+  isMobile?: boolean;
+}) {
   const Icon = step.icon;
   const cardRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(cardRef as unknown as React.RefObject<Element>, { once: true, margin: "-50px" });
+  const isInView = useInView(cardRef as unknown as React.RefObject<Element>, {
+    once: true,
+    margin: "-50px",
+  });
 
   return (
     <motion.div
@@ -185,7 +172,7 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
       className="
         group relative h-full overflow-hidden rounded-2xl
         border border-(--color-line)
-        bg-gradient-to-br from-white to-gray-50/50
+        bg-linear-to-br from-white to-gray-50/50
         p-6 shadow-md
         backdrop-blur-sm
         transition-all duration-300
@@ -193,33 +180,28 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
         hover:shadow-2xl
       "
     >
-      {/* Animated Gradient Border */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-(--color-accent-light) via-(--color-accent) to-(--color-accent-light) opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-20" />
+      <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-(--color-accent-light) via-(--color-accent) to-(--color-accent-light) opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-20" />
 
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-(--color-accent)" />
       </div>
 
-      {/* Top Section */}
       <div className="relative z-10 flex items-start justify-between">
-        {/* Icon with Gradient */}
         <div className="relative">
-          <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${step.gradient} shadow-sm transition-transform duration-300 group-hover:scale-110`}>
+          <div
+            className={`flex h-14 w-14 items-center justify-center rounded-xl bg-linear-to-br ${step.gradient} shadow-sm transition-transform duration-300 group-hover:scale-110`}
+          >
             <Icon className="h-6 w-6 text-(--color-accent-strong)" />
           </div>
-          
-          {/* Pulse effect on hover */}
+
           <div className="absolute inset-0 rounded-xl bg-(--color-accent-light) opacity-0 transition-opacity duration-300 group-hover:opacity-20" />
         </div>
 
-        {/* Step Number Badge */}
         <div className="flex flex-col items-end gap-1">
           <div className="flex h-10 w-10 items-center justify-center rounded-full border border-(--color-line) bg-white/80 text-sm font-bold text-(--color-ink) shadow-sm backdrop-blur-sm transition-all duration-300 group-hover:border-(--color-accent-light) group-hover:text-(--color-accent)">
             0{index + 1}
           </div>
-          
-          {/* Duration Badge */}
+
           {step.duration && (
             <div className="text-[10px] font-medium text-(--color-accent) opacity-0 transition-opacity group-hover:opacity-100">
               {step.duration}
@@ -228,7 +210,6 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
         </div>
       </div>
 
-      {/* Content */}
       <div className="relative z-10 mt-6">
         <div className="mb-2 flex items-center gap-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-(--color-accent)">
@@ -236,7 +217,7 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
           </p>
         </div>
 
-        <h3 className="text-xl font-bold tracking-tight text-(--color-ink) group-hover:text-(--color-accent) transition-colors">
+        <h3 className="text-xl font-bold tracking-tight text-(--color-ink) transition-colors group-hover:text-(--color-accent)">
           {step.title}
         </h3>
 
@@ -245,7 +226,6 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
         </p>
       </div>
 
-      {/* Key Features for each step */}
       <div className="relative z-10 mt-5">
         <div className="flex flex-wrap gap-2">
           {index === 0 && (
@@ -281,11 +261,10 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
         </div>
       </div>
 
-      {/* Progress Indicator */}
       <div className="relative z-10 mt-6">
         <div className="flex items-center gap-2">
           <div className="h-1 flex-1 rounded-full bg-(--color-line)">
-            <div 
+            <div
               className="h-full rounded-full bg-(--color-accent) transition-all duration-500 group-hover:w-full"
               style={{ width: `${(index + 1) * 33}%` }}
             />
@@ -294,8 +273,6 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
         </div>
       </div>
 
-
-      {/* Card Decorative Elements */}
       <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-(--color-accent-light) opacity-0 transition-opacity duration-500 group-hover:opacity-10" />
     </motion.div>
   );
