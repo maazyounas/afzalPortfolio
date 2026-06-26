@@ -74,7 +74,9 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!adminEmail) {
+    const recipientEmail = process.env.CONTACT_RECEIVER_EMAIL || adminEmail;
+
+    if (!recipientEmail) {
       return NextResponse.json(
         { ok: false, error: "ADMIN_EMAIL is not configured" },
         { status: 500 }
@@ -92,19 +94,9 @@ export async function POST(request: Request) {
     const subject = data.subject?.trim() || `Website inquiry from ${data.name}`;
     const company = data.company?.trim() || "";
 
-    await dbConnect();
-    const savedMessage = await ContactMessage.create({
-      name: data.name.trim(),
-      email: data.email.trim(),
-      company: company || undefined,
-      subject,
-      message: data.message.trim(),
-      isRead: false,
-    });
-
     await resend.emails.send({
       from: "Softech Financials <onboarding@resend.dev>",
-      to: adminEmail,
+      to: recipientEmail,
       replyTo: data.email.trim(),
       subject: `[Contact Form] ${subject}`,
       html: buildEmailHtml({
@@ -123,8 +115,28 @@ export async function POST(request: Request) {
       }),
     });
 
+    let messageId: string | null = null;
+    try {
+      await dbConnect();
+      const savedMessage = await ContactMessage.create({
+        name: data.name.trim(),
+        email: data.email.trim(),
+        company: company || undefined,
+        subject,
+        message: data.message.trim(),
+        isRead: false,
+      });
+      messageId = savedMessage._id.toString();
+    } catch (dbError) {
+      console.error("Contact message email sent, but saving to inbox failed:", dbError);
+    }
+
     return NextResponse.json(
-      { ok: true, messageId: savedMessage._id.toString() },
+      {
+        ok: true,
+        messageId,
+        storedInInbox: Boolean(messageId),
+      },
       { status: 200 }
     );
   } catch (error) {

@@ -18,6 +18,30 @@ function getAllowedOrigins() {
   ].filter((value): value is string => Boolean(value));
 }
 
+function normalizeOrigin(value: string | null) {
+  if (!value) return null;
+
+  try {
+    const url = new URL(value);
+    return url.origin;
+  } catch {
+    return null;
+  }
+}
+
+function normalizeHost(value: string | null) {
+  if (!value) return null;
+
+  try {
+    const url = value.startsWith("http://") || value.startsWith("https://")
+      ? new URL(value)
+      : new URL(`https://${value}`);
+    return url.host;
+  } catch {
+    return value.trim().toLowerCase();
+  }
+}
+
 async function getClientFingerprint() {
   const requestHeaders = await headers();
   const forwardedFor = requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -30,10 +54,19 @@ export async function assertTrustedOrigin() {
   const origin = requestHeaders.get("origin");
   if (!origin) return;
 
-  const allowedOrigins = getAllowedOrigins();
+  const allowedOrigins = getAllowedOrigins().map(normalizeOrigin).filter(Boolean) as string[];
+  const requestHost =
+    normalizeHost(requestHeaders.get("x-forwarded-host")) ||
+    normalizeHost(requestHeaders.get("host"));
+  const originHost = normalizeHost(origin);
+
+  if (requestHost && originHost && requestHost === originHost) {
+    return;
+  }
+
   if (allowedOrigins.length === 0) return;
 
-  if (!allowedOrigins.includes(origin)) {
+  if (!allowedOrigins.includes(normalizeOrigin(origin) || "")) {
     throw new Error("Invalid request origin.");
   }
 }
