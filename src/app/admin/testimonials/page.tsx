@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTestimonials } from "@/actions/testimonials";
 import { TestimonialList } from "./TestimonialList";
+import { Plus } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -9,20 +10,18 @@ export default async function AdminTestimonialsPage() {
 
   return (
     <div>
-      <header className="mb-10 flex items-center justify-between">
+      <div className="admin-page-header">
         <div>
-          <h1 className="text-3xl font-bold">Testimonials</h1>
-          <p className="mt-2 text-neutral-400">
-            Manage client testimonials. Active ones will be displayed on the site.
+          <h1 className="admin-page-title">Testimonials</h1>
+          <p className="admin-page-subtitle">
+            Manage client testimonials. Active ones are displayed on the site.
           </p>
         </div>
-        <Link
-          href="/admin/testimonials/new"
-          className="rounded-xl bg-blue-500 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600"
-        >
-          + New Testimonial
+        <Link href="/admin/testimonials/new" className="admin-btn admin-btn-primary">
+          <Plus size={16} aria-hidden="true" />
+          New Testimonial
         </Link>
-      </header>
+      </div>
 
       <TestimonialList testimonials={testimonials} />
     </div>

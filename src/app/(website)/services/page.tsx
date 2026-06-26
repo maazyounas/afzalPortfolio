@@ -24,18 +24,6 @@ export const metadata: Metadata = {
   description:
     "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
 };
-
-
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-};
-
 const item = {
   hidden: {
     opacity: 0,

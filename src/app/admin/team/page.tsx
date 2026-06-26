@@ -20,70 +20,89 @@ export default async function AdminTeamPage() {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold text-white">Team Members</h1>
-        <Link
-          href="/admin/team/new"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 sm:w-auto"
-        >
-          <Plus className="h-4 w-4" />
+      {/* Page header */}
+      <div className="admin-page-header">
+        <div>
+          <h1 className="admin-page-title">Team Members</h1>
+          <p className="admin-page-subtitle">
+            Manage team profiles displayed on your website.
+          </p>
+        </div>
+        <Link href="/admin/team/new" className="admin-btn admin-btn-primary">
+          <Plus size={16} aria-hidden="true" />
           Add Member
         </Link>
       </div>
 
-      <div className="mt-8 overflow-x-auto rounded-xl border border-white/5 bg-white/5">
-        <table className="min-w-[820px] w-full text-left text-white">
-          <thead>
-            <tr className="border-b border-white/5 bg-white/5 text-sm font-medium text-neutral-400">
-              <th className="px-6 py-4">Name</th>
-              <th className="px-6 py-4">Role</th>
-              <th className="px-6 py-4">Specialties</th>
-              <th className="px-6 py-4">Order</th>
-              <th className="px-6 py-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/5">
-            {members.length === 0 ? (
+      {/* Table */}
+      <div className="admin-table-wrapper">
+        <div className="admin-table-scroll">
+          <table className="admin-table">
+            <thead>
               <tr>
-                <td colSpan={5} className="px-6 py-10 text-center text-neutral-500">
-                  No team members found. Add your first member to get started.
-                </td>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Specialties</th>
+                <th>Order</th>
+                <th>Actions</th>
               </tr>
-            ) : (
-              members.map((member: ITeamMember) => (
-                <tr key={member._id.toString()} className="group hover:bg-white/[0.02]">
-                  <td className="px-6 py-4 font-medium">{member.name}</td>
-                  <td className="px-6 py-4 text-sm text-neutral-400">{member.role}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-wrap gap-1">
-                      {member.specialties?.map((tag) => (
-                        <span key={tag} className="inline-flex rounded-full bg-white/5 px-2 py-0.5 text-xs text-neutral-300">
-                          {tag}
-                        </span>
-                      )) || <span className="text-neutral-500">-</span>}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-neutral-400">{member.order}</td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end items-center gap-2">
-                      <Link
-                        href={`/admin/team/${String(member._id)}/edit`}
-                        className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-white/5 hover:text-white"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Link>
-                      
-                        <form action={handleDelete} className="inline">
-                        <input type="hidden" name="id" value={String(member._id)} />
-                        <DeleteButton />
-                      </form>
+            </thead>
+            <tbody>
+              {members.length === 0 ? (
+                <tr>
+                  <td colSpan={5}>
+                    <div className="admin-table-empty">
+                      <div className="admin-table-empty-title">No team members yet</div>
+                      <div className="admin-table-empty-desc">
+                        Add your first team member to get started.
+                      </div>
                     </div>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                members.map((member: ITeamMember) => (
+                  <tr key={member._id.toString()}>
+                    <td>
+                      <span style={{ fontWeight: 600, color: "var(--admin-primary)" }}>
+                        {member.name}
+                      </span>
+                    </td>
+                    <td style={{ color: "var(--admin-text-secondary)", fontSize: 13 }}>
+                      {member.role}
+                    </td>
+                    <td>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                        {member.specialties?.map((tag) => (
+                          <span key={tag} className="admin-badge admin-badge-neutral">
+                            {tag}
+                          </span>
+                        )) || <span style={{ color: "var(--admin-muted)" }}>—</span>}
+                      </div>
+                    </td>
+                    <td style={{ color: "var(--admin-muted)", fontSize: 13 }}>
+                      {member.order}
+                    </td>
+                    <td>
+                      <div className="admin-action-row">
+                        <Link
+                          href={`/admin/team/${String(member._id)}/edit`}
+                          className="admin-btn-icon"
+                          title="Edit"
+                        >
+                          <Edit size={15} />
+                        </Link>
+                        <form action={handleDelete} className="inline">
+                          <input type="hidden" name="id" value={String(member._id)} />
+                          <DeleteButton />
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

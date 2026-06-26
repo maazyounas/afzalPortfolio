@@ -71,7 +71,7 @@ export function Hero() {
         </motion.div>
 
         {/* Right Content */}
-        <div className="relative w-full lg:pl-4">
+        <div className="relative hidden w-full lg:block lg:pl-4">
           <HeroStats />
         </div>
       </div>

@@ -11,7 +11,7 @@ export function DeleteButton() {
           e.preventDefault();
         }
       }}
-      className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-red-400/10 hover:text-red-400"
+      className="admin-btn-icon danger"
     >
       <Trash2 className="h-4 w-4" />
     </button>

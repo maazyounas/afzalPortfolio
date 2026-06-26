@@ -33,7 +33,7 @@ export const siteConfig = {
   name: "Softech Financials & Associates",
   shortName: "Softech Financials",
   description:
-    "Certified bookkeepers and tax advisors in Islamabad, helping businesses strengthen accounting, tax planning, and finance operations.",
+    "Certified bookkeepers and tax advisors in GAAP and IFRS Compliance, helping businesses strengthen accounting, tax planning, and finance operations.",
   url: "https://www.softechfinancials.com",
   ogImage: "https://www.softechfinancials.com/og-image.jpg",
   keywords: [

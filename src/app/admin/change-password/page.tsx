@@ -8,89 +8,64 @@ export default async function ChangePasswordPage() {
   const { username } = await getAdminCredentialSummary();
 
   return (
-    <div className="space-y-6">
-      <section className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-2xl backdrop-blur-xl">
-        <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.18),_transparent_30%),linear-gradient(to_right,_rgba(8,17,31,0.98),_rgba(15,23,42,0.94))] px-6 py-8 text-white sm:px-8 sm:py-10">
-          <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-            <KeyRound className="h-4 w-4" />
-            Admin Security
-          </div>
-          <div className="mt-5 max-w-3xl space-y-4">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Change your admin username and password in one place.
-            </h1>
-            <p className="max-w-2xl text-sm leading-6 text-white/70 sm:text-base">
-              Update your sign-in email and password safely. The credentials are
-              stored in MongoDB with bcrypt hashing, and you will be signed out
-              after saving so the new details take effect immediately.
-            </p>
-          </div>
+    <div>
+      <div className="admin-page-header">
+        <div>
+          <h1 className="admin-page-title">Change Credentials</h1>
+          <p className="admin-page-subtitle">
+            Change your admin username and password securely.
+          </p>
         </div>
+      </div>
 
-        <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[0.92fr_1.08fr] lg:p-8">
-          <aside className="space-y-4 rounded-3xl border border-white/10 bg-white/[0.03] p-5">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-300">
-              <ShieldCheck className="h-6 w-6" />
+      <div className="admin-grid-2" style={{ gridTemplateColumns: "1fr 1.5fr" }}>
+        {/* Info Sidebar */}
+        <aside className="admin-info-block">
+          <div className="admin-info-item" style={{ flexDirection: "column", padding: 24 }}>
+            <div className="admin-info-item-icon" style={{ width: 48, height: 48 }}>
+              <ShieldCheck size={24} />
             </div>
-
-            <div className="space-y-2">
-              <h2 className="text-xl font-semibold text-white">Current access</h2>
-              <p className="text-sm leading-6 text-white/65">
-                Your current admin username is shown here for convenience.
+            <div style={{ marginTop: 8 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 700, color: "var(--admin-primary)" }}>Current access</h2>
+              <p style={{ fontSize: 13, color: "var(--admin-muted)", marginTop: 4 }}>
+                Your current admin username is shown below for convenience.
               </p>
             </div>
-
-            <div className="rounded-2xl border border-white/10 bg-slate-950/50 p-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-white/45">
+            
+            <div style={{ background: "#f1f5f9", padding: 16, borderRadius: "var(--admin-radius-sm)", marginTop: 8 }}>
+              <p style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--admin-muted)" }}>
                 Active username
               </p>
-              <p className="mt-2 break-all text-sm font-semibold text-cyan-200">
+              <p style={{ marginTop: 4, fontSize: 14, fontWeight: 600, color: "var(--admin-primary)", wordBreak: "break-all" }}>
                 {username}
               </p>
             </div>
+          </div>
 
-            <div className="grid gap-3">
-              {[
-                {
-                  icon: LockKeyhole,
-                  title: "Passwords are hashed",
-                  text: "No plain-text password storage anywhere in the app.",
-                },
-                {
-                  icon: UserCog,
-                  title: "Username and password together",
-                  text: "Keep your admin email and password aligned in one step.",
-                },
-              ].map((item) => {
-                const Icon = item.icon;
-
-                return (
-                  <div
-                    key={item.title}
-                    className="flex gap-3 rounded-2xl border border-white/10 bg-[#09111f]/70 p-4"
-                  >
-                    <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
-                      <Icon className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="mt-1 text-sm leading-6 text-white/60">
-                        {item.text}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+          <div className="admin-info-item">
+            <div className="admin-info-item-icon"><LockKeyhole size={18} /></div>
+            <div>
+              <h3 className="admin-info-item-title">Passwords are hashed</h3>
+              <p className="admin-info-item-desc">No plain-text password storage anywhere in the app.</p>
             </div>
-          </aside>
+          </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-5 sm:p-6 lg:p-8">
+          <div className="admin-info-item">
+            <div className="admin-info-item-icon"><UserCog size={18} /></div>
+            <div>
+              <h3 className="admin-info-item-title">Together in one step</h3>
+              <p className="admin-info-item-desc">Keep your admin email and password aligned.</p>
+            </div>
+          </div>
+        </aside>
+
+        {/* Form Card */}
+        <div className="admin-card">
+          <div className="admin-card-body">
             <ChangeCredentialsForm initialUsername={username} />
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

@@ -8,14 +8,20 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const isLoginPage = pathname === "/admin/login";
 
   if (isLoginPage) {
-    return <div className="min-h-screen bg-neutral-950 text-white">{children}</div>;
+    return (
+      <div className="admin-layout">
+        {children}
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
+    <div className="admin-layout">
       <AdminSidebar />
-      <main className="min-h-screen px-4 pb-8 pt-20 sm:px-6 lg:pl-72 lg:px-8 lg:pt-8">
-        <div className="mx-auto w-full max-w-7xl">{children}</div>
+      <main className="admin-main">
+        <div className="admin-content">
+          {children}
+        </div>
       </main>
     </div>
   );

@@ -234,13 +234,7 @@ export function Contact({ email, phone, mapLocation, mapLatitude, mapLongitude }
 
               <ContactForm />
 
-              {/* Response Time Note */}
-              <div className="mt-4 flex items-center justify-center gap-2 border-t border-(--color-line) pt-4">
-                <Send className="h-3 w-3 text-(--color-accent)" />
-                <span className="text-xs text-(--color-muted)">
-                  We typically respond within 2-4 business hours
-                </span>
-              </div>
+              
             </div>
           </motion.div>
         </motion.div>

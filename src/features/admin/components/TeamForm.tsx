@@ -24,7 +24,6 @@ export function TeamForm({ initialData }: TeamFormProps) {
   const router = useRouter();
   const isEdit = !!initialData;
 
-  // Specialties helper to convert array to string and vice versa
   const initialSpecialties = initialData?.specialties
     ? initialData.specialties.join(", ")
     : "";
@@ -55,7 +54,6 @@ export function TeamForm({ initialData }: TeamFormProps) {
   async function onSubmit(data: TeamFormValues) {
     setLoading(true);
 
-    // Parse specialties comma-separated string from the raw input DOM
     const rawSpecialties = (document.getElementById("specialties-input") as HTMLInputElement)?.value || "";
     const specialtiesArray = rawSpecialties
       ? rawSpecialties.split(",").map((s) => s.trim()).filter(Boolean)
@@ -89,132 +87,137 @@ export function TeamForm({ initialData }: TeamFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">Full Name</label>
-          <input
-            {...register("name")}
-            className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-            placeholder="e.g. Amina Rahman"
-          />
-          {errors.name && <p className="text-xs text-red-400">{errors.name.message}</p>}
+    <div className="admin-card" style={{ maxWidth: 800 }}>
+      <form onSubmit={handleSubmit(onSubmit)} className="admin-card-body" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        <div className="admin-grid-2">
+          <div className="admin-form-group">
+            <label className="admin-label">Full Name</label>
+            <input
+              {...register("name")}
+              className={`admin-input${errors.name ? " error" : ""}`}
+              placeholder="e.g. Amina Rahman"
+            />
+            {errors.name && <p className="admin-field-error">{errors.name.message}</p>}
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Slug</label>
+            <input
+              {...register("slug")}
+              className={`admin-input${errors.slug ? " error" : ""}`}
+              placeholder="amina-rahman"
+            />
+            {errors.slug && <p className="admin-field-error">{errors.slug.message}</p>}
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">Slug</label>
-          <input
-            {...register("slug")}
-            className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-            placeholder="amina-rahman"
-          />
-          {errors.slug && <p className="text-xs text-red-400">{errors.slug.message}</p>}
+        <div className="admin-grid-2">
+          <div className="admin-form-group">
+            <label className="admin-label">Role</label>
+            <input
+              {...register("role")}
+              className={`admin-input${errors.role ? " error" : ""}`}
+              placeholder="e.g. Managing Partner"
+            />
+            {errors.role && <p className="admin-field-error">{errors.role.message}</p>}
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Display Order</label>
+            <input
+              type="number"
+              {...register("order", { valueAsNumber: true })}
+              className={`admin-input${errors.order ? " error" : ""}`}
+            />
+            {errors.order && <p className="admin-field-error">{errors.order.message}</p>}
+          </div>
         </div>
-      </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">Role</label>
-          <input
-            {...register("role")}
-            className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-            placeholder="e.g. Managing Partner"
-          />
-          {errors.role && <p className="text-xs text-red-400">{errors.role.message}</p>}
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">Display Order</label>
-          <input
-            type="number"
-            {...register("order", { valueAsNumber: true })}
-            className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-          />
-          {errors.order && <p className="text-xs text-red-400">{errors.order.message}</p>}
-        </div>
-      </div>
-
-      <ImageUploadField
-        label="Team Member Image"
-        helperText="Upload, drag, zoom, and crop the portrait before we save it."
-        value={watch("image")}
-        onChange={(url) => setValue("image", url, { shouldDirty: true, shouldValidate: true })}
-        folder="team"
-        aspectRatio={1}
-      />
-      {errors.image && <p className="text-xs text-red-400">{errors.image.message}</p>}
-
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-neutral-200">Short Bio</label>
-        <textarea
-          {...register("bio")}
-          rows={3}
-          className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-          placeholder="Brief summary bio for the card..."
+        <ImageUploadField
+          label="Team Member Image"
+          helperText="Upload, drag, zoom, and crop the portrait before we save it."
+          value={watch("image")}
+          onChange={(url) => setValue("image", url, { shouldDirty: true, shouldValidate: true })}
+          folder="team"
+          aspectRatio={1}
         />
-        {errors.bio && <p className="text-xs text-red-400">{errors.bio.message}</p>}
-      </div>
+        {errors.image && <p className="admin-field-error">{errors.image.message}</p>}
 
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-neutral-200">Long Bio</label>
-        <textarea
-          {...register("longBio")}
-          rows={5}
-          className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-          placeholder="Full background/experience details..."
-        />
-        {errors.longBio && <p className="text-xs text-red-400">{errors.longBio.message}</p>}
-      </div>
-
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-neutral-200">Specialties (Comma Separated)</label>
-        <input
-          id="specialties-input"
-          defaultValue={initialSpecialties}
-          className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-          placeholder="Forecasting, close process, controls, board reporting"
-        />
-        {errors.specialties && <p className="text-xs text-red-400">{errors.specialties.message}</p>}
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">LinkedIn URL</label>
-          <input
-            {...register("socialLinks.linkedin")}
-            className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-            placeholder="https://linkedin.com/in/username"
+        <div className="admin-form-group">
+          <label className="admin-label">Short Bio</label>
+          <textarea
+            {...register("bio")}
+            className={`admin-textarea${errors.bio ? " error" : ""}`}
+            placeholder="Brief summary bio for the card..."
+            style={{ minHeight: 80 }}
           />
-          {errors.socialLinks?.linkedin && <p className="text-xs text-red-400">{errors.socialLinks.linkedin.message}</p>}
+          {errors.bio && <p className="admin-field-error">{errors.bio.message}</p>}
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-neutral-200">Twitter URL</label>
-          <input
-            {...register("socialLinks.twitter")}
-            className="w-full rounded-lg bg-white/5 px-4 py-2 outline-none ring-1 ring-white/10 text-white focus:ring-2 focus:ring-[var(--color-accent)]"
-            placeholder="https://twitter.com/username"
+        <div className="admin-form-group">
+          <label className="admin-label">Long Bio</label>
+          <textarea
+            {...register("longBio")}
+            className={`admin-textarea${errors.longBio ? " error" : ""}`}
+            placeholder="Full background/experience details..."
+            style={{ minHeight: 120 }}
           />
-          {errors.socialLinks?.twitter && <p className="text-xs text-red-400">{errors.socialLinks.twitter.message}</p>}
+          {errors.longBio && <p className="admin-field-error">{errors.longBio.message}</p>}
         </div>
-      </div>
 
-      <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end sm:gap-4">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="rounded-lg px-6 py-2 text-sm font-medium text-neutral-400 transition-all hover:bg-white/5 hover:text-white sm:w-auto"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-lg bg-[var(--color-accent)] px-8 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50 sm:w-auto"
-        >
-          {loading ? "Saving..." : isEdit ? "Update Member" : "Create Member"}
-        </button>
-      </div>
-    </form>
+        <div className="admin-form-group">
+          <label className="admin-label">Specialties (Comma Separated)</label>
+          <input
+            id="specialties-input"
+            defaultValue={initialSpecialties}
+            className={`admin-input${errors.specialties ? " error" : ""}`}
+            placeholder="Forecasting, close process, controls, board reporting"
+          />
+          {errors.specialties && <p className="admin-field-error">{errors.specialties.message}</p>}
+        </div>
+
+        <div className="admin-form-section">
+          <h3 className="admin-form-section-title">Social Links</h3>
+          <div className="admin-grid-2">
+            <div className="admin-form-group">
+              <label className="admin-label">LinkedIn URL</label>
+              <input
+                {...register("socialLinks.linkedin")}
+                className={`admin-input${errors.socialLinks?.linkedin ? " error" : ""}`}
+                placeholder="https://linkedin.com/in/username"
+              />
+              {errors.socialLinks?.linkedin && <p className="admin-field-error">{errors.socialLinks.linkedin.message}</p>}
+            </div>
+
+            <div className="admin-form-group">
+              <label className="admin-label">Twitter URL</label>
+              <input
+                {...register("socialLinks.twitter")}
+                className={`admin-input${errors.socialLinks?.twitter ? " error" : ""}`}
+                placeholder="https://twitter.com/username"
+              />
+              {errors.socialLinks?.twitter && <p className="admin-field-error">{errors.socialLinks.twitter.message}</p>}
+            </div>
+          </div>
+        </div>
+
+        <div className="admin-form-footer">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="admin-btn admin-btn-ghost"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="admin-btn admin-btn-primary"
+          >
+            {loading ? "Saving..." : isEdit ? "Update Member" : "Create Member"}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

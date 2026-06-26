@@ -18,74 +18,115 @@ export default async function AdminServicesPage() {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-2xl font-bold">Services</h1>
+      {/* Page header */}
+      <div className="admin-page-header">
+        <div>
+          <h1 className="admin-page-title">Services</h1>
+          <p className="admin-page-subtitle">
+            Manage your service offerings displayed on the public website.
+          </p>
+        </div>
         <Link
           href="/admin/services/new"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white transition-all hover:opacity-90 sm:w-auto"
+          className="admin-btn admin-btn-primary"
         >
-          <Plus className="h-4 w-4" />
+          <Plus size={16} aria-hidden="true" />
           Add Service
         </Link>
       </div>
 
-      <div className="mt-8 overflow-x-auto rounded-xl border border-white/5 bg-white/5">
-        <table className="min-w-[760px] w-full text-left">
-          <thead>
-            <tr className="border-b border-white/5 bg-white/5 text-sm font-medium text-neutral-400">
-              <th className="px-6 py-4">Icon</th>
-              <th className="px-6 py-4">Name</th>
-              <th className="px-6 py-4">Slug</th>
-              <th className="px-6 py-4">Status</th>
-              <th className="px-6 py-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/5">
-            {services.length === 0 ? (
+      {/* Table */}
+      <div className="admin-table-wrapper">
+        <div className="admin-table-scroll">
+          <table className="admin-table">
+            <thead>
               <tr>
-                <td colSpan={5} className="px-6 py-10 text-center text-neutral-500">
-                  No services found. Add your first service to get started.
-                </td>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            ) : (
-              services.map((service: IService) => (
-                <tr key={service._id.toString()} className="group hover:bg-white/[0.02]">
-                  <td className="px-6 py-4">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 text-(--color-accent)">
-                      <ServiceIcon name={service.icon} className="h-4 w-4" />
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 font-medium">{service.name}</td>
-                  <td className="px-6 py-4 text-sm text-neutral-400">{service.slug}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${service.isActive ? 'bg-green-400/10 text-green-400' : 'bg-red-400/10 text-red-400'}`}>
-                      {service.isActive ? 'Active' : 'Inactive'}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end gap-2">
-                      <Link
-                        href={`/admin/services/${String(service._id)}/edit`}
-                        className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-white/5 hover:text-white"
-                      >
-                        <Edit className="h-4 w-4" />
-                      </Link>
-                      <form action={handleDelete} className="inline">
-                        <input type="hidden" name="id" value={String(service._id)} />
-                        <button
-                          type="submit"
-                          className="rounded-lg p-2 text-neutral-400 transition-all hover:bg-red-400/10 hover:text-red-400"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </form>
+            </thead>
+            <tbody>
+              {services.length === 0 ? (
+                <tr>
+                  <td colSpan={5}>
+                    <div className="admin-table-empty">
+                      <div className="admin-table-empty-title">No services yet</div>
+                      <div className="admin-table-empty-desc">
+                        Add your first service to get started.
+                      </div>
                     </div>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                services.map((service: IService) => (
+                  <tr key={service._id.toString()}>
+                    <td>
+                      <div
+                        style={{
+                          width: 36,
+                          height: 36,
+                          borderRadius: 8,
+                          background: "#eff6ff",
+                          color: "#3b82f6",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <ServiceIcon name={service.icon} className="h-4 w-4" />
+                      </div>
+                    </td>
+                    <td>
+                      <span style={{ fontWeight: 600, color: "var(--admin-primary)" }}>
+                        {service.name}
+                      </span>
+                    </td>
+                    <td>
+                      <span style={{ fontSize: 13, color: "var(--admin-muted)", fontFamily: "monospace" }}>
+                        {service.slug}
+                      </span>
+                    </td>
+                    <td>
+                      <span
+                        className={
+                          service.isActive
+                            ? "admin-badge admin-badge-success"
+                            : "admin-badge admin-badge-danger"
+                        }
+                      >
+                        {service.isActive ? "Active" : "Inactive"}
+                      </span>
+                    </td>
+                    <td>
+                      <div className="admin-action-row">
+                        <Link
+                          href={`/admin/services/${String(service._id)}/edit`}
+                          className="admin-btn-icon"
+                          title="Edit"
+                        >
+                          <Edit size={15} />
+                        </Link>
+                        <form action={handleDelete} className="inline">
+                          <input type="hidden" name="id" value={String(service._id)} />
+                          <button
+                            type="submit"
+                            className="admin-btn-icon danger"
+                            title="Delete"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

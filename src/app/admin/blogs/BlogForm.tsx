@@ -7,6 +7,7 @@ import { createBlogPost, updateBlogPost } from "@/actions/blogs";
 import slugify from "@/lib/slugify";
 import { ImageUploadField } from "@/features/admin/components/ImageUploadField";
 import { RichTextEditor } from "@/features/admin/components/RichTextEditor";
+import { CheckCircle, XCircle } from "lucide-react";
 
 type BlogFormData = {
   title: string;
@@ -93,153 +94,136 @@ export function BlogForm({ initialData }: BlogFormProps) {
     }
   }
 
-  const inputClasses =
-    "w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-blue-500 transition-all";
-  const labelClasses = "block text-sm font-medium text-neutral-300 mb-1.5";
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-      {message && (
-        <div
-          className={`rounded-xl p-4 text-sm ${
-            message.type === "success"
-              ? "border border-green-500/20 bg-green-500/10 text-green-400"
-              : "border border-red-500/20 bg-red-500/10 text-red-400"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
-
-      {/* Title & Slug */}
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className={labelClasses}>Post Title</label>
-          <input
-            {...register("title", { required: "Title is required" })}
-            className={inputClasses}
-            placeholder="e.g. 5 Tax Planning Strategies for Startups"
-          />
-          {errors.title && <p className="mt-1 text-xs text-red-400">{errors.title.message}</p>}
-        </div>
-
-        <div>
-          <label className={labelClasses}>URL Slug</label>
-          <div className="flex gap-2">
-            <input
-              {...register("slug", { required: "Slug is required" })}
-              className={inputClasses}
-              placeholder="5-tax-planning-strategies"
-            />
-            <button
-              type="button"
-              onClick={generateSlug}
-              className="shrink-0 rounded-xl bg-white/10 px-4 py-3 text-xs font-semibold text-white transition-all hover:bg-white/20"
-            >
-              Auto
-            </button>
+    <div className="admin-card" style={{ maxWidth: 800 }}>
+      <form onSubmit={handleSubmit(onSubmit)} className="admin-card-body" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        {message && (
+          <div className={message.type === "success" ? "admin-alert admin-alert-success" : "admin-alert admin-alert-error"}>
+            {message.type === "success" ? <CheckCircle size={16} /> : <XCircle size={16} />}
+            {message.text}
           </div>
-          {errors.slug && <p className="mt-1 text-xs text-red-400">{errors.slug.message}</p>}
-        </div>
-      </div>
+        )}
 
-      {/* Category & Author */}
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <label className={labelClasses}>Category</label>
-          <input
-            {...register("category", { required: "Category is required" })}
-            className={inputClasses}
-            placeholder="e.g. Tax Planning, Finance, Advisory"
+        <div className="admin-grid-2">
+          <div className="admin-form-group">
+            <label className="admin-label">Post Title</label>
+            <input
+              {...register("title", { required: "Title is required" })}
+              className={`admin-input${errors.title ? " error" : ""}`}
+              placeholder="e.g. 5 Tax Planning Strategies for Startups"
+            />
+            {errors.title && <p className="admin-field-error">{errors.title.message}</p>}
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">URL Slug</label>
+            <div style={{ display: "flex", gap: 8 }}>
+              <input
+                {...register("slug", { required: "Slug is required" })}
+                className={`admin-input${errors.slug ? " error" : ""}`}
+                placeholder="5-tax-planning-strategies"
+              />
+              <button
+                type="button"
+                onClick={generateSlug}
+                className="admin-btn admin-btn-secondary"
+                style={{ padding: "0 16px" }}
+              >
+                Auto
+              </button>
+            </div>
+            {errors.slug && <p className="admin-field-error">{errors.slug.message}</p>}
+          </div>
+        </div>
+
+        <div className="admin-grid-2">
+          <div className="admin-form-group">
+            <label className="admin-label">Category</label>
+            <input
+              {...register("category", { required: "Category is required" })}
+              className={`admin-input${errors.category ? " error" : ""}`}
+              placeholder="e.g. Tax Planning, Finance, Advisory"
+            />
+            {errors.category && <p className="admin-field-error">{errors.category.message}</p>}
+          </div>
+
+          <div className="admin-form-group">
+            <label className="admin-label">Author</label>
+            <input
+              {...register("author", { required: "Author is required" })}
+              className={`admin-input${errors.author ? " error" : ""}`}
+              placeholder="e.g. John Doe"
+            />
+            {errors.author && <p className="admin-field-error">{errors.author.message}</p>}
+          </div>
+        </div>
+
+        <div className="admin-form-group">
+          <label className="admin-label">Excerpt (Preview Text)</label>
+          <textarea
+            {...register("excerpt", { required: "Excerpt is required" })}
+            className={`admin-textarea${errors.excerpt ? " error" : ""}`}
+            placeholder="A short summary that appears in blog cards and previews..."
+            style={{ minHeight: 80 }}
           />
-          {errors.category && <p className="mt-1 text-xs text-red-400">{errors.category.message}</p>}
+          {errors.excerpt && <p className="admin-field-error">{errors.excerpt.message}</p>}
+          <p className="admin-field-hint">This appears on the homepage Blog Preview and blog listing page.</p>
         </div>
 
-        <div>
-          <label className={labelClasses}>Author</label>
-          <input
-            {...register("author", { required: "Author is required" })}
-            className={inputClasses}
-            placeholder="e.g. John Doe"
+        <div className="admin-form-group">
+          <RichTextEditor
+            label="Full Content"
+            helperText="Use the toolbar to make text bold, italic, or underlined."
+            value={watch("content")}
+            onChange={(html) =>
+              setValue("content", html, {
+                shouldDirty: true,
+                shouldValidate: true,
+              })
+            }
+            placeholder="Write the full blog post content here..."
           />
-          {errors.author && <p className="mt-1 text-xs text-red-400">{errors.author.message}</p>}
+          {errors.content && <p className="admin-field-error">{errors.content.message}</p>}
         </div>
-      </div>
 
-      {/* Excerpt */}
-      <div>
-        <label className={labelClasses}>Excerpt (Preview Text)</label>
-        <textarea
-          {...register("excerpt", { required: "Excerpt is required" })}
-          rows={3}
-          className={`${inputClasses} resize-none`}
-          placeholder="A short summary that appears in blog cards and previews..."
-        />
-        {errors.excerpt && <p className="mt-1 text-xs text-red-400">{errors.excerpt.message}</p>}
-        <p className="mt-1 text-xs text-neutral-500">This appears on the homepage Blog Preview and blog listing page.</p>
-      </div>
-
-      {/* Content */}
-      <div>
-        <RichTextEditor
-          label="Full Content"
-          helperText="Use the toolbar to make text bold, italic, or underlined."
-          value={watch("content")}
-          onChange={(html) =>
-            setValue("content", html, {
+        <ImageUploadField
+          label="Featured Image"
+          helperText="Upload a cover image, then drag and zoom to frame it before saving."
+          value={featuredImage}
+          onChange={(url) =>
+            setValue("featuredImage", url, {
               shouldDirty: true,
               shouldValidate: true,
             })
           }
-          placeholder="Write the full blog post content here..."
+          folder="blogs"
+          aspectRatio={16 / 9}
         />
-        {errors.content && <p className="mt-1 text-xs text-red-400">{errors.content.message}</p>}
-      </div>
 
-      <ImageUploadField
-        label="Featured Image"
-        helperText="Upload a cover image, then drag and zoom to frame it before saving."
-        value={featuredImage}
-        onChange={(url) =>
-          setValue("featuredImage", url, {
-            shouldDirty: true,
-            shouldValidate: true,
-          })
-        }
-        folder="blogs"
-        aspectRatio={16 / 9}
-      />
+        <div className="admin-form-section">
+          <div className="admin-checkbox-group" style={{ maxWidth: "max-content" }}>
+            <input type="checkbox" id="isPublished" {...register("isPublished")} />
+            <label htmlFor="isPublished">Publish this post (visible on the website)</label>
+          </div>
+        </div>
 
-      {/* Publish Toggle */}
-      <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-4">
-        <input
-          type="checkbox"
-          id="isPublished"
-          {...register("isPublished")}
-          className="h-4 w-4 rounded border-white/20 bg-white/10 accent-blue-500"
-        />
-        <label htmlFor="isPublished" className="text-sm font-medium text-neutral-300">
-          Publish this post (visible on the website)
-        </label>
-      </div>
-
-      {/* Actions */}
-      <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-end sm:gap-4">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="rounded-xl px-6 py-3 text-sm font-medium text-neutral-400 transition-all hover:bg-white/5 hover:text-white sm:w-auto"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-xl bg-blue-500 px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 disabled:opacity-50 sm:w-auto"
-        >
-          {loading ? "Saving..." : isEdit ? "Update Post" : "Create Post"}
-        </button>
-      </div>
-    </form>
+        <div className="admin-form-footer">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="admin-btn admin-btn-ghost"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="admin-btn admin-btn-primary"
+          >
+            {loading ? "Saving..." : isEdit ? "Update Post" : "Create Post"}
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
