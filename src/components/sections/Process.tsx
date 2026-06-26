@@ -157,11 +157,6 @@ export function Process() {
           ))}
         </div>
 
-        {/* Swipe Indicator */}
-        <div className="mt-4 flex items-center justify-center gap-2">
-          <Zap className="h-3 w-3 text-(--color-accent)" />
-          <span className="text-xs text-(--color-muted)">Swipe to explore steps</span>
-        </div>
       </div>
     </SectionWrapper>
   );
@@ -236,7 +231,6 @@ function ProcessCard({ step, index, isMobile = false }: { step: typeof steps[0];
       {/* Content */}
       <div className="relative z-10 mt-6">
         <div className="mb-2 flex items-center gap-2">
-          <Sparkles className="h-3 w-3 text-(--color-accent)" />
           <p className="text-xs font-semibold uppercase tracking-wider text-(--color-accent)">
             Step {index + 1}
           </p>
