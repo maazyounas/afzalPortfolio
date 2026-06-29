@@ -1,5 +1,21 @@
 import { ServiceForm } from "@/features/admin/components/ServiceForm";
 
+
+export const metadata = {
+  title: "New | Afzal's Portfolio",
+  description: "New page of Afzal's Portfolio.",
+  keywords: ["portfolio", "new", "Afzal"],
+  alternates: {
+    canonical: "/admin/services/new",
+  },
+  openGraph: {
+    title: "New | Afzal's Portfolio",
+    description: "New page of Afzal's Portfolio.",
+    url: "/admin/services/new",
+  },
+};
+
+
 export default function NewServicePage() {
   return (
     <div className="max-w-2xl">

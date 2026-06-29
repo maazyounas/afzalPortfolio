@@ -2,6 +2,22 @@ import { getSettings } from "@/actions/settings";
 import SettingsForm from "./SettingsForm";
 import { Settings } from "lucide-react";
 
+
+export const metadata = {
+  title: "Settings | Afzal's Portfolio",
+  description: "Settings page of Afzal's Portfolio.",
+  keywords: ["portfolio", "settings", "Afzal"],
+  alternates: {
+    canonical: "/admin/settings",
+  },
+  openGraph: {
+    title: "Settings | Afzal's Portfolio",
+    description: "Settings page of Afzal's Portfolio.",
+    url: "/admin/settings",
+  },
+};
+
+
 export default async function SettingsPage() {
   const initialData = await getSettings();
 

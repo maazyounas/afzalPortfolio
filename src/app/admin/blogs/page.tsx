@@ -3,6 +3,22 @@ import { getBlogPosts } from "@/actions/blogs";
 import { BlogList } from "./BlogList";
 import { Plus } from "lucide-react";
 
+
+export const metadata = {
+  title: "Blogs | Afzal's Portfolio",
+  description: "Blogs page of Afzal's Portfolio.",
+  keywords: ["portfolio", "blogs", "Afzal"],
+  alternates: {
+    canonical: "/admin/blogs",
+  },
+  openGraph: {
+    title: "Blogs | Afzal's Portfolio",
+    description: "Blogs page of Afzal's Portfolio.",
+    url: "/admin/blogs",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminBlogsPage() {

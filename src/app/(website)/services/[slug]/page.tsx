@@ -6,6 +6,7 @@ import { getServiceBySlug } from "@/actions/services";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import type { IService } from "@/models/Service";
+import JsonLd from "@/components/JsonLd";
 
 import { ServiceDetailClient } from "./ServiceDetailClient";
 import { ServiceSkeleton } from "./ServiceSkeleton";
@@ -36,12 +37,25 @@ export default async function ServicePage({ params }: Props) {
     notFound();
   }
 
+  const jsonLdData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name,
+    description: service.description,
+    provider: {
+      "@type": "Organization",
+      name: "Afzal's Portfolio",
+    },
+    areaServed: "Worldwide",
+  };
+
   return (
     <SectionWrapper
       eyebrow="Services"
       title={service.name}
       intro={service.description}
     >
+      <JsonLd data={jsonLdData} />
       <div className="mb-8">
         <Breadcrumb
           items={[

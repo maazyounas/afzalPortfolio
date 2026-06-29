@@ -15,6 +15,22 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { siteConfig } from "@/lib/data/site-config";
 
+
+export const metadata = {
+  title: "Home | Afzal's Portfolio",
+  description: "Home page of Afzal's Portfolio.",
+  keywords: ["portfolio", "home", "Afzal"],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Home | Afzal's Portfolio",
+    description: "Home page of Afzal's Portfolio.",
+    url: "/",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {

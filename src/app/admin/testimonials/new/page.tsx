@@ -2,6 +2,22 @@ import { TestimonialForm } from "../TestimonialForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+
+export const metadata = {
+  title: "New | Afzal's Portfolio",
+  description: "New page of Afzal's Portfolio.",
+  keywords: ["portfolio", "new", "Afzal"],
+  alternates: {
+    canonical: "/admin/testimonials/new",
+  },
+  openGraph: {
+    title: "New | Afzal's Portfolio",
+    description: "New page of Afzal's Portfolio.",
+    url: "/admin/testimonials/new",
+  },
+};
+
+
 export default function NewTestimonialPage() {
   return (
     <div>

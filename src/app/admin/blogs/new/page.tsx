@@ -1,5 +1,21 @@
 import { BlogForm } from "../BlogForm";
 
+
+export const metadata = {
+  title: "New | Afzal's Portfolio",
+  description: "New page of Afzal's Portfolio.",
+  keywords: ["portfolio", "new", "Afzal"],
+  alternates: {
+    canonical: "/admin/blogs/new",
+  },
+  openGraph: {
+    title: "New | Afzal's Portfolio",
+    description: "New page of Afzal's Portfolio.",
+    url: "/admin/blogs/new",
+  },
+};
+
+
 export default function NewBlogPostPage() {
   return (
     <div>

@@ -3,6 +3,24 @@ import dbConnect from "@/lib/db/db";
 import Service from "@/models/Service";
 import { notFound } from "next/navigation";
 
+
+export async function generateMetadata({ params }: any) {
+  return {
+    title: `${'Edit'} | Afzal's Portfolio`,
+    description: `Detailed view of ${'Edit'} on Afzal's Portfolio.`,
+    keywords: ["portfolio", "edit", "Afzal"],
+    alternates: {
+      canonical: `/admin/services/[id]/edit`, // Update dynamically if needed
+    },
+    openGraph: {
+      title: `${'Edit'} | Afzal's Portfolio`,
+      description: `Detailed view of ${'Edit'} on Afzal's Portfolio.`,
+      url: `/admin/services/[id]/edit`,
+    },
+  };
+}
+
+
 type Props = {
   params: Promise<{ id: string }>;
 };

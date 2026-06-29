@@ -3,6 +3,22 @@ import { getFaqs } from "@/actions/faq";
 import { FaqList } from "./FaqList";
 import { Plus } from "lucide-react";
 
+
+export const metadata = {
+  title: "Faq | Afzal's Portfolio",
+  description: "Faq page of Afzal's Portfolio.",
+  keywords: ["portfolio", "faq", "Afzal"],
+  alternates: {
+    canonical: "/admin/faq",
+  },
+  openGraph: {
+    title: "Faq | Afzal's Portfolio",
+    description: "Faq page of Afzal's Portfolio.",
+    url: "/admin/faq",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminFaqPage() {

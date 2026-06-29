@@ -6,6 +6,7 @@ import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 import { getBlogPostBySlug } from "@/actions/blogs";
 import { richTextToHtml } from "@/lib/utils/richText";
+import JsonLd from "@/components/JsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -47,8 +48,31 @@ export default async function BlogPostPage({ params }: Props) {
   const publishedDate = formatDate(post.publishedAt || post.createdAt);
   const contentHtml = richTextToHtml(post.content);
 
+  const jsonLdData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    image: post.featuredImage || "https://yourdomain.com/default-blog.png",
+    datePublished: post.publishedAt || post.createdAt,
+    dateModified: post.updatedAt || post.createdAt,
+    author: {
+      "@type": "Person",
+      name: post.author || "Afzal",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Afzal's Portfolio",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://yourdomain.com/logo.png",
+      },
+    },
+    description: post.excerpt,
+  };
+
   return (
     <SectionWrapper eyebrow={post.category} title={post.title} intro={post.excerpt}>
+      <JsonLd data={jsonLdData} />
       <Breadcrumb
         items={[
           { label: "Blog", href: "/blog" },

@@ -2,6 +2,22 @@ import { FaqForm } from "../FaqForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+
+export const metadata = {
+  title: "New | Afzal's Portfolio",
+  description: "New page of Afzal's Portfolio.",
+  keywords: ["portfolio", "new", "Afzal"],
+  alternates: {
+    canonical: "/admin/faq/new",
+  },
+  openGraph: {
+    title: "New | Afzal's Portfolio",
+    description: "New page of Afzal's Portfolio.",
+    url: "/admin/faq/new",
+  },
+};
+
+
 export default function NewFaqPage() {
   return (
     <div>

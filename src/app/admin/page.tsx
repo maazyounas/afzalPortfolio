@@ -1,4 +1,20 @@
 import Link from "next/link";
+
+
+export const metadata = {
+  title: "Admin | Afzal's Portfolio",
+  description: "Admin page of Afzal's Portfolio.",
+  keywords: ["portfolio", "admin", "Afzal"],
+  alternates: {
+    canonical: "/admin",
+  },
+  openGraph: {
+    title: "Admin | Afzal's Portfolio",
+    description: "Admin page of Afzal's Portfolio.",
+    url: "/admin",
+  },
+};
+
 import {
   ArrowRight,
   FileText,

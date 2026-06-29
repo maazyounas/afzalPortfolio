@@ -5,6 +5,24 @@ import dbConnect from "@/lib/db/db";
 import Faq from "@/models/Faq";
 import { notFound } from "next/navigation";
 
+
+export async function generateMetadata({ params }: any) {
+  return {
+    title: `${'[Id]'} | Afzal's Portfolio`,
+    description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
+    keywords: ["portfolio", "[id]", "Afzal"],
+    alternates: {
+      canonical: `/admin/faq/[id]`, // Update dynamically if needed
+    },
+    openGraph: {
+      title: `${'[Id]'} | Afzal's Portfolio`,
+      description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
+      url: `/admin/faq/[id]`,
+    },
+  };
+}
+
+
 type Props = {
   params: Promise<{ id: string }>;
 };

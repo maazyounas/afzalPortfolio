@@ -4,6 +4,22 @@ import { jwtVerify } from "jose";
 import { LoginForm } from "./LoginForm";
 import { ShieldCheck } from "lucide-react";
 
+
+export const metadata = {
+  title: "Login | Afzal's Portfolio",
+  description: "Login page of Afzal's Portfolio.",
+  keywords: ["portfolio", "login", "Afzal"],
+  alternates: {
+    canonical: "/admin/login",
+  },
+  openGraph: {
+    title: "Login | Afzal's Portfolio",
+    description: "Login page of Afzal's Portfolio.",
+    url: "/admin/login",
+  },
+};
+
+
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_change_me";
 const secret = new TextEncoder().encode(JWT_SECRET);
 

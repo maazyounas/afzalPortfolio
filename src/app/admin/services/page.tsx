@@ -5,6 +5,22 @@ import { getServices, deleteService } from "@/actions/services";
 import { IService } from "@/models/Service";
 import { ServiceIcon } from "@/lib/utils/icons";
 
+
+export const metadata = {
+  title: "Services | Afzal's Portfolio",
+  description: "Services page of Afzal's Portfolio.",
+  keywords: ["portfolio", "services", "Afzal"],
+  alternates: {
+    canonical: "/admin/services",
+  },
+  openGraph: {
+    title: "Services | Afzal's Portfolio",
+    description: "Services page of Afzal's Portfolio.",
+    url: "/admin/services",
+  },
+};
+
+
 export default async function AdminServicesPage() {
   const services = await getServices();
 

@@ -5,6 +5,22 @@ import { ITeamMember } from "@/models/TeamMember";
 import { revalidatePath } from "next/cache";
 import { DeleteButton } from "./DeleteButton";
 
+
+export const metadata = {
+  title: "Team | Afzal's Portfolio",
+  description: "Team page of Afzal's Portfolio.",
+  keywords: ["portfolio", "team", "Afzal"],
+  alternates: {
+    canonical: "/admin/team",
+  },
+  openGraph: {
+    title: "Team | Afzal's Portfolio",
+    description: "Team page of Afzal's Portfolio.",
+    url: "/admin/team",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminTeamPage() {

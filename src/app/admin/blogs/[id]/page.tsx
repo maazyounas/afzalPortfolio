@@ -2,6 +2,24 @@ import { notFound } from "next/navigation";
 import { getBlogPostById } from "@/actions/blogs";
 import { BlogForm } from "../BlogForm";
 
+
+export async function generateMetadata({ params }: any) {
+  return {
+    title: `${'[Id]'} | Afzal's Portfolio`,
+    description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
+    keywords: ["portfolio", "[id]", "Afzal"],
+    alternates: {
+      canonical: `/admin/blogs/[id]`, // Update dynamically if needed
+    },
+    openGraph: {
+      title: `${'[Id]'} | Afzal's Portfolio`,
+      description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
+      url: `/admin/blogs/[id]`,
+    },
+  };
+}
+
+
 type Props = {
   params: Promise<{ id: string }>;
 };

@@ -1,6 +1,22 @@
 import { getContactMessages } from "@/actions/contact";
 import { MessagesList } from "./MessagesList";
 
+
+export const metadata = {
+  title: "Messages | Afzal's Portfolio",
+  description: "Messages page of Afzal's Portfolio.",
+  keywords: ["portfolio", "messages", "Afzal"],
+  alternates: {
+    canonical: "/admin/messages",
+  },
+  openGraph: {
+    title: "Messages | Afzal's Portfolio",
+    description: "Messages page of Afzal's Portfolio.",
+    url: "/admin/messages",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminMessagesPage() {

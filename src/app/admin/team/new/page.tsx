@@ -1,5 +1,21 @@
 import { TeamForm } from "@/features/admin/components/TeamForm";
 
+
+export const metadata = {
+  title: "New | Afzal's Portfolio",
+  description: "New page of Afzal's Portfolio.",
+  keywords: ["portfolio", "new", "Afzal"],
+  alternates: {
+    canonical: "/admin/team/new",
+  },
+  openGraph: {
+    title: "New | Afzal's Portfolio",
+    description: "New page of Afzal's Portfolio.",
+    url: "/admin/team/new",
+  },
+};
+
+
 export default function NewTeamMemberPage() {
   return (
     <div className="max-w-2xl text-white">

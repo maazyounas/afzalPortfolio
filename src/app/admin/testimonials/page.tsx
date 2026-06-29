@@ -3,6 +3,22 @@ import { getTestimonials } from "@/actions/testimonials";
 import { TestimonialList } from "./TestimonialList";
 import { Plus } from "lucide-react";
 
+
+export const metadata = {
+  title: "Testimonials | Afzal's Portfolio",
+  description: "Testimonials page of Afzal's Portfolio.",
+  keywords: ["portfolio", "testimonials", "Afzal"],
+  alternates: {
+    canonical: "/admin/testimonials",
+  },
+  openGraph: {
+    title: "Testimonials | Afzal's Portfolio",
+    description: "Testimonials page of Afzal's Portfolio.",
+    url: "/admin/testimonials",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function AdminTestimonialsPage() {

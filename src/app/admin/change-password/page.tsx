@@ -2,6 +2,22 @@ import { KeyRound, ShieldCheck, LockKeyhole, UserCog } from "lucide-react";
 import { getAdminCredentialSummary } from "@/lib/auth/admin-credential";
 import { ChangeCredentialsForm } from "./ChangeCredentialsForm";
 
+
+export const metadata = {
+  title: "Change Password | Afzal's Portfolio",
+  description: "Change Password page of Afzal's Portfolio.",
+  keywords: ["portfolio", "change password", "Afzal"],
+  alternates: {
+    canonical: "/admin/change-password",
+  },
+  openGraph: {
+    title: "Change Password | Afzal's Portfolio",
+    description: "Change Password page of Afzal's Portfolio.",
+    url: "/admin/change-password",
+  },
+};
+
+
 export const dynamic = "force-dynamic";
 
 export default async function ChangePasswordPage() {
