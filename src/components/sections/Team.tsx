@@ -176,6 +176,7 @@ function TeamCard({
                     src={member.image!}
                     alt={member.name}
                     fill
+                    sizes="80px"
                     className="object-cover"
                   />
                   <div className="absolute -bottom-1 -right-1 rounded-full border-2 border-white bg-emerald-500 p-1">

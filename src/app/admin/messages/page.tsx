@@ -10,6 +10,7 @@ export const metadata = {
     canonical: "/admin/messages",
   },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Messages | Afzal's Portfolio",
     description: "Messages page of Afzal's Portfolio.",
     url: "/admin/messages",

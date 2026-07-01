@@ -11,6 +11,7 @@ export const metadata = {
     canonical: "/admin/change-password",
   },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Change Password | Afzal's Portfolio",
     description: "Change Password page of Afzal's Portfolio.",
     url: "/admin/change-password",

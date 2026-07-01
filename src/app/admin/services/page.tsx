@@ -14,6 +14,7 @@ export const metadata = {
     canonical: "/admin/services",
   },
   openGraph: {
+    images: ["/opengraph-image"],
     title: "Services | Afzal's Portfolio",
     description: "Services page of Afzal's Portfolio.",
     url: "/admin/services",

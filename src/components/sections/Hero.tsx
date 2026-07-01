@@ -14,7 +14,7 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:px-8 lg:py-16">
         {/* Left Content */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: 0.6,
@@ -24,7 +24,7 @@ export function Hero() {
           className="max-w-2xl"
         >
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-[11px] font-semibold uppercase tracking-[0.25em] text-(--color-accent) sm:text-xs"
           >
@@ -32,7 +32,7 @@ export function Hero() {
           </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-5 font-(family-name:--font-display) text-[2.2rem] font-bold leading-[1.02] text-(--color-ink) sm:text-5xl lg:text-6xl"
           >
@@ -40,7 +40,7 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-5 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8"
           >
@@ -49,7 +49,7 @@ export function Hero() {
 
           {/* CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 1, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
           >

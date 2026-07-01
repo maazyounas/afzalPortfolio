@@ -13,6 +13,7 @@ export async function generateMetadata({ params }: any) {
       canonical: `/admin/services/[id]/edit`, // Update dynamically if needed
     },
     openGraph: {
+    images: ["/opengraph-image"],
       title: `${'Edit'} | Afzal's Portfolio`,
       description: `Detailed view of ${'Edit'} on Afzal's Portfolio.`,
       url: `/admin/services/[id]/edit`,

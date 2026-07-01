@@ -35,6 +35,7 @@ export function ServiceDetailClient({ service }: ServiceDetailClientProps) {
                 src={service.featuredImage}
                 alt={service.name}
                 fill
+                sizes="100vw"
                 className="object-cover"
                 priority
               />

@@ -12,6 +12,7 @@ export async function generateMetadata({ params }: any) {
       canonical: `/admin/blogs/[id]`, // Update dynamically if needed
     },
     openGraph: {
+    images: ["/opengraph-image"],
       title: `${'[Id]'} | Afzal's Portfolio`,
       description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
       url: `/admin/blogs/[id]`,

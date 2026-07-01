@@ -1,6 +1,5 @@
 import { manrope, merriweather } from "@/styles/fonts";
 import "@/styles/globals.css";
-import "leaflet/dist/leaflet.css";
 import JsonLd from "@/components/JsonLd";
 
 export const metadata = {

@@ -63,7 +63,7 @@ export default async function BlogPage() {
                 {post.featuredImage && (
                   <div className="relative z-10 mb-5 overflow-hidden rounded-[1.5rem]">
                     <div className="relative aspect-[16/10] w-full">
-                      <Image src={post.featuredImage} alt={post.title} fill className="object-cover" />
+                      <Image src={post.featuredImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
                     </div>
                   </div>
                 )}

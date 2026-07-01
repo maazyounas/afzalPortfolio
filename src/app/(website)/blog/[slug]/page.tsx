@@ -83,7 +83,7 @@ export default async function BlogPostPage({ params }: Props) {
         {post.featuredImage && (
           <div className="relative mb-8 overflow-hidden rounded-[1.75rem]">
             <div className="relative aspect-[16/9] w-full">
-              <Image src={post.featuredImage} alt={post.title} fill className="object-cover" priority />
+              <Image src={post.featuredImage} alt={post.title} fill sizes="100vw" className="object-cover" priority />
             </div>
           </div>
         )}
