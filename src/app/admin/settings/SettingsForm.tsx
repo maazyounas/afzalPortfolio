@@ -22,11 +22,6 @@ type FormData = {
   mapLocation: string;
   mapLatitude?: number;
   mapLongitude?: number;
-  socialLinks: {
-    linkedin: string;
-    twitter: string;
-    facebook: string;
-  };
 };
 
 export default function SettingsForm({ initialData }: { initialData: Partial<ISettings> | null }) {
@@ -50,11 +45,6 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
       mapLocation: initialData?.mapLocation || "",
       mapLatitude: initialData?.mapLatitude,
       mapLongitude: initialData?.mapLongitude,
-      socialLinks: {
-        linkedin: initialData?.socialLinks?.linkedin || "",
-        twitter: initialData?.socialLinks?.twitter || "",
-        facebook: initialData?.socialLinks?.facebook || "",
-      },
     },
   });
 
@@ -182,36 +172,7 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
         </div>
       </div>
 
-      {/* Social Links */}
-      <div className="admin-form-section">
-        <div className="admin-form-section-title">Social Links</div>
-        <div className="admin-grid-3">
-          <div className="admin-form-group">
-            <label className="admin-label">LinkedIn URL</label>
-            <input
-              {...register("socialLinks.linkedin")}
-              className="admin-input"
-              placeholder="https://linkedin.com/in/..."
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-label">Twitter URL</label>
-            <input
-              {...register("socialLinks.twitter")}
-              className="admin-input"
-              placeholder="https://twitter.com/..."
-            />
-          </div>
-          <div className="admin-form-group">
-            <label className="admin-label">Facebook URL</label>
-            <input
-              {...register("socialLinks.facebook")}
-              className="admin-input"
-              placeholder="https://facebook.com/..."
-            />
-          </div>
-        </div>
-      </div>
+
 
       {/* Actions */}
       <div className="admin-form-footer">

@@ -55,9 +55,6 @@ export const siteConfig = {
     email: "afzalkhancma1997@gmail.com",
     servicesArea: ["Islamabad", "Rawalpindi", "Pakistan"],
   },
-  social: {
-    linkedin: "https://linkedin.com/company/softech-financials",
-  },
   businessHours: [{ day: "Monday - Friday", hours: "8:30 AM - 6:00 PM" }],
   blogPosts,
 } as const;

@@ -20,11 +20,6 @@ const fallbackSettings = {
   mapLongitude: null,
   website: siteConfig.url,
   logoUrl: "",
-  facebook: "",
-  instagram: "",
-  linkedin: siteConfig.social.linkedin,
-  twitter: "",
-  whatsapp: "",
   workingHours: siteConfig.businessHours,
 };
 

@@ -11,11 +11,6 @@ export interface ISettings extends Document {
   mapLocation?: string;
   mapLatitude?: number;
   mapLongitude?: number;
-  socialLinks: {
-    linkedin?: string;
-    twitter?: string;
-    facebook?: string;
-  };
   faq: {
     question: string;
     answer: string;
@@ -34,11 +29,6 @@ const SettingsSchema: Schema = new Schema(
     mapLocation: { type: String },
     mapLatitude: { type: Number },
     mapLongitude: { type: Number },
-    socialLinks: {
-      linkedin: { type: String },
-      twitter: { type: String },
-      facebook: { type: String },
-    },
     faq: [
       {
         question: { type: String, required: true },
