@@ -6,14 +6,20 @@ import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "Learn how Softech Financials helps leadership teams build stronger finance operations.",
+  title: "About Us",
+  description: "Learn how Softech Financials helps leadership teams build stronger finance operations, reporting, and resilient controls.",
+  openGraph: {
+    title: "About Us | Softech Financials",
+    description: "Learn how Softech Financials helps leadership teams build stronger finance operations, reporting, and resilient controls.",
+    url: "/about",
+  },
 };
 
 export default function AboutPage() {
   return (
     <>
       <SectionWrapper
+        isMainHeader={true}
         eyebrow="About Us"
         title="A finance partner focused on operational clarity."
         intro="We help founders and finance leaders design dependable reporting, resilient controls, and better decision rhythms."

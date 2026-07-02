@@ -10,6 +10,7 @@ type SectionWrapperProps = {
   children: ReactNode;
   id?: string;
   centered?: boolean;
+  isMainHeader?: boolean;
 };
 
 const headerVariants = {
@@ -23,6 +24,7 @@ export function SectionWrapper({
   intro,
   children,
   id,
+  isMainHeader = false,
 }: SectionWrapperProps) {
   const slug = (s = "") =>
     s
@@ -30,6 +32,9 @@ export function SectionWrapper({
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
   const sectionId = id ?? slug(eyebrow ?? title);
+
+  const TitleComponent = isMainHeader ? "h1" : "h2";
+
   return (
     <motion.section
       id={sectionId}
@@ -45,9 +50,9 @@ export function SectionWrapper({
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="mt-3 font-(family-name:--font-display) text-2xl font-bold leading-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
+        <TitleComponent className="mt-3 font-(family-name:--font-display) text-2xl font-bold leading-tight text-(--color-ink) sm:text-4xl lg:text-5xl">
           {title}
-        </h2>
+        </TitleComponent>
         {intro ? (
           <p className="mt-4 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
             {intro}

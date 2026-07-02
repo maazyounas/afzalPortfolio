@@ -20,9 +20,13 @@ import MobileScroller from "@/components/ui/MobileScroller";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Services | Softech Financials",
-  description:
-    "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
+  title: "Services",
+  description: "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
+  openGraph: {
+    title: "Services | Softech Financials",
+    description: "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
+    url: "/services",
+  },
 };
 const item = {
   hidden: {
@@ -80,6 +84,7 @@ export default async function ServicesPage() {
   return (
     <SectionWrapper
       id="services"
+      isMainHeader={true}
       eyebrow="Capabilities"
       title="Services tailored to each stage of financial maturity."
       intro="Each engagement is structured around measurable reporting improvements, stronger controls, and sharper executive visibility."

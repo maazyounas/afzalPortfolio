@@ -7,8 +7,13 @@ import { getTeamMembers } from "@/actions/team";
 import type { ITeamMember } from "@/models/TeamMember";
 
 export const metadata: Metadata = {
-  title: "Team",
-  description: "Meet the professionals behind Softech Financials.",
+  title: "Our Team",
+  description: "Meet the professionals behind Softech Financials. Our team combines advisory insight with hands-on implementation across finance, compliance, and reporting.",
+  openGraph: {
+    title: "Our Team | Softech Financials",
+    description: "Meet the professionals behind Softech Financials. Our team combines advisory insight with hands-on implementation across finance, compliance, and reporting.",
+    url: "/team",
+  },
 };
 
 export default async function TeamPage() {
@@ -16,6 +21,7 @@ export default async function TeamPage() {
 
   return (
     <SectionWrapper
+      isMainHeader={true}
       eyebrow="Leadership"
       title="A team built around execution, not just advice."
       intro="Our specialists combine advisory insight with hands-on implementation across finance, compliance, and reporting."
