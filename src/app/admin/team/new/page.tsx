@@ -2,16 +2,16 @@ import { TeamForm } from "@/features/admin/components/TeamForm";
 
 
 export const metadata = {
-  title: "New | Afzal's Portfolio",
-  description: "New page of Afzal's Portfolio.",
-  keywords: ["portfolio", "new", "Afzal"],
+  title: "New | Softech Financials",
+  description: "New page of Softech Financials.",
+  keywords: ["portfolio", "new", "Softech Financials"],
   alternates: {
     canonical: "/admin/team/new",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "New | Afzal's Portfolio",
-    description: "New page of Afzal's Portfolio.",
+    title: "New | Softech Financials",
+    description: "New page of Softech Financials.",
     url: "/admin/team/new",
   },
 };

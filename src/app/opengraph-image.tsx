@@ -65,7 +65,7 @@ export default function OpenGraphImage() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              gap: "16px",
               fontSize: "22px",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
@@ -73,14 +73,23 @@ export default function OpenGraphImage() {
               color: "#0f1724",
             }}
           >
+            {/* Logo box */}
             <div
               style={{
-                width: "14px",
-                height: "14px",
+                width: "48px",
+                height: "48px",
                 background: "#0f766e",
-                borderRadius: "4px",
+                borderRadius: "12px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontWeight: 900,
+                fontSize: "24px",
               }}
-            />
+            >
+              SF
+            </div>
             Softech Financials
           </div>
 

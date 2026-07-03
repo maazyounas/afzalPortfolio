@@ -5,16 +5,16 @@ import { Plus } from "lucide-react";
 
 
 export const metadata = {
-  title: "Blogs | Afzal's Portfolio",
-  description: "Blogs page of Afzal's Portfolio.",
-  keywords: ["portfolio", "blogs", "Afzal"],
+  title: "Blogs | Softech Financials",
+  description: "Blogs page of Softech Financials.",
+  keywords: ["portfolio", "blogs", "Softech Financials"],
   alternates: {
     canonical: "/admin/blogs",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Blogs | Afzal's Portfolio",
-    description: "Blogs page of Afzal's Portfolio.",
+    title: "Blogs | Softech Financials",
+    description: "Blogs page of Softech Financials.",
     url: "/admin/blogs",
   },
 };

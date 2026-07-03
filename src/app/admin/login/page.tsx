@@ -6,16 +6,16 @@ import { ShieldCheck } from "lucide-react";
 
 
 export const metadata = {
-  title: "Login | Afzal's Portfolio",
-  description: "Login page of Afzal's Portfolio.",
-  keywords: ["portfolio", "login", "Afzal"],
+  title: "Login | Softech Financials",
+  description: "Login page of Softech Financials.",
+  keywords: ["portfolio", "login", "Softech Financials"],
   alternates: {
     canonical: "/admin/login",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Login | Afzal's Portfolio",
-    description: "Login page of Afzal's Portfolio.",
+    title: "Login | Softech Financials",
+    description: "Login page of Softech Financials.",
     url: "/admin/login",
   },
 };

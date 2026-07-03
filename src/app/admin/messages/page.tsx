@@ -3,16 +3,16 @@ import { MessagesList } from "./MessagesList";
 
 
 export const metadata = {
-  title: "Messages | Afzal's Portfolio",
-  description: "Messages page of Afzal's Portfolio.",
-  keywords: ["portfolio", "messages", "Afzal"],
+  title: "Messages | Softech Financials",
+  description: "Messages page of Softech Financials.",
+  keywords: ["portfolio", "messages", "Softech Financials"],
   alternates: {
     canonical: "/admin/messages",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Messages | Afzal's Portfolio",
-    description: "Messages page of Afzal's Portfolio.",
+    title: "Messages | Softech Financials",
+    description: "Messages page of Softech Financials.",
     url: "/admin/messages",
   },
 };

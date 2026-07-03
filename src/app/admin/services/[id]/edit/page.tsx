@@ -6,16 +6,16 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: `${'Edit'} | Afzal's Portfolio`,
-    description: `Detailed view of ${'Edit'} on Afzal's Portfolio.`,
-    keywords: ["portfolio", "edit", "Afzal"],
+    title: `${'Edit'} | Softech Financials`,
+    description: `Detailed view of ${'Edit'} on Softech Financials.`,
+    keywords: ["portfolio", "edit", "Softech Financials"],
     alternates: {
       canonical: `/admin/services/[id]/edit`, // Update dynamically if needed
     },
     openGraph: {
     images: ["/opengraph-image"],
-      title: `${'Edit'} | Afzal's Portfolio`,
-      description: `Detailed view of ${'Edit'} on Afzal's Portfolio.`,
+      title: `${'Edit'} | Softech Financials`,
+      description: `Detailed view of ${'Edit'} on Softech Financials.`,
       url: `/admin/services/[id]/edit`,
     },
   };

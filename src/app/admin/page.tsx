@@ -2,16 +2,16 @@ import Link from "next/link";
 
 
 export const metadata = {
-  title: "Admin | Afzal's Portfolio",
-  description: "Admin page of Afzal's Portfolio.",
-  keywords: ["portfolio", "admin", "Afzal"],
+  title: "Admin | Softech Financials",
+  description: "Admin page of Softech Financials.",
+  keywords: ["portfolio", "admin", "Softech Financials"],
   alternates: {
     canonical: "/admin",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Admin | Afzal's Portfolio",
-    description: "Admin page of Afzal's Portfolio.",
+    title: "Admin | Softech Financials",
+    description: "Admin page of Softech Financials.",
     url: "/admin",
   },
 };

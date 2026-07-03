@@ -57,11 +57,11 @@ export default async function BlogPostPage({ params }: Props) {
     dateModified: post.updatedAt || post.createdAt,
     author: {
       "@type": "Person",
-      name: post.author || "Afzal",
+      name: post.author || "Softech Financials",
     },
     publisher: {
       "@type": "Organization",
-      name: "Afzal's Portfolio",
+      name: "Softech Financials",
       logo: {
         "@type": "ImageObject",
         url: "https://yourdomain.com/logo.png",

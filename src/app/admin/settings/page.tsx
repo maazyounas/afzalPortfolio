@@ -4,16 +4,16 @@ import { Settings } from "lucide-react";
 
 
 export const metadata = {
-  title: "Settings | Afzal's Portfolio",
-  description: "Settings page of Afzal's Portfolio.",
-  keywords: ["portfolio", "settings", "Afzal"],
+  title: "Settings | Softech Financials",
+  description: "Settings page of Softech Financials.",
+  keywords: ["portfolio", "settings", "Softech Financials"],
   alternates: {
     canonical: "/admin/settings",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Settings | Afzal's Portfolio",
-    description: "Settings page of Afzal's Portfolio.",
+    title: "Settings | Softech Financials",
+    description: "Settings page of Softech Financials.",
     url: "/admin/settings",
   },
 };

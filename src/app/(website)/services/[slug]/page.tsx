@@ -44,7 +44,7 @@ export default async function ServicePage({ params }: Props) {
     description: service.description,
     provider: {
       "@type": "Organization",
-      name: "Afzal's Portfolio",
+      name: "Softech Financials",
     },
     areaServed: "Worldwide",
   };

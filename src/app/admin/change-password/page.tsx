@@ -4,16 +4,16 @@ import { ChangeCredentialsForm } from "./ChangeCredentialsForm";
 
 
 export const metadata = {
-  title: "Change Password | Afzal's Portfolio",
-  description: "Change Password page of Afzal's Portfolio.",
-  keywords: ["portfolio", "change password", "Afzal"],
+  title: "Change Password | Softech Financials",
+  description: "Change Password page of Softech Financials.",
+  keywords: ["portfolio", "change password", "Softech Financials"],
   alternates: {
     canonical: "/admin/change-password",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Change Password | Afzal's Portfolio",
-    description: "Change Password page of Afzal's Portfolio.",
+    title: "Change Password | Softech Financials",
+    description: "Change Password page of Softech Financials.",
     url: "/admin/change-password",
   },
 };

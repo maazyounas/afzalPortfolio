@@ -7,16 +7,16 @@ import { ServiceIcon } from "@/lib/utils/icons";
 
 
 export const metadata = {
-  title: "Services | Afzal's Portfolio",
-  description: "Services page of Afzal's Portfolio.",
-  keywords: ["portfolio", "services", "Afzal"],
+  title: "Services | Softech Financials",
+  description: "Services page of Softech Financials.",
+  keywords: ["portfolio", "services", "Softech Financials"],
   alternates: {
     canonical: "/admin/services",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Services | Afzal's Portfolio",
-    description: "Services page of Afzal's Portfolio.",
+    title: "Services | Softech Financials",
+    description: "Services page of Softech Financials.",
     url: "/admin/services",
   },
 };

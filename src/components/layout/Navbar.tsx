@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import type { MouseEvent } from "react";
 import { useEffect, useMemo, useState } from "react";
@@ -123,8 +124,15 @@ export function Navbar({ siteName }: { siteName?: string }) {
             onClick={handleLogoClick}
             className="group flex min-w-0 items-center gap-2 sm:gap-3"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-(--color-accent) text-lg font-bold text-white shadow-md transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
-              S
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
+              <Image
+                src="/logo.png"
+                alt="Logo"
+                width={44}
+                height={44}
+                className="h-full w-full object-contain"
+                priority
+              />
             </div>
 
             <div className="flex min-w-0 flex-col">

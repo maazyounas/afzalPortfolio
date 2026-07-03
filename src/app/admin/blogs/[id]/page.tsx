@@ -5,16 +5,16 @@ import { BlogForm } from "../BlogForm";
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: `${'[Id]'} | Afzal's Portfolio`,
-    description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
-    keywords: ["portfolio", "[id]", "Afzal"],
+    title: `${'[Id]'} | Softech Financials`,
+    description: `Detailed view of ${'[Id]'} on Softech Financials.`,
+    keywords: ["portfolio", "[id]", "Softech Financials"],
     alternates: {
       canonical: `/admin/blogs/[id]`, // Update dynamically if needed
     },
     openGraph: {
     images: ["/opengraph-image"],
-      title: `${'[Id]'} | Afzal's Portfolio`,
-      description: `Detailed view of ${'[Id]'} on Afzal's Portfolio.`,
+      title: `${'[Id]'} | Softech Financials`,
+      description: `Detailed view of ${'[Id]'} on Softech Financials.`,
       url: `/admin/blogs/[id]`,
     },
   };

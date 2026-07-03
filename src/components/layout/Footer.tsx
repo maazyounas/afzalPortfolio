@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   Clock,
@@ -51,8 +52,14 @@ export async function Footer() {
               href="/"
               className="group inline-flex items-center gap-3 transition-transform hover:scale-105"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-(--color-accent-light) to-(--color-accent) text-lg font-bold text-white shadow-lg transition-all duration-300 group-hover:shadow-xl">
-                S
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl overflow-hidden shadow-lg transition-all duration-300 group-hover:shadow-xl">
+                <Image
+                  src="/logo.png"
+                  alt="Logo"
+                  width={48}
+                  height={48}
+                  className="h-full w-full object-contain"
+                />
               </div>
 
               <div>

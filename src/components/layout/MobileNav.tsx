@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import type { MouseEvent } from "react";
 import { useEffect, useState } from "react";
 import {
@@ -154,7 +155,17 @@ export function MobileNav({
             >
               {/* Header */}
               <div className="relative flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-white to-gray-50/50 px-6 py-6">
-                <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-md">
+                    <Image
+                      src="/logo.png"
+                      alt="Logo"
+                      width={40}
+                      height={40}
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}

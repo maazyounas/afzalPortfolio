@@ -7,16 +7,16 @@ import { DeleteButton } from "./DeleteButton";
 
 
 export const metadata = {
-  title: "Team | Afzal's Portfolio",
-  description: "Team page of Afzal's Portfolio.",
-  keywords: ["portfolio", "team", "Afzal"],
+  title: "Team | Softech Financials",
+  description: "Team page of Softech Financials.",
+  keywords: ["portfolio", "team", "Softech Financials"],
   alternates: {
     canonical: "/admin/team",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Team | Afzal's Portfolio",
-    description: "Team page of Afzal's Portfolio.",
+    title: "Team | Softech Financials",
+    description: "Team page of Softech Financials.",
     url: "/admin/team",
   },
 };
