@@ -124,16 +124,14 @@ export function Navbar({ siteName }: { siteName?: string }) {
             onClick={handleLogoClick}
             className="group flex min-w-0 items-center gap-2 sm:gap-3"
           >
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-105 sm:h-11 sm:w-11">
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={44}
-                height={44}
-                className="h-full w-full object-contain"
-                priority
-              />
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Softech Financials Logo"
+              width={48}
+              height={48}
+              className="shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12"
+              priority
+            />
 
             <div className="flex min-w-0 flex-col">
               <span className="truncate font-(family-name:--font-display) text-[0.95rem] font-bold tracking-tight text-(--color-ink) sm:text-xl">
