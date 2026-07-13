@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import { Contact } from "@/components/sections/Contact";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
@@ -6,10 +6,10 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Start a conversation with Softech Financials. Get expert advice on accounting, tax planning, and finance operations.",
+  description: "Start a conversation with Softtech Financials. Get expert advice on accounting, tax planning, and finance operations.",
   openGraph: {
-    title: "Contact Us | Softech Financials",
-    description: "Start a conversation with Softech Financials. Get expert advice on accounting, tax planning, and finance operations.",
+    title: "Contact Us | Softtech Financials",
+    description: "Start a conversation with Softtech Financials. Get expert advice on accounting, tax planning, and finance operations.",
     url: "/contact",
   },
 };
@@ -29,3 +29,4 @@ export default function ContactPage() {
     </>
   );
 }
+

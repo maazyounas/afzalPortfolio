@@ -1,4 +1,4 @@
-import { TeamForm } from "@/features/admin/components/TeamForm";
+﻿import { TeamForm } from "@/features/admin/components/TeamForm";
 import dbConnect from "@/lib/db/db";
 import TeamMember from "@/models/TeamMember";
 import { notFound } from "next/navigation";
@@ -6,16 +6,16 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: `${'Edit'} | Softech Financials`,
-    description: `Detailed view of ${'Edit'} on Softech Financials.`,
-    keywords: ["portfolio", "edit", "Softech Financials"],
+    title: `${'Edit'} | Softtech Financials`,
+    description: `Detailed view of ${'Edit'} on Softtech Financials.`,
+    keywords: ["portfolio", "edit", "Softtech Financials"],
     alternates: {
       canonical: `/admin/team/[id]/edit`, // Update dynamically if needed
     },
     openGraph: {
     images: ["/opengraph-image"],
-      title: `${'Edit'} | Softech Financials`,
-      description: `Detailed view of ${'Edit'} on Softech Financials.`,
+      title: `${'Edit'} | Softtech Financials`,
+      description: `Detailed view of ${'Edit'} on Softtech Financials.`,
       url: `/admin/team/[id]/edit`,
     },
   };
@@ -48,3 +48,4 @@ export default async function EditTeamMemberPage({ params }: Props) {
     </div>
   );
 }
+

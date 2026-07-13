@@ -1,20 +1,20 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { getFaqs } from "@/actions/faq";
 import { FaqList } from "./FaqList";
 import { Plus } from "lucide-react";
 
 
 export const metadata = {
-  title: "Faq | Softech Financials",
-  description: "Faq page of Softech Financials.",
-  keywords: ["portfolio", "faq", "Softech Financials"],
+  title: "Faq | Softtech Financials",
+  description: "Faq page of Softtech Financials.",
+  keywords: ["portfolio", "faq", "Softtech Financials"],
   alternates: {
     canonical: "/admin/faq",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Faq | Softech Financials",
-    description: "Faq page of Softech Financials.",
+    title: "Faq | Softtech Financials",
+    description: "Faq page of Softtech Financials.",
     url: "/admin/faq",
   },
 };
@@ -44,3 +44,4 @@ export default async function AdminFaqPage() {
     </div>
   );
 }
+

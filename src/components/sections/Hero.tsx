@@ -36,7 +36,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-5 font-(family-name:--font-display) text-[2.2rem] font-bold leading-[1.02] text-(--color-ink) sm:text-5xl lg:text-6xl"
           >
-            Financial clarity that scales with your business.
+            Softtech Financials
           </motion.h1>
 
           <motion.p
@@ -44,7 +44,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-5 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8"
           >
-            {siteConfig.description}
+            Financial clarity that scales with your business. {siteConfig.description}
           </motion.p>
 
           {/* CTA */}

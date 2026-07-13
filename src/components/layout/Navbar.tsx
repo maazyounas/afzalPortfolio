@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -82,7 +82,7 @@ export function Navbar({ siteName }: { siteName?: string }) {
 
   e.preventDefault();
 
-  setActive(id); // 🔥 THIS is what drives active state
+  setActive(id); // ðŸ”¥ THIS is what drives active state
 
   window.history.replaceState(null, "", `/#${id}`);
 
@@ -126,7 +126,7 @@ export function Navbar({ siteName }: { siteName?: string }) {
           >
             <Image
               src="/logo.png"
-              alt="Softech Financials Logo"
+              alt="Softtech Financials Logo"
               width={48}
               height={48}
               className="shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-12 sm:w-12"
@@ -204,3 +204,4 @@ export function Navbar({ siteName }: { siteName?: string }) {
     </>
   );
 }
+

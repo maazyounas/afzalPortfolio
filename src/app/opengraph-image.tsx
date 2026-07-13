@@ -1,4 +1,4 @@
-import { ImageResponse } from "next/og";
+﻿import { ImageResponse } from "next/og";
 
 export const size = {
   width: 1200,
@@ -90,7 +90,7 @@ export default function OpenGraphImage() {
             >
               SF
             </div>
-            Softech Financials
+            Softtech Financials
           </div>
 
           {/* Main text */}
@@ -138,7 +138,7 @@ export default function OpenGraphImage() {
                 border: "1px solid rgba(15,118,110,0.2)",
               }}
             >
-              Strategy • Compliance • Reporting
+              Strategy | Compliance | Reporting
             </div>
           </div>
         </div>
@@ -147,3 +147,4 @@ export default function OpenGraphImage() {
     size
   );
 }
+

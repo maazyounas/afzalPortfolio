@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { revalidatePath } from "next/cache";
 import { getServices, deleteService } from "@/actions/services";
@@ -7,16 +7,16 @@ import { ServiceIcon } from "@/lib/utils/icons";
 
 
 export const metadata = {
-  title: "Services | Softech Financials",
-  description: "Services page of Softech Financials.",
-  keywords: ["portfolio", "services", "Softech Financials"],
+  title: "Services | Softtech Financials",
+  description: "Services page of Softtech Financials.",
+  keywords: ["portfolio", "services", "Softtech Financials"],
   alternates: {
     canonical: "/admin/services",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Services | Softech Financials",
-    description: "Services page of Softech Financials.",
+    title: "Services | Softtech Financials",
+    description: "Services page of Softtech Financials.",
     url: "/admin/services",
   },
 };
@@ -148,3 +148,4 @@ export default async function AdminServicesPage() {
     </div>
   );
 }
+

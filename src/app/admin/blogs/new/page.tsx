@@ -1,17 +1,17 @@
-import { BlogForm } from "../BlogForm";
+﻿import { BlogForm } from "../BlogForm";
 
 
 export const metadata = {
-  title: "New | Softech Financials",
-  description: "New page of Softech Financials.",
-  keywords: ["portfolio", "new", "Softech Financials"],
+  title: "New | Softtech Financials",
+  description: "New page of Softtech Financials.",
+  keywords: ["portfolio", "new", "Softtech Financials"],
   alternates: {
     canonical: "/admin/blogs/new",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "New | Softech Financials",
-    description: "New page of Softech Financials.",
+    title: "New | Softtech Financials",
+    description: "New page of Softtech Financials.",
     url: "/admin/blogs/new",
   },
 };
@@ -33,3 +33,4 @@ export default function NewBlogPostPage() {
     </div>
   );
 }
+

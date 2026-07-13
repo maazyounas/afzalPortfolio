@@ -1,20 +1,20 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { getBlogPosts } from "@/actions/blogs";
 import { BlogList } from "./BlogList";
 import { Plus } from "lucide-react";
 
 
 export const metadata = {
-  title: "Blogs | Softech Financials",
-  description: "Blogs page of Softech Financials.",
-  keywords: ["portfolio", "blogs", "Softech Financials"],
+  title: "Blogs | Softtech Financials",
+  description: "Blogs page of Softtech Financials.",
+  keywords: ["portfolio", "blogs", "Softtech Financials"],
   alternates: {
     canonical: "/admin/blogs",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Blogs | Softech Financials",
-    description: "Blogs page of Softech Financials.",
+    title: "Blogs | Softtech Financials",
+    description: "Blogs page of Softtech Financials.",
     url: "/admin/blogs",
   },
 };
@@ -44,3 +44,4 @@ export default async function AdminBlogsPage() {
     </div>
   );
 }
+

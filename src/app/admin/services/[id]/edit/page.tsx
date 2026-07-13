@@ -1,4 +1,4 @@
-import { ServiceForm } from "@/features/admin/components/ServiceForm";
+﻿import { ServiceForm } from "@/features/admin/components/ServiceForm";
 import dbConnect from "@/lib/db/db";
 import Service from "@/models/Service";
 import { notFound } from "next/navigation";
@@ -6,16 +6,16 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: `${'Edit'} | Softech Financials`,
-    description: `Detailed view of ${'Edit'} on Softech Financials.`,
-    keywords: ["portfolio", "edit", "Softech Financials"],
+    title: `${'Edit'} | Softtech Financials`,
+    description: `Detailed view of ${'Edit'} on Softtech Financials.`,
+    keywords: ["portfolio", "edit", "Softtech Financials"],
     alternates: {
       canonical: `/admin/services/[id]/edit`, // Update dynamically if needed
     },
     openGraph: {
     images: ["/opengraph-image"],
-      title: `${'Edit'} | Softech Financials`,
-      description: `Detailed view of ${'Edit'} on Softech Financials.`,
+      title: `${'Edit'} | Softtech Financials`,
+      description: `Detailed view of ${'Edit'} on Softtech Financials.`,
       url: `/admin/services/[id]/edit`,
     },
   };
@@ -48,3 +48,4 @@ export default async function EditServicePage({ params }: Props) {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -57,11 +57,11 @@ export default async function BlogPostPage({ params }: Props) {
     dateModified: post.updatedAt || post.createdAt,
     author: {
       "@type": "Person",
-      name: post.author || "Softech Financials",
+      name: post.author || "Softtech Financials",
     },
     publisher: {
       "@type": "Organization",
-      name: "Softech Financials",
+      name: "Softtech Financials",
       logo: {
         "@type": "ImageObject",
         url: "https://yourdomain.com/logo.png",
@@ -108,3 +108,4 @@ export default async function BlogPostPage({ params }: Props) {
     </SectionWrapper>
   );
 }
+

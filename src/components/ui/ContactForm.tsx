@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -38,7 +38,7 @@ export function ContactForm() {
       const message =
         error instanceof Error
           ? error.message
-          : "Unable to send message. Please email hello@softechfinancials.com";
+          : "Unable to send message. Please email hello@softtechfinancials.com";
       setToast({ text: message, type: "error" });
     } finally {
       setLoading(false);
@@ -109,3 +109,4 @@ export function ContactForm() {
     </motion.form>
   );
 }
+

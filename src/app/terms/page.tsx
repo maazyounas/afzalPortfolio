@@ -1,8 +1,8 @@
-import { InfoPageShell } from "@/components/ui/InfoPageShell";
+﻿import { InfoPageShell } from "@/components/ui/InfoPageShell";
 
 export const metadata = {
-  title: "Terms of Service | Softech Financials",
-  description: "Read the basic terms for using the Softech Financials website.",
+  title: "Terms of Service | Softtech Financials",
+  description: "Read the basic terms for using the Softtech Financials website.",
 };
 
 export default function TermsPage() {
@@ -41,3 +41,4 @@ export default function TermsPage() {
     </InfoPageShell>
   );
 }
+

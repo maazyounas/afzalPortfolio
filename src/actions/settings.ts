@@ -6,6 +6,20 @@ import Settings from "@/models/Settings";
 import { formatError } from "@/lib/formatError";
 import { siteConfig } from "@/lib/data/site-config";
 
+function normalizeSiteName(siteName?: string | null) {
+  if (!siteName) {
+    return siteConfig.name;
+  }
+
+  const trimmed = siteName.trim();
+
+  if (/^softech/i.test(trimmed)) {
+    return siteConfig.name;
+  }
+
+  return trimmed;
+}
+
 const fallbackSettings = {
   siteName: siteConfig.name,
   siteDescription: siteConfig.description,
@@ -31,7 +45,17 @@ export async function getSettings() {
   try {
     await dbConnect();
     const settings = await Settings.findOne({});
-    return settings ? JSON.parse(JSON.stringify(settings)) : fallbackSettings;
+
+    if (!settings) {
+      return fallbackSettings;
+    }
+
+    const serialized = JSON.parse(JSON.stringify(settings));
+
+    return {
+      ...serialized,
+      siteName: normalizeSiteName(serialized.siteName),
+    };
   } catch (error) {
     console.error("Failed to fetch settings:", error);
     return fallbackSettings;

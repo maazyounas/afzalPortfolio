@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { Plus, Edit } from "lucide-react";
 import { getTeamMembers, deleteTeamMember } from "@/actions/team";
 import { ITeamMember } from "@/models/TeamMember";
@@ -7,16 +7,16 @@ import { DeleteButton } from "./DeleteButton";
 
 
 export const metadata = {
-  title: "Team | Softech Financials",
-  description: "Team page of Softech Financials.",
-  keywords: ["portfolio", "team", "Softech Financials"],
+  title: "Team | Softtech Financials",
+  description: "Team page of Softtech Financials.",
+  keywords: ["portfolio", "team", "Softtech Financials"],
   alternates: {
     canonical: "/admin/team",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Team | Softech Financials",
-    description: "Team page of Softech Financials.",
+    title: "Team | Softtech Financials",
+    description: "Team page of Softtech Financials.",
     url: "/admin/team",
   },
 };
@@ -93,7 +93,7 @@ export default async function AdminTeamPage() {
                           <span key={tag} className="admin-badge admin-badge-neutral">
                             {tag}
                           </span>
-                        )) || <span style={{ color: "var(--admin-muted)" }}>—</span>}
+                        )) || <span style={{ color: "var(--admin-muted)" }}>â€”</span>}
                       </div>
                     </td>
                     <td style={{ color: "var(--admin-muted)", fontSize: 13 }}>
@@ -124,3 +124,4 @@ export default async function AdminTeamPage() {
     </div>
   );
 }
+

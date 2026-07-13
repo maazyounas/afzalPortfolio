@@ -1,11 +1,11 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { getSettings } from "@/actions/settings";
 import { siteConfig } from "@/lib/data/site-config";
 import { InfoPageShell } from "@/components/ui/InfoPageShell";
 
 export const metadata = {
-  title: "Help Center | Softech Financials",
-  description: "Find answers to common questions and learn how to get support from Softech Financials.",
+  title: "Help Center | Softtech Financials",
+  description: "Find answers to common questions and learn how to get support from Softtech Financials.",
 };
 
 export default async function HelpCenterPage() {
@@ -71,3 +71,4 @@ export default async function HelpCenterPage() {
     </InfoPageShell>
   );
 }
+

@@ -1,20 +1,20 @@
-import { notFound } from "next/navigation";
+﻿import { notFound } from "next/navigation";
 import { getBlogPostById } from "@/actions/blogs";
 import { BlogForm } from "../BlogForm";
 
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: `${'[Id]'} | Softech Financials`,
-    description: `Detailed view of ${'[Id]'} on Softech Financials.`,
-    keywords: ["portfolio", "[id]", "Softech Financials"],
+    title: `${'[Id]'} | Softtech Financials`,
+    description: `Detailed view of ${'[Id]'} on Softtech Financials.`,
+    keywords: ["portfolio", "[id]", "Softtech Financials"],
     alternates: {
       canonical: `/admin/blogs/[id]`, // Update dynamically if needed
     },
     openGraph: {
     images: ["/opengraph-image"],
-      title: `${'[Id]'} | Softech Financials`,
-      description: `Detailed view of ${'[Id]'} on Softech Financials.`,
+      title: `${'[Id]'} | Softtech Financials`,
+      description: `Detailed view of ${'[Id]'} on Softtech Financials.`,
       url: `/admin/blogs/[id]`,
     },
   };
@@ -48,3 +48,4 @@ export default async function EditBlogPostPage({ params }: Props) {
     </div>
   );
 }
+

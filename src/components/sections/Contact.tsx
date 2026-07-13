@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { CheckCircle, Globe, Mail, Phone, Sparkles } from "lucide-react";
@@ -20,7 +20,7 @@ const getInfoCards = (email?: string, phone?: string) => [
   {
     icon: Mail,
     title: "Email Us",
-    value: email || "hello@softechfinancials.com",
+    value: email || "hello@softtechfinancials.com",
     description: "We'll respond within 24 hours",
     action: "mailto",
   },
@@ -265,3 +265,4 @@ export function Contact({
     </SectionWrapper>
   );
 }
+

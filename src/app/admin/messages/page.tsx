@@ -1,18 +1,18 @@
-import { getContactMessages } from "@/actions/contact";
+﻿import { getContactMessages } from "@/actions/contact";
 import { MessagesList } from "./MessagesList";
 
 
 export const metadata = {
-  title: "Messages | Softech Financials",
-  description: "Messages page of Softech Financials.",
-  keywords: ["portfolio", "messages", "Softech Financials"],
+  title: "Messages | Softtech Financials",
+  description: "Messages page of Softtech Financials.",
+  keywords: ["portfolio", "messages", "Softtech Financials"],
   alternates: {
     canonical: "/admin/messages",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Messages | Softech Financials",
-    description: "Messages page of Softech Financials.",
+    title: "Messages | Softtech Financials",
+    description: "Messages page of Softtech Financials.",
     url: "/admin/messages",
   },
 };
@@ -38,3 +38,4 @@ export default async function AdminMessagesPage() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-import { TestimonialForm } from "../TestimonialForm";
+﻿import { TestimonialForm } from "../TestimonialForm";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import dbConnect from "@/lib/db/db";
@@ -8,16 +8,16 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: any) {
   return {
-    title: `${'[Id]'} | Softech Financials`,
-    description: `Detailed view of ${'[Id]'} on Softech Financials.`,
-    keywords: ["portfolio", "[id]", "Softech Financials"],
+    title: `${'[Id]'} | Softtech Financials`,
+    description: `Detailed view of ${'[Id]'} on Softtech Financials.`,
+    keywords: ["portfolio", "[id]", "Softtech Financials"],
     alternates: {
       canonical: `/admin/testimonials/[id]`, // Update dynamically if needed
     },
     openGraph: {
     images: ["/opengraph-image"],
-      title: `${'[Id]'} | Softech Financials`,
-      description: `Detailed view of ${'[Id]'} on Softech Financials.`,
+      title: `${'[Id]'} | Softtech Financials`,
+      description: `Detailed view of ${'[Id]'} on Softtech Financials.`,
       url: `/admin/testimonials/[id]`,
     },
   };
@@ -57,3 +57,4 @@ export default async function EditTestimonialPage({ params }: Props) {
     </div>
   );
 }
+

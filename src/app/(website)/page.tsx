@@ -1,4 +1,4 @@
-import { getBlogPosts } from "@/actions/blogs";
+﻿import { getBlogPosts } from "@/actions/blogs";
 import { getServices } from "@/actions/services";
 import { getTeamMembers } from "@/actions/team";
 import { getSettings } from "@/actions/settings";
@@ -17,16 +17,24 @@ import { siteConfig } from "@/lib/data/site-config";
 
 
 export const metadata = {
-  title: "Home | Softech Financials",
-  description: "Certified bookkeepers and tax advisors in GAAP and IFRS Compliance, helping businesses strengthen accounting, tax planning, and finance operations.",
-  keywords: ["accounting firm", "tax advisory", "bookkeeping Islamabad", "finance consultancy", "corporate finance Pakistan"],
+  title: "Softtech Financials | Tax & Financial Consultancy in Pakistan",
+  description:
+    "Certified bookkeepers and tax advisors in GAAP and IFRS Compliance, helping businesses strengthen accounting, tax planning, and finance operations.",
+  keywords: [
+    "accounting firm",
+    "tax advisory",
+    "bookkeeping Islamabad",
+    "finance consultancy",
+    "corporate finance Pakistan",
+  ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Home | Softech Financials",
-    description: "Certified bookkeepers and tax advisors in GAAP and IFRS Compliance, helping businesses strengthen accounting, tax planning, and finance operations.",
+    title: "Softtech Financials | Tax & Financial Consultancy in Pakistan",
+    description:
+      "Certified bookkeepers and tax advisors in GAAP and IFRS Compliance, helping businesses strengthen accounting, tax planning, and finance operations.",
     url: "/",
   },
 };
@@ -72,3 +80,4 @@ export default async function HomePage() {
     </>
   );
 }
+

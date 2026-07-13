@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { 
   CheckCircle2, 
@@ -83,7 +83,7 @@ export function About() {
   return (
     <SectionWrapper
       id="about"
-      eyebrow="Why Softech"
+      eyebrow="Why Softtech"
       title="A partner that turns financial complexity into operating confidence."
       intro="We combine strategy with implementation so teams leave with better systems, not just slide decks."
     >

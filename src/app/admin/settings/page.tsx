@@ -1,19 +1,19 @@
-import { getSettings } from "@/actions/settings";
+﻿import { getSettings } from "@/actions/settings";
 import SettingsForm from "./SettingsForm";
 import { Settings } from "lucide-react";
 
 
 export const metadata = {
-  title: "Settings | Softech Financials",
-  description: "Settings page of Softech Financials.",
-  keywords: ["portfolio", "settings", "Softech Financials"],
+  title: "Settings | Softtech Financials",
+  description: "Settings page of Softtech Financials.",
+  keywords: ["portfolio", "settings", "Softtech Financials"],
   alternates: {
     canonical: "/admin/settings",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Settings | Softech Financials",
-    description: "Settings page of Softech Financials.",
+    title: "Settings | Softtech Financials",
+    description: "Settings page of Softtech Financials.",
     url: "/admin/settings",
   },
 };
@@ -41,3 +41,4 @@ export default async function SettingsPage() {
     </div>
   );
 }
+

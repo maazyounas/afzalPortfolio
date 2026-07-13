@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { motion } from "@/lib/motion";
 import Link from "next/link";
 
@@ -21,10 +21,10 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
+  description: "Explore Softtech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
   openGraph: {
-    title: "Services | Softech Financials",
-    description: "Explore Softech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
+    title: "Services | Softtech Financials",
+    description: "Explore Softtech Financials service lines across advisory, tax, reporting, and compliance. Tailored solutions for every stage of financial maturity.",
     url: "/services",
   },
 };
@@ -311,3 +311,4 @@ export default async function ServicesPage() {
     </SectionWrapper>
   );
 }
+

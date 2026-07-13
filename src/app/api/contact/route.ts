@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 import dbConnect from "@/lib/db/db";
@@ -95,7 +95,7 @@ export async function POST(request: Request) {
     const company = data.company?.trim() || "";
 
     await resend.emails.send({
-      from: "Softech Financials <onboarding@resend.dev>",
+      from: "Softtech Financials <onboarding@resend.dev>",
       to: recipientEmail,
       replyTo: data.email.trim(),
       subject: `[Contact Form] ${subject}`,
@@ -147,3 +147,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

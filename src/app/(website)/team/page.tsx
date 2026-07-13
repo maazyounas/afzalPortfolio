@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
@@ -8,10 +8,10 @@ import type { ITeamMember } from "@/models/TeamMember";
 
 export const metadata: Metadata = {
   title: "Our Team",
-  description: "Meet the professionals behind Softech Financials. Our team combines advisory insight with hands-on implementation across finance, compliance, and reporting.",
+  description: "Meet the professionals behind Softtech Financials. Our team combines advisory insight with hands-on implementation across finance, compliance, and reporting.",
   openGraph: {
-    title: "Our Team | Softech Financials",
-    description: "Meet the professionals behind Softech Financials. Our team combines advisory insight with hands-on implementation across finance, compliance, and reporting.",
+    title: "Our Team | Softtech Financials",
+    description: "Meet the professionals behind Softtech Financials. Our team combines advisory insight with hands-on implementation across finance, compliance, and reporting.",
     url: "/team",
   },
 };
@@ -59,3 +59,4 @@ export default async function TeamPage() {
     </SectionWrapper>
   );
 }
+

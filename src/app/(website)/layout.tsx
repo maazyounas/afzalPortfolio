@@ -4,35 +4,26 @@ import { Footer } from "@/components/layout/Footer";
 import { getSettings } from "@/actions/settings";
 import JsonLd from "@/components/seo/JsonLd";
 import { AnimationProvider } from "@/components/providers/AnimationProvider";
+import { siteConfig } from "@/lib/data/site-config";
+
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSettings();
 
-  const siteName = settings?.siteName ?? "Website";
-  const description =
-    settings?.description ?? "Modern financial solutions";
-  const url = settings?.url ?? "";
+  const siteName = settings?.siteName ?? siteConfig.name;
+  const description = settings?.description ?? siteConfig.description;
+  const url = settings?.url ?? siteConfig.url;
 
   return {
     metadataBase: url ? new URL(url) : undefined,
-
     title: {
       default: siteName,
       template: `%s | ${siteName}`,
     },
-
+    applicationName: siteName,
     description,
-
-    keywords: [
-      "finance",
-      "accounting",
-      "tax advisory",
-      "financial consulting",
-      "business solutions",
-    ],
-
+    keywords: [...siteConfig.keywords],
     authors: [{ name: siteName }],
     creator: siteName,
-
     openGraph: {
       title: siteName,
       description,
@@ -42,14 +33,12 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       images: url ? [`${url}/og.png`] : undefined,
     },
-
     twitter: {
       card: "summary_large_image",
       title: siteName,
       description,
       images: url ? [`${url}/og.png`] : undefined,
     },
-
     robots: {
       index: true,
       follow: true,
@@ -58,12 +47,9 @@ export async function generateMetadata(): Promise<Metadata> {
         follow: true,
       },
     },
-
     icons: {
-      icon: "/favicon.ico",
+      icon: "/icon.png",
     },
-
-    // optional but recommended for SEO stability
     alternates: {
       canonical: url || undefined,
     },
@@ -77,40 +63,49 @@ export default async function WebsiteLayout({
 }) {
   const settings = await getSettings();
 
-  const baseUrl = settings?.url;
+  const baseUrl = settings?.url ?? siteConfig.url;
+  const siteName = settings?.siteName ?? siteConfig.name;
+  const description = settings?.description ?? siteConfig.description;
+  const contactEmail = settings?.contactEmail ?? siteConfig.company.email;
+  const contactPhone = settings?.contactPhone ?? siteConfig.company.phone;
 
-  const organizationSchema =
-    settings && baseUrl
-      ? {
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: settings.siteName,
-          url: baseUrl,
-          logo: `${baseUrl}/logo.png`,
-          description: settings.description,
-          contactPoint: {
-            "@type": "ContactPoint",
-            telephone: settings.contactPhone,
-            email: settings.contactEmail,
-            contactType: "customer service",
-          },
-        }
-      : null;
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    alternateName: siteConfig.shortName,
+    url: baseUrl,
+    logo: `${baseUrl}/logo.png`,
+    description,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: contactPhone,
+      email: contactEmail,
+      contactType: "customer service",
+    },
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteName,
+    alternateName: siteConfig.shortName,
+    url: baseUrl,
+  };
 
   return (
     <>
-      {/* Structured Data */}
-      {organizationSchema && <JsonLd data={organizationSchema} />}
+      <JsonLd data={organizationSchema} />
+      <JsonLd data={websiteSchema} />
 
-      {/* App Shell */}
       <div className="flex min-h-screen flex-col bg-(--color-sand) text-(--color-ink) antialiased scroll-smooth overflow-x-hidden">
-        <Navbar siteName={settings?.siteName} />
+        <Navbar siteName={siteName} />
 
         <AnimationProvider>
           <main className="flex-1">{children}</main>
         </AnimationProvider>
 
-        <Footer />
+        <Footer siteName={siteName} />
       </div>
     </>
   );

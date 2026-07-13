@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -16,11 +16,11 @@ import { getSettings } from "@/actions/settings";
 
 import ScrollToTopButton from "./ScrollToTopButton";
 
-export async function Footer() {
+export async function Footer({ siteName: siteNameProp }: { siteName?: string } = {}) {
   const currentYear = new Date().getFullYear();
   const settings = await getSettings();
 
-  const siteName = settings?.siteName || siteConfig.name;
+  const siteName = siteNameProp || settings?.siteName || siteConfig.name;
   const description = settings?.description || siteConfig.description;
   const email = settings?.contactEmail || siteConfig.company.email;
   const phone = settings?.contactPhone || siteConfig.company.phone;
@@ -161,7 +161,7 @@ export async function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-(--color-line) pt-6 text-center text-sm text-(--color-muted) md:flex-row md:text-left">
-          <p>© {currentYear} {siteName}. All rights reserved.</p>
+          <p>(c) {currentYear} {siteName}. All rights reserved.</p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link
@@ -184,3 +184,4 @@ export async function Footer() {
     </footer>
   );
 }
+

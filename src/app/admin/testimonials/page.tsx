@@ -1,20 +1,20 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { getTestimonials } from "@/actions/testimonials";
 import { TestimonialList } from "./TestimonialList";
 import { Plus } from "lucide-react";
 
 
 export const metadata = {
-  title: "Testimonials | Softech Financials",
-  description: "Testimonials page of Softech Financials.",
-  keywords: ["portfolio", "testimonials", "Softech Financials"],
+  title: "Testimonials | Softtech Financials",
+  description: "Testimonials page of Softtech Financials.",
+  keywords: ["portfolio", "testimonials", "Softtech Financials"],
   alternates: {
     canonical: "/admin/testimonials",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Testimonials | Softech Financials",
-    description: "Testimonials page of Softech Financials.",
+    title: "Testimonials | Softtech Financials",
+    description: "Testimonials page of Softtech Financials.",
     url: "/admin/testimonials",
   },
 };
@@ -44,3 +44,4 @@ export default async function AdminTestimonialsPage() {
     </div>
   );
 }
+

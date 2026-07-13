@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
@@ -87,7 +87,7 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
             <input
               {...register("siteName", { required: "Site Name is required" })}
               className={`admin-input${errors.siteName ? " error" : ""}`}
-              placeholder="e.g. Softech Financials"
+              placeholder="e.g. Softtech Financials"
             />
             {errors.siteName && <p className="admin-field-error">{errors.siteName.message}</p>}
           </div>
@@ -181,9 +181,10 @@ export default function SettingsForm({ initialData }: { initialData: Partial<ISe
           disabled={isSubmitting}
           className="admin-btn admin-btn-primary"
         >
-          {isSubmitting ? "Saving…" : "Save Settings"}
+          {isSubmitting ? "Savingâ€¦" : "Save Settings"}
         </button>
       </div>
     </form>
   );
 }
+

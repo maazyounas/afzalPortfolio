@@ -1,17 +1,17 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 
 export const metadata = {
-  title: "Admin | Softech Financials",
-  description: "Admin page of Softech Financials.",
-  keywords: ["portfolio", "admin", "Softech Financials"],
+  title: "Admin | Softtech Financials",
+  description: "Admin page of Softtech Financials.",
+  keywords: ["portfolio", "admin", "Softtech Financials"],
   alternates: {
     canonical: "/admin",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Admin | Softech Financials",
-    description: "Admin page of Softech Financials.",
+    title: "Admin | Softtech Financials",
+    description: "Admin page of Softtech Financials.",
     url: "/admin",
   },
 };
@@ -110,7 +110,7 @@ export default function AdminPage() {
           Admin Dashboard
         </div>
         <h1 className="admin-hero-title">
-          Welcome back — your control panel is ready.
+          Welcome back â€” your control panel is ready.
         </h1>
         <p className="admin-hero-subtitle">
           Manage all your site content, services, team, and settings from one
@@ -157,3 +157,4 @@ export default function AdminPage() {
     </div>
   );
 }
+

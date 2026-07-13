@@ -1,4 +1,4 @@
-import type { BlogPost } from "@/types";
+﻿import type { BlogPost } from "@/types";
 
 const blogPosts: BlogPost[] = [
   {
@@ -30,12 +30,12 @@ const blogPosts: BlogPost[] = [
 ];
 
 export const siteConfig = {
-  name: "Softech Financials & Associates",
-  shortName: "Softech Financials",
+  name: "Softtech Financials",
+  shortName: "Softtech",
   description:
     "Certified bookkeepers and tax advisors in GAAP and IFRS Compliance, helping businesses strengthen accounting, tax planning, and finance operations.",
-  url: "https://www.softechfinancials.com",
-  ogImage: "https://www.softechfinancials.com/og-image.jpg",
+  url: "https://www.softtechfinancials.com",
+  ogImage: "https://www.softtechfinancials.com/og-image.jpg",
   keywords: [
     "accounting firm",
     "tax advisory",
@@ -44,7 +44,7 @@ export const siteConfig = {
     "corporate finance Pakistan",
   ],
   company: {
-    legalName: "Softech Financials & Associates",
+    legalName: "Softtech Financials & Associates",
     email: "afzalkhancma1997@gmail.com",
     phone: "+92 344 1561173",
     country: "PK",
@@ -58,3 +58,4 @@ export const siteConfig = {
   businessHours: [{ day: "Monday - Friday", hours: "8:30 AM - 6:00 PM" }],
   blogPosts,
 } as const;
+

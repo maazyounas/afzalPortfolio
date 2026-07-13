@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -39,7 +39,7 @@ const iconMap: Record<string, React.ComponentType<{className?: string}>> = {
 export function MobileNav({
   activeSection = "",
   onNavigate,
-  siteName = "Softech Financials",
+  siteName = "Softtech Financials",
 }: MobileNavProps) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -159,7 +159,7 @@ export function MobileNav({
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl overflow-hidden shadow-md">
                     <Image
                       src="/logo.png"
-                      alt="Logo"
+                      alt="Softtech Financials Logo"
                       width={40}
                       height={40}
                       className="h-full w-full object-contain"
@@ -295,3 +295,4 @@ export function MobileNav({
     </>
   );
 }
+

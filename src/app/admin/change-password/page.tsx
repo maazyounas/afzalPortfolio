@@ -1,19 +1,19 @@
-import { KeyRound, ShieldCheck, LockKeyhole, UserCog } from "lucide-react";
+﻿import { KeyRound, ShieldCheck, LockKeyhole, UserCog } from "lucide-react";
 import { getAdminCredentialSummary } from "@/lib/auth/admin-credential";
 import { ChangeCredentialsForm } from "./ChangeCredentialsForm";
 
 
 export const metadata = {
-  title: "Change Password | Softech Financials",
-  description: "Change Password page of Softech Financials.",
-  keywords: ["portfolio", "change password", "Softech Financials"],
+  title: "Change Password | Softtech Financials",
+  description: "Change Password page of Softtech Financials.",
+  keywords: ["portfolio", "change password", "Softtech Financials"],
   alternates: {
     canonical: "/admin/change-password",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Change Password | Softech Financials",
-    description: "Change Password page of Softech Financials.",
+    title: "Change Password | Softtech Financials",
+    description: "Change Password page of Softtech Financials.",
     url: "/admin/change-password",
   },
 };
@@ -110,3 +110,4 @@ export default async function ChangePasswordPage() {
     </div>
   );
 }
+

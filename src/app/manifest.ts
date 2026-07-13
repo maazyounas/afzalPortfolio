@@ -1,9 +1,9 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Softech Financials",
-    short_name: "Softech",
+    name: "Softtech Financials",
+    short_name: "Softtech",
     description: "Financial advisory, audit, tax, and outsourced finance solutions.",
     start_url: "/",
     display: "standalone",
@@ -11,10 +11,11 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#0f766e",
     icons: [
       {
-        src: "/favicon.ico",
+        src: "/icon.png",
         sizes: "any",
-        type: "image/x-icon",
+        type: "image/png",
       },
     ],
   };
 }
+

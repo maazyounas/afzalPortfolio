@@ -1,8 +1,8 @@
-import { InfoPageShell } from "@/components/ui/InfoPageShell";
+﻿import { InfoPageShell } from "@/components/ui/InfoPageShell";
 
 export const metadata = {
-  title: "Privacy Policy | Softech Financials",
-  description: "Read how Softech Financials handles personal information on this website.",
+  title: "Privacy Policy | Softtech Financials",
+  description: "Read how Softtech Financials handles personal information on this website.",
 };
 
 export default function PrivacyPage() {
@@ -10,7 +10,7 @@ export default function PrivacyPage() {
     <InfoPageShell
       eyebrow="Privacy Policy"
       title="How we handle your information"
-      intro="This page explains the basic privacy practices for the Softech Financials website."
+      intro="This page explains the basic privacy practices for the Softtech Financials website."
     >
       <div className="space-y-6 rounded-[1.75rem] border border-[var(--color-line)] bg-white p-6 shadow-sm">
         <section>
@@ -41,3 +41,4 @@ export default function PrivacyPage() {
     </InfoPageShell>
   );
 }
+

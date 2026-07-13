@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import { About } from "@/components/sections/About";
 import { Process } from "@/components/sections/Process";
@@ -7,10 +7,10 @@ import { SectionWrapper } from "@/components/ui/SectionWrapper";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn how Softech Financials helps leadership teams build stronger finance operations, reporting, and resilient controls.",
+  description: "Learn how Softtech Financials helps leadership teams build stronger finance operations, reporting, and resilient controls.",
   openGraph: {
-    title: "About Us | Softech Financials",
-    description: "Learn how Softech Financials helps leadership teams build stronger finance operations, reporting, and resilient controls.",
+    title: "About Us | Softtech Financials",
+    description: "Learn how Softtech Financials helps leadership teams build stronger finance operations, reporting, and resilient controls.",
     url: "/about",
   },
 };
@@ -31,3 +31,4 @@ export default function AboutPage() {
     </>
   );
 }
+

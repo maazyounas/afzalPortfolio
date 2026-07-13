@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+﻿import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { jwtVerify } from "jose";
 import { LoginForm } from "./LoginForm";
@@ -6,16 +6,16 @@ import { ShieldCheck } from "lucide-react";
 
 
 export const metadata = {
-  title: "Login | Softech Financials",
-  description: "Login page of Softech Financials.",
-  keywords: ["portfolio", "login", "Softech Financials"],
+  title: "Login | Softtech Financials",
+  description: "Login page of Softtech Financials.",
+  keywords: ["portfolio", "login", "Softtech Financials"],
   alternates: {
     canonical: "/admin/login",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "Login | Softech Financials",
-    description: "Login page of Softech Financials.",
+    title: "Login | Softtech Financials",
+    description: "Login page of Softtech Financials.",
     url: "/admin/login",
   },
 };
@@ -57,3 +57,4 @@ export default async function LoginPage() {
     </div>
   );
 }
+

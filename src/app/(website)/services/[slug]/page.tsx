@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
@@ -44,7 +44,7 @@ export default async function ServicePage({ params }: Props) {
     description: service.description,
     provider: {
       "@type": "Organization",
-      name: "Softech Financials",
+      name: "Softtech Financials",
     },
     areaServed: "Worldwide",
   };
@@ -71,3 +71,4 @@ export default async function ServicePage({ params }: Props) {
     </SectionWrapper>
   );
 }
+

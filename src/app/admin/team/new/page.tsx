@@ -1,17 +1,17 @@
-import { TeamForm } from "@/features/admin/components/TeamForm";
+﻿import { TeamForm } from "@/features/admin/components/TeamForm";
 
 
 export const metadata = {
-  title: "New | Softech Financials",
-  description: "New page of Softech Financials.",
-  keywords: ["portfolio", "new", "Softech Financials"],
+  title: "New | Softtech Financials",
+  description: "New page of Softtech Financials.",
+  keywords: ["portfolio", "new", "Softtech Financials"],
   alternates: {
     canonical: "/admin/team/new",
   },
   openGraph: {
     images: ["/opengraph-image"],
-    title: "New | Softech Financials",
-    description: "New page of Softech Financials.",
+    title: "New | Softtech Financials",
+    description: "New page of Softtech Financials.",
     url: "/admin/team/new",
   },
 };
@@ -31,3 +31,4 @@ export default function NewTeamMemberPage() {
     </div>
   );
 }
+
