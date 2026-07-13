@@ -1,8 +1,11 @@
 import { manrope, merriweather } from "@/styles/fonts";
 import "@/styles/globals.css";
+import { siteConfig } from "@/lib/data/site-config";
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || siteConfig.url
+  ),
 };
 export default function RootLayout({
   children,
