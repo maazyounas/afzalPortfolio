@@ -21,10 +21,10 @@ export function Card({ title, description, href, icon }: CardProps) {
         className="group relative h-full overflow-hidden rounded-2xl border border-(--color-line) bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
       >
         {/* Gradient Hover Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-(--color-accent-light)/0 to-(--color-accent)/0 transition-all duration-500 group-hover:from-(--color-accent-light)/10 group-hover:to-(--color-accent)/5" />
+        <div className="absolute inset-0 bg-linear-to-br from-(--color-accent-light)/0 to-(--color-accent)/0 transition-all duration-500 group-hover:from-(--color-accent-light)/10 group-hover:to-(--color-accent)/5" />
 
         {/* Icon */}
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-(--color-accent-light) to-(--color-accent) transition-transform duration-300 group-hover:scale-110">
+        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-linear-to-br from-(--color-accent-light) to-(--color-accent) transition-transform duration-300 group-hover:scale-110">
           <ServiceIcon name={icon} className="h-5 w-5 text-white" />
         </div>
 

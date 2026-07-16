@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/Skeleton";
 
 function CardBlock() {
   return (
-    <div className="rounded-[2rem] border border-[var(--color-line)] bg-white p-6 shadow-sm">
+    <div className="rounded-4xl border border-(--color-line) bg-white p-6 shadow-sm">
       <Skeleton className="h-5 w-24 rounded-full" />
       <Skeleton className="mt-4 h-8 w-3/4 rounded-xl" />
       <Skeleton className="mt-3 h-24 w-full rounded-2xl" />
@@ -87,7 +87,7 @@ export function BlogPostSkeleton() {
       <Skeleton className="mt-4 h-12 w-full max-w-4xl rounded-2xl" />
       <Skeleton className="mt-4 h-6 w-full max-w-2xl rounded-2xl" />
       <div className="mt-8 rounded-[2rem] border border-[var(--color-line)] bg-white p-8 shadow-sm">
-        <Skeleton className="h-64 w-full rounded-[1.75rem]" />
+        <Skeleton className="h-64 w-full rounded-3xl" />
         <Skeleton className="mt-6 h-4 w-44 rounded-full" />
         <div className="mt-6 space-y-4">
           <Skeleton className="h-4 w-full rounded-full" />
@@ -131,9 +131,9 @@ export function TeamListSkeleton() {
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="rounded-[2rem] border border-[var(--color-line)] bg-white p-6 shadow-sm"
+            className="rounded-4xl border border-(--color-line) bg-white p-6 shadow-sm"
           >
-            <Skeleton className="h-48 w-full rounded-[1.5rem]" />
+            <Skeleton className="h-48 w-full rounded-3xl" />
             <Skeleton className="mt-5 h-4 w-24 rounded-full" />
             <Skeleton className="mt-3 h-7 w-3/4 rounded-xl" />
             <Skeleton className="mt-3 h-16 w-full rounded-2xl" />

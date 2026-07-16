@@ -39,22 +39,22 @@ export function FloatingCard({
       }}
       className={`
         group relative overflow-hidden rounded-[1.8rem]
-        border border-[var(--color-line)]
+        border border-(--color-line)
         bg-white/85
         p-5
         shadow-lg
         backdrop-blur-xl
         transition-all duration-300
-        hover:border-[var(--color-accent-light)]
+        hover:border-(--color-accent-light)
         hover:shadow-2xl
         ${className}
       `}
     >
       {/* Background Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_40%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.08),transparent_40%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
       {/* Top Accent Line */}
-      <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[var(--color-accent)] via-emerald-300 to-transparent opacity-70" />
+      <div className="absolute inset-x-0 top-0 h-0.5 bg-linear-to-r from-(--color-accent) via-emerald-300 to-transparent opacity-70" />
 
       {/* Content */}
       <div className="relative z-10">

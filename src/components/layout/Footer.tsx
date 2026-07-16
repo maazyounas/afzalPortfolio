@@ -63,7 +63,7 @@ export async function Footer({ siteName: siteNameProp }: { siteName?: string } =
               </div>
 
               <div>
-                <h2 className="font-[family-name:var(--font-display)] text-xl font-bold tracking-tight text-(--color-ink)">
+                <h2 className="font-(family-name:--font-display) text-xl font-bold tracking-tight text-(--color-ink)">
                   {siteName}
                 </h2>
                 <p className="text-xs text-(--color-muted)">Financial Excellence</p>

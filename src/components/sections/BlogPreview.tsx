@@ -50,43 +50,43 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
                   key={post.slug}
                   className="
                     group relative flex h-full flex-col
-                    overflow-hidden rounded-[2rem]
-                    border border-[var(--color-line)]
+                    overflow-hidden rounded-4xl
+                    border border-(--color-line)
                     bg-white/85 p-6
                     shadow-sm backdrop-blur-xl
                     transition-all duration-300
-                    hover:border-[var(--color-accent-light)]
+                    hover:border-(--color-accent-light)
                     hover:shadow-2xl
                   "
                 >
                   {post.featuredImage && (
-                    <div className="relative z-10 overflow-hidden rounded-[1.5rem]">
-                      <div className="relative aspect-[16/10] w-full">
+                    <div className="relative z-10 overflow-hidden rounded-3xl">
+                      <div className="relative aspect-16/10 w-full">
                         <Image src={post.featuredImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
                       </div>
                     </div>
                   )}
 
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(20,184,166,0.08),_transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.08),transparent_45%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                   <div className="relative z-10 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em]">
-                    <span className="rounded-full bg-[var(--color-panel)] px-3 py-1 text-[var(--color-accent)]">
+                    <span className="rounded-full bg-(--color-panel) px-3 py-1 text-(--color-accent)">
                       {post.category}
                     </span>
 
                     {publishedAt && (
-                      <span className="inline-flex items-center gap-1 text-[var(--color-muted)]">
+                      <span className="inline-flex items-center gap-1 text-(--color-muted)">
                         <Calendar className="h-3.5 w-3.5" />
                         {publishedAt}
                       </span>
                     )}
                   </div>
 
-                  <h3 className="relative z-10 mt-5 text-xl font-semibold leading-snug text-[var(--color-ink)]">
+                  <h3 className="relative z-10 mt-5 text-xl font-semibold leading-snug text-(--color-ink)">
                     {post.title}
                   </h3>
 
-                  <p className="relative z-10 mt-3 flex-1 text-sm leading-7 text-[var(--color-muted)]">
+                  <p className="relative z-10 mt-3 flex-1 text-sm leading-7 text-(--color-muted)">
                     {post.excerpt}
                   </p>
 
@@ -94,16 +94,16 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
                     href={`/blog/${post.slug}`}
                     className="
                       relative z-10 mt-6 inline-flex items-center gap-2
-                      text-sm font-semibold text-[var(--color-accent)]
+                      text-sm font-semibold text-(--color-accent)
                       transition-all duration-300
-                      group-hover:text-[var(--color-accent-strong)]
+                      group-hover:text-(--color-accent-strong)
                     "
                   >
                     Read article
                     <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
 
-                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-[var(--color-accent)] transition-all duration-500 group-hover:w-full" />
+                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-(--color-accent) transition-all duration-500 group-hover:w-full" />
                 </article>
               );
             })
@@ -124,24 +124,24 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
         {posts?.length > 0 ? (
           <MobileScroller itemClassName="w-[85%] flex-shrink-0">
             {posts.map((post) => (
-              <article key={post.slug} className="relative rounded-2xl border border-[var(--color-line)] bg-white/85 p-5 shadow-sm">
+              <article key={post.slug} className="relative rounded-2xl border border-(--color-line) bg-white/85 p-5 shadow-sm">
                 {post.featuredImage && (
                   <div className="mb-4 overflow-hidden rounded-xl">
-                    <div className="relative aspect-[16/10] w-full">
+                    <div className="relative aspect-16/10 w-full">
                       <Image src={post.featuredImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
                     </div>
                   </div>
                 )}
-                <div className="text-xs font-semibold uppercase text-[var(--color-muted)]">{post.category}</div>
-                <h3 className="mt-3 text-lg font-semibold text-[var(--color-ink)]">{post.title}</h3>
-                <p className="mt-2 text-sm text-[var(--color-muted)] line-clamp-3">{post.excerpt}</p>
-                <Link href={`/blog/${post.slug}`} className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[var(--color-accent)]">Read article <ArrowRight className="h-4 w-4"/></Link>
+                <div className="text-xs font-semibold uppercase text-(--color-muted)">{post.category}</div>
+                <h3 className="mt-3 text-lg font-semibold text-(--color-ink)">{post.title}</h3>
+                <p className="mt-2 text-sm text-(--color-muted) line-clamp-3">{post.excerpt}</p>
+                <Link href={`/blog/${post.slug}`} className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--color-accent)">Read article <ArrowRight className="h-4 w-4"/></Link>
               </article>
             ))}
           </MobileScroller>
         ) : (
-          <div className="rounded-2xl border border-[var(--color-line)] bg-white/60 p-6 text-center">
-            <div className="text-lg font-semibold text-[var(--color-ink)]">No articles yet</div>
+          <div className="rounded-2xl border border-(--color-line) bg-white/60 p-6 text-center">
+            <div className="text-lg font-semibold text-(--color-ink)">No articles yet</div>
           </div>
         )}
       </div>
