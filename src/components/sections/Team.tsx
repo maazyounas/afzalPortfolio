@@ -4,9 +4,10 @@ import { useRef } from "react";
 import {
   BadgeCheck,
   BriefcaseBusiness,
+  ExternalLink,
   Quote,
+  Share2,
 } from "lucide-react";
-import { FaLinkedin, FaTwitter } from "react-icons/fa";
 
 import { motion, useInView } from "@/lib/motion";
 import { teamMembers as staticMembers } from "@/lib/data/team";
@@ -215,7 +216,7 @@ function TeamCard({
                   className="rounded-lg p-1.5 text-(--color-muted) transition-all hover:bg-(--color-accent-light) hover:text-(--color-accent)"
                   aria-label="LinkedIn"
                 >
-                  <FaLinkedin className="h-4 w-4" />
+                  <ExternalLink className="h-4 w-4" />
                 </a>
               )}
               {socialLinks.twitter && (
@@ -226,7 +227,7 @@ function TeamCard({
                   className="rounded-lg p-1.5 text-(--color-muted) transition-all hover:bg-(--color-accent-light) hover:text-(--color-accent)"
                   aria-label="Twitter"
                 >
-                  <FaTwitter className="h-4 w-4" />
+                  <Share2 className="h-4 w-4" />
                 </a>
               )}
             </div>

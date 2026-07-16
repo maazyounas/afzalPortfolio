@@ -14,6 +14,7 @@ type ContactProps = {
   mapLocation?: string;
   mapLatitude?: number | null;
   mapLongitude?: number | null;
+  showMap?: boolean;
 };
 
 const getInfoCards = (email?: string, phone?: string) => [
@@ -66,6 +67,7 @@ export function Contact({
   mapLocation,
   mapLatitude,
   mapLongitude,
+  showMap = false,
 }: ContactProps) {
   const infoCards = getInfoCards(email, phone);
   const googleMapUrl = buildMapEmbedUrl({
@@ -223,45 +225,47 @@ export function Contact({
         </motion.div>
       </motion.div>
 
-      <motion.div
-        variants={item}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="mt-10"
-      >
-        <div className="overflow-hidden rounded-2xl border border-(--color-line) bg-white shadow-md">
-          <div className="border-b border-(--color-line) px-5 py-4 sm:px-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-(--color-ink)">
-                  Our Location
-                </p>
-                <p className="mt-0.5 text-xs text-(--color-muted)">
-                  {mapLocation || "Virtual headquarters with global reach"}
-                </p>
+      {showMap && (
+        <motion.div
+          variants={item}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="mt-10"
+        >
+          <div className="overflow-hidden rounded-2xl border border-(--color-line) bg-white shadow-md">
+            <div className="border-b border-(--color-line) px-5 py-4 sm:px-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-(--color-ink)">
+                    Our Location
+                  </p>
+                  <p className="mt-0.5 text-xs text-(--color-muted)">
+                    {mapLocation || "Virtual headquarters with global reach"}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="relative h-64 w-full overflow-hidden sm:h-80">
-            <iframe
-              title="office-location"
-              src={googleMapUrl}
-              className="h-full w-full border-0 transition-transform duration-500 hover:scale-105"
-              loading="lazy"
-              allowFullScreen
-            />
-          </div>
+            <div className="relative h-64 w-full overflow-hidden sm:h-80">
+              <iframe
+                title="office-location"
+                src={googleMapUrl}
+                className="h-full w-full border-0 transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+                allowFullScreen
+              />
+            </div>
 
-          <div className="border-t border-(--color-line) bg-gray-50/50 px-5 py-3 sm:px-6">
-            <p className="text-center text-xs text-(--color-muted)">
-              Serving clients worldwide with a remote-first approach. In-person
-              meetings available upon request.
-            </p>
+            <div className="border-t border-(--color-line) bg-gray-50/50 px-5 py-3 sm:px-6">
+              <p className="text-center text-xs text-(--color-muted)">
+                Serving clients worldwide with a remote-first approach. In-person
+                meetings available upon request.
+              </p>
+            </div>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
     </SectionWrapper>
   );
 }

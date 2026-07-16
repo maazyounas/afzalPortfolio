@@ -1,17 +1,44 @@
-import * as LucideIcons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Sparkles } from "lucide-react";
+import {
+  BarChart3,
+  Briefcase,
+  Calculator,
+  CheckCircle,
+  Clock,
+  FileText,
+  Layers,
+  PieChart,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  Zap,
+} from "lucide-react";
 import { createElement } from "react";
 import { isEmojiLike } from "./richText";
 
 const DEFAULT_SERVICE_ICON = Sparkles;
+
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  Briefcase,
+  ShieldCheck,
+  Calculator,
+  TrendingUp,
+  Sparkles,
+  PieChart,
+  BarChart3,
+  Clock,
+  CheckCircle,
+  FileText,
+  Layers,
+  Zap,
+};
 
 export function getServiceIcon(iconName?: string): LucideIcon {
   if (!iconName) {
     return DEFAULT_SERVICE_ICON;
   }
 
-  const icon = (LucideIcons as unknown as Record<string, LucideIcon>)[iconName];
+  const icon = SERVICE_ICONS[iconName as keyof typeof SERVICE_ICONS];
   return icon || DEFAULT_SERVICE_ICON;
 }
 

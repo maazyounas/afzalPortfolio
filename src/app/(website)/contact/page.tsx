@@ -25,7 +25,7 @@ export default function ContactPage() {
       >
         <Breadcrumb items={[{ label: "Contact", href: "/contact" }]} />
       </SectionWrapper>
-      <Contact />
+      <Contact showMap />
     </>
   );
 }

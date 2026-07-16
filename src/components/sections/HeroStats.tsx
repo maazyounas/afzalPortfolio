@@ -1,17 +1,4 @@
-"use client";
-
-import {
-  BarChart3,
-  ShieldCheck,
-  Clock3,
-  Layers3,
-  TrendingUp,
-  Zap,
-  Target,
-  Rocket,
-} from "lucide-react";
-
-import { motion } from "@/lib/motion";
+import { TrendingUp, Zap, Target, Rocket } from "lucide-react";
 
 const stats = [
   {
@@ -46,31 +33,7 @@ const stats = [
 
 export function HeroStats() {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: 24,
-        scale: 0.97,
-        filter: "blur(10px)",
-      }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: "blur(0px)",
-      }}
-      transition={{
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      className="
-        relative overflow-hidden rounded-4xl
-        border border-(--color-line)
-        bg-white/85
-        p-5 shadow-2xl sm:p-7
-        backdrop-blur-xl
-      "
-    >
+    <div className="relative overflow-hidden rounded-4xl border border-(--color-line) bg-white/85 p-5 shadow-2xl sm:p-7 backdrop-blur-xl">
       {/* Background Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(20,184,166,0.10),transparent_35%)]" />
 
@@ -93,29 +56,13 @@ export function HeroStats() {
 
       {/* Stats Grid */}
       <div className="relative z-10 mt-6 grid gap-4 sm:grid-cols-2">
-        {stats.map((stat, index) => {
+        {stats.map((stat) => {
           const Icon = stat.icon;
 
           return (
-            <motion.div
+            <div
               key={stat.label}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: index * 0.08,
-                duration: 0.45,
-              }}
-              whileHover={{ y: -3 }}
-              className="
-                group rounded-3xl
-                border border-(--color-line)
-                bg-white/90
-                p-4 sm:p-5
-                shadow-sm
-                transition-all duration-300
-                hover:border-(--color-accent-light)
-                hover:shadow-lg
-              "
+              className="group rounded-3xl border border-(--color-line) bg-white/90 p-4 shadow-sm transition-all duration-300 hover:border-(--color-accent-light) hover:shadow-lg sm:p-5"
             >
               {/* Top */}
               <div className="flex items-start justify-between">
@@ -148,10 +95,10 @@ export function HeroStats() {
 
               {/* Accent Line */}
               <div className="mt-4 h-0.5 w-0 bg-(--color-accent) transition-all duration-300 group-hover:w-12" />
-            </motion.div>
+            </div>
           );
         })}
       </div>
-    </motion.div>
+    </div>
   );
 }

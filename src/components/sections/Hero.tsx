@@ -1,9 +1,6 @@
-"use client";
-
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/lib/data/site-config";
 import { HeroStats } from "./HeroStats";
-import { motion } from "@/lib/motion";
 
 export function Hero() {
   return (
@@ -13,46 +10,21 @@ export function Hero() {
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14 lg:px-8 lg:py-16">
         {/* Left Content */}
-        <motion.div
-          initial={{ opacity: 1, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1],
-            staggerChildren: 0.1,
-          }}
-          className="max-w-2xl"
-        >
-          <motion.p
-            initial={{ opacity: 1, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-[11px] font-semibold uppercase tracking-[0.25em] text-(--color-accent) sm:text-xs"
-          >
+        <div className="max-w-2xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-(--color-accent) sm:text-xs">
             Finance systems for modern operators
-          </motion.p>
+          </p>
 
-          <motion.h1
-            initial={{ opacity: 1, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-5 font-(family-name:--font-display) text-[2.2rem] font-bold leading-[1.02] text-(--color-ink) sm:text-5xl lg:text-6xl"
-          >
+          <h1 className="mt-5 font-(family-name:--font-display) text-[2.2rem] font-bold leading-[1.02] text-(--color-ink) sm:text-5xl lg:text-6xl">
             Softtech Financials
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 1, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-5 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8"
-          >
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-(--color-muted) sm:text-lg sm:leading-8">
             Financial clarity that scales with your business. {siteConfig.description}
-          </motion.p>
+          </p>
 
           {/* CTA */}
-          <motion.div
-            initial={{ opacity: 1, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
-          >
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Button
               href="/#contact"
               className="w-full sm:w-auto hover:scale-105 transition-transform duration-300"
@@ -67,8 +39,8 @@ export function Hero() {
             >
               Explore services
             </Button>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Right Content */}
         <div className="relative hidden w-full lg:block lg:pl-4">
