@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useState } from "react";
+import type { KeyboardEvent } from "react";
 import { CheckCircle, Globe, Mail, Phone, Sparkles } from "lucide-react";
 
 import { motion } from "@/lib/motion";
@@ -159,7 +160,7 @@ export function Contact({
                   role="button"
                   tabIndex={0}
                   aria-label={actionLabel}
-                  onKeyDown={(e) => {
+                  onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
                       handleAction(card.action, card.value);

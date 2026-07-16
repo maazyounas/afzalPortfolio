@@ -39,26 +39,32 @@ export const metadata = {
   },
 };
 
-
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+export const revalidate = 3600;
 
 export default async function HomePage() {
-  const services = await getServices(true);
-  const teamMembers = await getTeamMembers();
-  const settings = await getSettings();
-  const blogPosts = await getBlogPosts();
+  const [services, teamMembers, settings, blogPosts, testimonialsData, faqsData] =
+    await Promise.all([
+      getServices(true),
+      getTeamMembers(),
+      getSettings(),
+      getBlogPosts(),
+      getTestimonials(),
+      getFaqs(),
+    ]);
+
   const featuredPosts =
     blogPosts.length > 0
       ? blogPosts
           .filter((post: { isPublished?: boolean }) => post.isPublished !== false)
           .slice(0, 3)
       : siteConfig.blogPosts.slice(0, 3);
-  
-  const testimonialsData = await getTestimonials();
-  const activeTestimonials = testimonialsData.filter((t: any) => t.isActive);
 
-  const faqsData = await getFaqs();
-  const activeFaqs = faqsData.filter((f: any) => f.isActive);
+  const activeTestimonials = testimonialsData.filter(
+    (t: { isActive?: boolean }) => t.isActive
+  );
+
+  const activeFaqs = faqsData.filter((f: { isActive?: boolean }) => f.isActive);
 
   return (
     <>
