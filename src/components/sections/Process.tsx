@@ -119,6 +119,7 @@ export function Process() {
           {steps.map((_, idx) => (
             <button
               key={idx}
+              type="button"
               onClick={() => {
                 if (scrollRef.current) {
                   const scrollAmount = idx * 320;
@@ -128,6 +129,7 @@ export function Process() {
                   });
                 }
               }}
+              aria-label={`Go to step ${idx + 1}: ${steps[idx].title}`}
               className="transition-all duration-300"
             >
               <div className="h-2 w-2 rounded-full bg-(--color-muted)/30 transition-colors hover:bg-(--color-accent)" />

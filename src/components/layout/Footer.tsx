@@ -55,7 +55,7 @@ export async function Footer({ siteName: siteNameProp }: { siteName?: string } =
               <div className="flex h-12 w-12 items-center justify-center rounded-xl overflow-hidden shadow-lg transition-all duration-300 group-hover:shadow-xl">
                 <Image
                   src="/logo.png"
-                  alt="Logo"
+                  alt={`${siteName} logo`}
                   width={48}
                   height={48}
                   className="h-full w-full object-contain"

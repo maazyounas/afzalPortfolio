@@ -36,5 +36,9 @@ export function Button({
     );
   }
 
-  return <button className={styles}>{children}</button>;
+  return (
+    <button type="button" className={styles}>
+      {children}
+    </button>
+  );
 }

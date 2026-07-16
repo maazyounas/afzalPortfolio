@@ -146,13 +146,26 @@ export function Contact({
             {infoCards.map((card) => {
               const Icon = card.icon;
               const isCopied = copiedField === card.title;
+              const actionLabel =
+                card.action === "mailto"
+                  ? `Email us at ${card.value}`
+                  : `Call us at ${card.value}`;
 
               return (
                 <motion.div
                   key={card.title}
                   variants={item}
                   whileHover={{ y: -4 }}
-                  className="group cursor-pointer rounded-xl border border-(--color-line) bg-white p-4 shadow-sm transition-all duration-300 hover:border-(--color-accent-light) hover:shadow-lg"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={actionLabel}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleAction(card.action, card.value);
+                    }
+                  }}
+                  className="group cursor-pointer rounded-xl border border-(--color-line) bg-white p-4 shadow-sm transition-all duration-300 hover:border-(--color-accent-light) hover:shadow-lg focus-within:border-(--color-accent-light) focus-within:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent)"
                   onClick={() => handleAction(card.action, card.value)}
                 >
                   <div className="flex items-center justify-between">
@@ -177,6 +190,7 @@ export function Contact({
                     </div>
 
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         if (card.action === "mailto" || card.action === "tel") {
@@ -184,7 +198,7 @@ export function Contact({
                         }
                       }}
                       className="rounded-lg p-2 text-(--color-muted) opacity-0 transition-all hover:bg-(--color-accent-light) group-hover:opacity-100"
-                      aria-label="Copy"
+                      aria-label={`Copy ${card.title.toLowerCase()} address`}
                     >
                       {isCopied ? (
                         <CheckCircle className="h-4 w-4 text-(--color-accent)" />
@@ -269,4 +283,3 @@ export function Contact({
     </SectionWrapper>
   );
 }
-

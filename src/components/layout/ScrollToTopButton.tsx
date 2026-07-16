@@ -9,6 +9,7 @@ export default function ScrollToTopButton() {
 
   return (
     <button
+      type="button"
       onClick={scrollToTop}
       className="group flex items-center gap-2 rounded-full bg-(--color-accent-light) px-4 py-2 text-xs font-medium text-(--color-accent) transition-all hover:bg-(--color-accent) hover:text-white"
       aria-label="Scroll to top"

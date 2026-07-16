@@ -60,6 +60,7 @@ export function FAQAccordion({ faqs = [] }: { faqs?: FaqData[] }) {
               )}
 
               <button
+                type="button"
                 className="relative flex w-full items-center justify-between gap-4 text-left"
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
